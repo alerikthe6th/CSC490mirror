@@ -10,8 +10,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.augustana.csc490.androidbrainapp.MainActivity">
 
-    <TextView
+    <Button
+        android:text="Connect To Socket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="183dp"
+        android:id="@+id/button"
+        android:onClick="connectToSocket" />
+
+    <Button
+        android:text="Send Message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="83dp"
+        android:id="@+id/button2"
+        android:onClick="sendMessage" />
 </RelativeLayout>
