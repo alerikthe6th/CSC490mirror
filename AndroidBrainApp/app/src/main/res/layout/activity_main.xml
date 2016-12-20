@@ -11,22 +11,53 @@
     tools:context="edu.augustana.csc490.androidbrainapp.MainActivity">
 
     <Button
-        android:text="Connect To Socket"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="183dp"
-        android:id="@+id/button"
-        android:onClick="connectToSocket" />
-
-    <Button
         android:text="Send Message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="83dp"
         android:id="@+id/button2"
-        android:onClick="sendMessage" />
+        android:onClick="sendMessage"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Dest Port"
+        android:ems="10"
+        android:layout_below="@+id/address"
+        android:layout_alignLeft="@+id/address"
+        android:layout_alignStart="@+id/address"
+        android:layout_marginTop="35dp"
+        android:id="@+id/port"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Dest IP"
+        android:ems="10"
+        android:layout_marginTop="40dp"
+        android:id="@+id/address"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Connect To Socket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:onClick="connectToSocket"
+        android:layout_marginBottom="68dp"
+        android:layout_above="@+id/button2"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
