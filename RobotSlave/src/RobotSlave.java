@@ -4,6 +4,7 @@ import lejos.hardware.Button;
 
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Vector;
 import java.io.BufferedReader;
 import lejos.hardware.lcd.*;
 import lejos.hardware.motor.Motor;
@@ -21,8 +22,9 @@ import java.net.ServerSocket;
 public class RobotSlave {
 
 	public static void main(String[] args) throws Exception{
-		Movment move = new Movment();
+		Movement move = new Movement();
 		
+		Vector movmentQ = new Vector();
 		int port = 4567;
 		ServerSocket server = new ServerSocket(port);
 		server.setSoTimeout(0);
@@ -34,6 +36,13 @@ public class RobotSlave {
 			BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			String str = br.readLine();
 			while(str != null){
+				if(str.equals("stop")){
+					move.freeze();
+					movmentQ.clear();
+				}
+				else{
+					movmentQ.add(str);
+				}
 				move.newCommand(str);
 				System.out.println(str);
 				str = br.readLine();
