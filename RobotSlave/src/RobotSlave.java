@@ -42,8 +42,8 @@ public class RobotSlave {
 				}
 				else{
 					movmentQ.add(str);
+					move.newCommand(str);
 				}
-				move.newCommand(str);
 				System.out.println(str);
 				str = br.readLine();
 			}
