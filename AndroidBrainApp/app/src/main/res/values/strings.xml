@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidBrainApp</string>
+    <string name="title_activity_send_message">SendMessageActivity</string>
 </resources>

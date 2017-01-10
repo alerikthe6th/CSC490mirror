@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.augustana.csc490.androidbrainapp.SendMessageActivity">
+
+    <Button
+        android:text="Left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/backward_btn"
+        android:layout_toStartOf="@+id/backward_btn"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp"
+        android:id="@+id/left_btn"
+        android:onClick="leftMessage" />
+
+    <Button
+        android:text="Forward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/forward_btn"
+        android:layout_above="@+id/left_btn"
+        android:layout_toRightOf="@+id/left_btn"
+        android:layout_toEndOf="@+id/left_btn"
+        android:layout_marginBottom="59dp"
+        android:onClick="forwardMessage" />
+
+    <Button
+        android:text="Backward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/backward_btn"
+        android:layout_below="@+id/left_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp"
+        android:onClick="backwardMessage" />
+
+    <Button
+        android:text="Right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/left_btn"
+        android:layout_toRightOf="@+id/backward_btn"
+        android:layout_toEndOf="@+id/backward_btn"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:id="@+id/right_btn"
+        android:onClick="rightMessage" />
+</RelativeLayout>

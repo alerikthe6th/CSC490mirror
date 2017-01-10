@@ -20,8 +20,8 @@ public class SocketConnection {
         os = new OutputStreamWriter(socket.getOutputStream());
     }
 
-    public void sendMessage() throws IOException {
-        os.write("Message\n");
+    public void sendMessage(String str) throws IOException {
+        os.write(str + "\n");
         os.flush();
     }
 }

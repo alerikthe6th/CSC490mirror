@@ -1,5 +1,6 @@
 package edu.augustana.csc490.androidbrainapp;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,15 +16,15 @@ import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
     private Button sendButton;
-//    public static final int port = 4567;
-//    public static final String ip = "192.168.43.154";
+//  public static final int port = 4567;
+//  public static final String ip = "192.168.43.154";
     private EditText editTextAddress;
     private EditText editTextPort;
 
     private int portString;
     private String addressString;
 
-    private SocketConnection mSocketConnection = null;
+    protected static SocketConnection mSocketConnection = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMessage(View view) throws Exception{
         Log.d("sendMessage", "success");
-        mSocketConnection.sendMessage();
+        mSocketConnection.sendMessage("message");
         Toast.makeText(this, "Message Sent", Toast.LENGTH_LONG);
         Log.d("sendMessage", "message sent");
+        Intent sendMessageIntent = new Intent(MainActivity.this, SendMessageActivity.class);
+        startActivity(sendMessageIntent);
     }
 
     public void connectToSocket(View view) throws Exception{
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         mSocketConnection = new SocketConnection(portString, addressString);
         Toast.makeText(this, "connection successful", Toast.LENGTH_LONG);
         Log.d("connect to socket", "connection successful");
+
     }
 
     private TextWatcher portTW = new TextWatcher() {
