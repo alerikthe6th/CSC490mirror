@@ -14,7 +14,7 @@
         android:layout_marginRight="13dp"
         android:layout_marginEnd="13dp"
         android:id="@+id/left_btn"
-        android:background="@drawable/leftArrow" />
+        android:background="@drawable/left_arrow" />
 
     <Button
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:layout_toRightOf="@+id/left_btn"
         android:layout_toEndOf="@+id/left_btn"
         android:layout_marginBottom="59dp"
-        android:background="@drawable/frontArrow" />
+        android:background="@drawable/front_arrow" />
 
     <Button
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_below="@+id/left_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp"
-        android:background="@drawable/backArrow" />
+        android:background="@drawable/back_arrow" />
 
     <Button
         android:layout_width="wrap_content"
@@ -44,5 +44,5 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:id="@+id/right_btn"
-        android:background="@drawable/rightArrow" />
+        android:background="@drawable/right_arrow" />
 </RelativeLayout>
