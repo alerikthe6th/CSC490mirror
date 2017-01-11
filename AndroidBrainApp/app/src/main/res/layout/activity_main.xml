@@ -17,7 +17,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="83dp"
         android:id="@+id/button2"
-        android:onClick="launchControlsActivity (MainActivity)"
+        android:onClick="launchControlsActivity"
         android:layout_alignRight="@+id/button"
         android:layout_alignEnd="@+id/button"
         android:layout_alignLeft="@+id/button"

@@ -30,13 +30,70 @@ public class ControlActivity extends AppCompatActivity {
 
         ForwardButton.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_BUTTON_PRESS){
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
                     try {
                         MainActivity.mSocketConnection.sendMessage("Move");
                     } catch(Exception e){
                         Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
                     }
-                } else if(event.getAction() == MotionEvent.ACTION_BUTTON_RELEASE){
+                } else if(event.getAction() == MotionEvent.ACTION_UP){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("Stop");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                    }
+                }
+                return true;
+            }
+        });
+
+        BackwardButton.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("back");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                    }
+                } else if(event.getAction() == MotionEvent.ACTION_UP){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("Stop");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                    }
+                }
+                return true;
+            }
+        });
+
+        LeftButton.setOnTouchListener(new View.OnTouchListener(){
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("left");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                    }
+                } else if(event.getAction() == MotionEvent.ACTION_UP){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("Stop");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                    }
+                }
+                return true;
+            }
+        });
+
+        RightButton.setOnTouchListener(new View.OnTouchListener(){
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("right");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                    }
+                } else if(event.getAction() == MotionEvent.ACTION_UP){
                     try {
                         MainActivity.mSocketConnection.sendMessage("Stop");
                     } catch(Exception e){
