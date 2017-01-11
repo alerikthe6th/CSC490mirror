@@ -1,5 +1,5 @@
-  
-import lejos.hardware.Bluetooth;  
+
+import lejos.hardware.Bluetooth;
 import lejos.hardware.Button;
 
 import java.net.Socket;
@@ -21,36 +21,39 @@ import java.net.ServerSocket;
 
 public class RobotSlave {
 
-	public static void main(String[] args) throws Exception{
+	public static Vector movmentQ;
+
+	public static void main(String[] args) throws Exception {
 		Movement move = new Movement();
-		
-		Vector movmentQ = new Vector();
+
+		movmentQ = new Vector();
+
 		int port = 4567;
 		ServerSocket server = new ServerSocket(port);
 		server.setSoTimeout(0);
 		System.out.println("waiting for connection");
-		try{
+		try {
 			Socket client = server.accept();
 			System.out.println("connected to client");
-			
+
 			BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			String str = br.readLine();
-			while(str != null){
-				if(str.equals("stop")){
-					move.freeze();
-					movmentQ.clear();
-				}
-				else{
-					movmentQ.add(str);
-					move.newCommand(str);
-				}
+
+			while (str != null) {
+ /*TODO
+  * look at threads for this
+  */
+				movmentQ.add(str);
+				move.newCommand(str);
+
 				System.out.println(str);
 				str = br.readLine();
 			}
-		} catch(SocketException e){
+		} catch (SocketException e) {
 			System.out.println(e);
 		}
 		System.out.println("press any button to exit");
 		Button.waitForAnyPress();
 	}
+
 }

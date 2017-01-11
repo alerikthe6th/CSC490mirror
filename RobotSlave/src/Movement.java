@@ -1,11 +1,16 @@
-import lejos.hardware.motor.Motor;
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
+import lejos.hardware.Button;
+import lejos.hardware.motor.*;
+import lejos.hardware.port.MotorPort;
+import lejos.hardware.port.Port;
 
 public class Movement {
 	private static MovePilot pilot;
+	private static EV3LargeRegulatedMotor motorRight;
+	private static EV3LargeRegulatedMotor motorLeft;
 
 	public Movement() {
 		/*
@@ -13,12 +18,15 @@ public class Movement {
 		 * has been deprecated but the robots have an older version on the SD
 		 * card
 		 */
-		Wheel wheel1 = WheeledChassis.modelWheel(Motor.D, 81.6).offset(-90);
-		Wheel wheel2 = WheeledChassis.modelWheel(Motor.A, 81.6).offset(90);
+		motorRight = new EV3LargeRegulatedMotor(MotorPort.D);
+		motorLeft = new EV3LargeRegulatedMotor(MotorPort.A);
+		
+		Wheel wheel1 = WheeledChassis.modelWheel(motorRight, 81.6).offset(-90);
+		Wheel wheel2 = WheeledChassis.modelWheel(motorLeft, 81.6).offset(90);
 
 		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
-
+ 
 	}
 
 	/*
@@ -28,15 +36,19 @@ public class Movement {
 	 */
 	
 	public boolean newCommand(String str) {
-			if (str.equals("Move")) {
+			if (str.equalsIgnoreCase("Move")) {
 				forward(150, 200);
-			} else if (str.equals("Back")) {
+			} else if (str.equalsIgnoreCase("Back")) {
 				backward(150, 200);
-			} else if (str.equals("Left")) {
+			} else if (str.equalsIgnoreCase("Left")) {
 				turnLeft();
-			} else if (str.equals("Right")) {
+			} else if (str.equalsIgnoreCase("Right")) {
 				turnRight();
-			} else {
+			} else if(str.equalsIgnoreCase("stop")){
+				freeze();
+			}
+			else {
+			
 				char dir = str.charAt(0);
 				int strLength = str.length();
 				int power;
@@ -59,30 +71,40 @@ public class Movement {
 			return false;
 	}
 	
-	private static void turn(int speed, int angle){
+	private void turn(int speed, int angle){
+		
 		pilot.setAngularSpeed(speed);
 		pilot.arc(0, angle,true);
 	}
 
-	private static void forward(int speed, int distance) {
-		pilot.setLinearSpeed(speed);
-		pilot.travel(distance,true);
+	private void forward(int speed, int distance) {
+		//pilot.forward();
+		motorRight.forward();
+		motorLeft.forward();
 	}
 
-	private static void backward(int speed, int distance) {
-		pilot.setLinearSpeed(speed);
-		pilot.travel(distance * -1,true);
+	private void backward(int speed, int distance) {
+		pilot.backward();
 	}
 
-	private static void turnLeft() {
-		turn(150,90);
+	/*TODO if there is a forward or backward then can't turn because call to MovePilot
+	 * 
+	 */
+	private void turnLeft() {
+		//turn(150,90);
+		//motorRight.forward();
+		pilot.rotate(-5);
+		
 	}
 
-	private static void turnRight() {
-		turn(150,-90);
+	private void turnRight() {
+		//turn(150,-90);
+		//motorLeft.forward();
+		pilot.rotateRight();
 	}
 	
-	public static void freeze(){
+	private static void freeze(){
+		System.out.println("In freeze");
 		pilot.stop();
 	}
 
