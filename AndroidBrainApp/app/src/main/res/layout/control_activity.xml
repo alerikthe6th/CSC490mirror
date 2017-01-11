@@ -14,7 +14,6 @@
         android:layout_marginRight="13dp"
         android:layout_marginEnd="13dp"
         android:id="@+id/left_btn"
-        android:onClick="leftMessage"
         android:background="@drawable/leftArrow" />
 
     <Button
@@ -25,7 +24,6 @@
         android:layout_toRightOf="@+id/left_btn"
         android:layout_toEndOf="@+id/left_btn"
         android:layout_marginBottom="59dp"
-        android:onClick="forwardMessage"
         android:background="@drawable/frontArrow" />
 
     <Button
@@ -35,7 +33,6 @@
         android:layout_below="@+id/left_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp"
-        android:onClick="backwardMessage"
         android:background="@drawable/backArrow" />
 
     <Button
@@ -47,6 +44,5 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:id="@+id/right_btn"
-        android:onClick="rightMessage"
         android:background="@drawable/rightArrow" />
 </RelativeLayout>
