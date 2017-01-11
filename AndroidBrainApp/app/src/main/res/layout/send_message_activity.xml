@@ -6,7 +6,6 @@
     tools:context="edu.augustana.csc490.androidbrainapp.SendMessageActivity">
 
     <Button
-        android:text="Left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -15,10 +14,10 @@
         android:layout_marginRight="13dp"
         android:layout_marginEnd="13dp"
         android:id="@+id/left_btn"
-        android:onClick="leftMessage" />
+        android:onClick="leftMessage"
+        android:background="@drawable/leftArrow" />
 
     <Button
-        android:text="Forward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/forward_btn"
@@ -26,20 +25,20 @@
         android:layout_toRightOf="@+id/left_btn"
         android:layout_toEndOf="@+id/left_btn"
         android:layout_marginBottom="59dp"
-        android:onClick="forwardMessage" />
+        android:onClick="forwardMessage"
+        android:background="@drawable/frontArrow" />
 
     <Button
-        android:text="Backward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/backward_btn"
         android:layout_below="@+id/left_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp"
-        android:onClick="backwardMessage" />
+        android:onClick="backwardMessage"
+        android:background="@drawable/backArrow" />
 
     <Button
-        android:text="Right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/left_btn"
@@ -48,5 +47,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:id="@+id/right_btn"
-        android:onClick="rightMessage" />
+        android:onClick="rightMessage"
+        android:background="@drawable/rightArrow" />
 </RelativeLayout>
