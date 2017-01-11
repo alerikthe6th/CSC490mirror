@@ -42,12 +42,10 @@ public class MainActivity extends AppCompatActivity {
         editTextAddress.addTextChangedListener(addressTW);
     }
 
-    public void sendMessage(View view) throws Exception{
-        Log.d("sendMessage", "success");
-        mSocketConnection.sendMessage("move");
-        Toast.makeText(this, "Message Sent", Toast.LENGTH_LONG);
-        Log.d("sendMessage", "message sent");
-        Intent sendMessageIntent = new Intent(MainActivity.this, SendMessageActivity.class);
+    public void launchControlsActivity(View view) throws Exception{
+
+        //STARTS THE MOVEMENT ACTIVITY LAYOUT
+        Intent sendMessageIntent = new Intent(MainActivity.this, ControlActivity.class);
         startActivity(sendMessageIntent);
     }
 
