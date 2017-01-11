@@ -42,17 +42,18 @@ public class MainActivity extends AppCompatActivity {
         editTextAddress.addTextChangedListener(addressTW);
     }
 
-    public void sendMessage(View view) throws Exception{
-        Log.d("sendMessage", "success");
-        mSocketConnection.sendMessage("message");
-        Toast.makeText(this, "Message Sent", Toast.LENGTH_LONG);
-        Log.d("sendMessage", "message sent");
-        Intent sendMessageIntent = new Intent(MainActivity.this, SendMessageActivity.class);
+    public void launchControlsActivity(View view) throws Exception{
+
+        //STARTS THE MOVEMENT ACTIVITY LAYOUT
+        Intent sendMessageIntent = new Intent(MainActivity.this, ControlActivity.class);
         startActivity(sendMessageIntent);
     }
 
     public void connectToSocket(View view) throws Exception{
         Log.d("connect to socket", "success");
+        Log.d("test","test");
+        Log.d("port",""+portString);
+        Log.d("IP",""+addressString);
         mSocketConnection = new SocketConnection(portString, addressString);
         Toast.makeText(this, "connection successful", Toast.LENGTH_LONG);
         Log.d("connect to socket", "connection successful");
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
-                addressString = s.toString();
+                portString = parseInt(s.toString());
             }catch(NumberFormatException e) {
 
             }
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
-                portString = parseInt(s.toString()) ;
+                addressString = s.toString();
             }catch(NumberFormatException e) {
 
             }
