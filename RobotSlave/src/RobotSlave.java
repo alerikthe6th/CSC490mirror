@@ -24,21 +24,21 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 
 public class RobotSlave extends Thread {
-
-	public static Vector movmentQ;
 	public static MovePilot pilot;
 	private static ForwardThread ft;
 	private static BackThread bt;
 	private static LeftThread lt;
 	private static RightThread rt;
-
+	private static String lastCommand;
+	private static Vector<String> command;
+	private static Vector<Thread> threads;
+	
 	public static void main(String[] args) throws Exception {
 		Movement move = new Movement();
 
-		movmentQ = new Vector();
 		
-		EV3LargeRegulatedMotor left = new EV3LargeRegulatedMotor(MotorPort.B);
-		EV3LargeRegulatedMotor right = new EV3LargeRegulatedMotor(MotorPort.C);
+		EV3LargeRegulatedMotor left = new EV3LargeRegulatedMotor(MotorPort.A);
+		EV3LargeRegulatedMotor right = new EV3LargeRegulatedMotor(MotorPort.D);
 		
 
 		Wheel wheel1 = WheeledChassis.modelWheel(left, 81.6).offset(-90);
@@ -47,12 +47,13 @@ public class RobotSlave extends Thread {
 		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
 		
-		Vector threads = new Vector();
+		command = new Vector<String>();
+		threads = new Vector<Thread>();
 		
-		ft = new ForwardThread(pilot);
-		bt = new BackThread(pilot);
-		lt = new LeftThread(pilot);
-		rt = new RightThread(pilot);
+	/*	ft = new ForwardThread(pilot,command);
+		bt = new BackThread(pilot,command);
+		lt = new LeftThread(pilot,command);
+		rt = new RightThread(pilot,command);*/
 
 		int port = 4567;
 		ServerSocket server = new ServerSocket(port);
@@ -64,25 +65,45 @@ public class RobotSlave extends Thread {
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			String str = br.readLine();
-
+			command.add(str);
+			
 			while (str != null) {
-				Thread current;
-				
 				System.out.println(str);
 				if (str.equalsIgnoreCase("move")) {
-					System.out.println("HERE");
+					ForwardThread ft = new ForwardThread(pilot);
 					ft.start();
-				} else if (str.equalsIgnoreCase("back")) {
-					bt.start();
-				}
-				
-				System.out.println("thread set");
-			
-				if (str.equalsIgnoreCase("stop")) {
+					threads.add(ft);
 					
+				} else if (str.equalsIgnoreCase("back")) {
+					BackThread bt = new BackThread(pilot);
+					bt.start();
+					threads.add(bt);
+			
+				} 
+				else if (str.equalsIgnoreCase("stop")) {
+					System.out.println("Threads sixe = "+threads.size());
+					while(threads.size()>0){
+						Thread oldThread = (Thread)threads.get(0);
+						if(oldThread.isAlive()){
+							try{
+								System.out.println("Interupt");
+								oldThread.interrupt();
+							}
+							catch(Exception E){
+								System.out.println("Exception");
+							}
+						}
+						else{
+							threads.remove(0);
+							System.out.println("HereHere");
+							
+						}
+					}
+					System.out.println("All Thread Stoped");
 				}
-				System.out.println(str);
+				//System.out.println(str);
 				str = br.readLine();
+				//command.set(0, str);
 			}
 		} catch (SocketException e) {
 			System.out.println(e);
@@ -95,18 +116,29 @@ public class RobotSlave extends Thread {
 
 class ForwardThread extends Thread {
 	private MovePilot pilot;
+	//private Vector<String> command;
 
 	public ForwardThread(MovePilot p) {
 		pilot = p;
+		//command=c;
+		System.out.println("Thread created");
 	}
 
 	@Override
 	public void run() {
-		pilot.travel(20);
-
-		if (interrupted()) {
-			return;
+		while(!this.isInterrupted()){
+			try{
+				System.out.println("moving forward ...");
+				pilot.travel(50);
+				//pilot.forward();
+				//wait(1000);
+				
+			}
+			catch(Exception E){
+				break;
+			}
 		}
+		return;
 	}
 }
 
@@ -115,29 +147,40 @@ class BackThread extends Thread {
 
 	public BackThread(MovePilot p) {
 		pilot = p;
-
 	}
 
 	@Override
 	public void run() {
-		pilot.travel(-20);
-		if (interrupted()) {
-			return;
+
+		while(!this.isInterrupted()){
+			try{
+				System.out.println("moving back ...");
+				pilot.travel(-50);
+				//pilot.forward();
+				//wait(1000);
+				
+			}
+			catch(Exception E){
+				break;
+			}
 		}
-	}
+		return;	}
 }
 
 class LeftThread extends Thread {
 	private MovePilot pilot;
+	private Vector command;
 
-	public LeftThread(MovePilot p) {
-
+	public LeftThread(MovePilot p, Vector c) {
+		command = c;
 		pilot = p;
 	}
 
 	@Override
 	public void run() {
-		pilot.arc(0, -10);
+		while(command.get(0).toString().equalsIgnoreCase("left")){
+			pilot.arc(0, -10);
+		}
 		if (interrupted()) {
 			return;
 		}
@@ -147,15 +190,18 @@ class LeftThread extends Thread {
 
 class RightThread extends Thread {
 	private MovePilot pilot;
+	private Vector command;
 
-	public RightThread(MovePilot p) {
-
+	public RightThread(MovePilot p, Vector c) {
+		command = c;
 		pilot = p;
 	}
 
 	@Override
 	public void run() {
-		pilot.arc(0, 10);
+		while(command.get(0).toString().equalsIgnoreCase("right")){
+			pilot.arc(0, 10);
+		}
 		if(interrupted()){
 			return;
 		}
