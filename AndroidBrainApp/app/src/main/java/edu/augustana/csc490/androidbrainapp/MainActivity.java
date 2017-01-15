@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void setDefaultDestination(View view) {
 
-        editTextAddress.setText(port);
-        editTextPort.setText(ip);
+        editTextAddress.setText(ip);
+        editTextPort.setText(port);
 
     }
 
