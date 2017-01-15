@@ -61,15 +61,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(sendMessageIntent);
     }
 
-    /*
-     * in progress
+
     public void launchVoiceActivity(View view) throws Exception{
 
         //STARTS THE VOICE MOVEMENT LAYOUT
         Intent sendMessageIntent = new Intent(MainActivity.this, VoiceActivity.class);
         startActivity(sendMessageIntent);
     }
-    */
+
     public void connectToSocket(View view) throws Exception{
         Log.d("connect to socket", "success");
         Log.d("test","test");

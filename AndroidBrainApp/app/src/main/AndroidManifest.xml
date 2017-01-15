@@ -21,6 +21,10 @@
             android:name=".ControlActivity"
             android:label="@string/title_activity_send_message"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".VoiceActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

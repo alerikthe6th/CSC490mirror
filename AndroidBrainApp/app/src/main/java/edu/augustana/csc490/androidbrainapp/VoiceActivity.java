@@ -24,7 +24,7 @@ import android.widget.Toast;
  * Created by Alerik Vi on 1/15/2017.
  */
 
-public class VoiceAcitivity extends AppCompatActivity {
+public class VoiceActivity extends AppCompatActivity {
 
     private TextView txtSpeechInput;
     private ImageButton btnSpeak;
@@ -33,11 +33,10 @@ public class VoiceAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.voice_activity);
 
-        //TODO: create the actual layout/fragment then create the two following button and text view
-        //txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
-        //btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+        txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
+        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
 
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +46,7 @@ public class VoiceAcitivity extends AppCompatActivity {
                 promptSpeechInput();
             }
         });
+
 
     }
 
