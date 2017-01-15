@@ -17,7 +17,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="83dp"
         android:id="@+id/button2"
-        android:onClick="launchControlsActivity"
+        android:onClick="launchControlsActivity (MainActivity)"
         android:layout_alignRight="@+id/button"
         android:layout_alignEnd="@+id/button"
         android:layout_alignLeft="@+id/button"
@@ -57,7 +57,31 @@
         android:layout_height="wrap_content"
         android:id="@+id/button"
         android:onClick="connectToSocket"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="15dp"
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Default Destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:id="@+id/defaultDest"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:onClick="setDefaultDestination" />
+
+    <Button
+        android:text="Launch Voice Control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:onClick="launchVoiceActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/button2"
+        android:layout_alignEnd="@+id/button2"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2" />
 </RelativeLayout>
