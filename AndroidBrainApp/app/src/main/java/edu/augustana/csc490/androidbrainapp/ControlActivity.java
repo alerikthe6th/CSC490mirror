@@ -103,23 +103,63 @@ public class ControlActivity extends AppCompatActivity {
                 return true;
             }
         });
-    }
 
+        BackwardButton.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_BUTTON_PRESS){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("Back");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                    }
+                } else if(event.getAction() == MotionEvent.ACTION_BUTTON_RELEASE){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("Stop");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                    }
+                }
+                return true;
+            }
+        });
 
-    public void forwardMessage(View view) throws Exception{
-        MainActivity.mSocketConnection.sendMessage("Move");
-    }
+        LeftButton.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_BUTTON_PRESS){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("Left");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                    }
+                } else if(event.getAction() == MotionEvent.ACTION_BUTTON_RELEASE){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("Stop");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                    }
+                }
+                return true;
+            }
+        });
 
-    public void backwardMessage(View view) throws Exception{
-        MainActivity.mSocketConnection.sendMessage("Back");
-    }
-
-    public void leftMessage(View view) throws Exception{
-        MainActivity.mSocketConnection.sendMessage("Left");
-    }
-
-    public void rightMessage(View view) throws Exception{
-        MainActivity.mSocketConnection.sendMessage("Right");
+        RightButton.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_BUTTON_PRESS){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("Right");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                    }
+                } else if(event.getAction() == MotionEvent.ACTION_BUTTON_RELEASE){
+                    try {
+                        MainActivity.mSocketConnection.sendMessage("Stop");
+                    } catch(Exception e){
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                    }
+                }
+                return true;
+            }
+        });
     }
 
 }
