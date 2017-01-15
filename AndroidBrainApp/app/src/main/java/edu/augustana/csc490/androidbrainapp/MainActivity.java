@@ -2,6 +2,7 @@ package edu.augustana.csc490.androidbrainapp;
 
 import android.content.Intent;
 import android.os.StrictMode;
+import android.speech.tts.Voice;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,8 +18,9 @@ import static java.lang.Integer.parseInt;
 public class MainActivity extends AppCompatActivity {
     private Button sendButton;
     private Button controlButton;
-//  public static final int port = 4567;
-//  public static final String ip = "192.168.43.154";
+    private Button defaultButton;
+    public static final String port = "4567";
+    public static final String ip = "172.20.10.2";
     private EditText editTextAddress;
     private EditText editTextPort;
 
@@ -36,12 +38,20 @@ public class MainActivity extends AppCompatActivity {
 
         sendButton = (Button) findViewById(R.id.button);
         controlButton = (Button) findViewById(R.id.button2);
+        defaultButton = (Button) findViewById(R.id.defaultDest);
 
         editTextAddress = (EditText) findViewById(R.id.address);
         editTextPort = (EditText) findViewById(R.id.port);
 
         editTextPort.addTextChangedListener(portTW);
         editTextAddress.addTextChangedListener(addressTW);
+    }
+
+    public void setDefaultDestination(View view) {
+
+        editTextAddress.setText(port);
+        editTextPort.setText(ip);
+
     }
 
     public void launchControlsActivity(View view) throws Exception{
@@ -51,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(sendMessageIntent);
     }
 
+    /*
+     * in progress
+    public void launchVoiceActivity(View view) throws Exception{
+
+        //STARTS THE VOICE MOVEMENT LAYOUT
+        Intent sendMessageIntent = new Intent(MainActivity.this, VoiceActivity.class);
+        startActivity(sendMessageIntent);
+    }
+    */
     public void connectToSocket(View view) throws Exception{
         Log.d("connect to socket", "success");
         Log.d("test","test");
