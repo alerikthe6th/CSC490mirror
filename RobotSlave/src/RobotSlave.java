@@ -70,12 +70,12 @@ public class RobotSlave extends Thread {
 			while (str != null) {
 				System.out.println(str);
 				if (str.equalsIgnoreCase("move")) {
-					ForwardThread ft = new ForwardThread(pilot);
+					ForwardThread ft = new ForwardThread();
 					ft.start();
 					threads.add(ft);
 					
 				} else if (str.equalsIgnoreCase("back")) {
-					BackThread bt = new BackThread(pilot);
+					BackThread bt = new BackThread();
 					bt.start();
 					threads.add(bt);
 			
@@ -88,6 +88,7 @@ public class RobotSlave extends Thread {
 							try{
 								System.out.println("Interupt");
 								oldThread.interrupt();
+								oldThread.join();
 							}
 							catch(Exception E){
 								System.out.println("Exception");
@@ -102,6 +103,7 @@ public class RobotSlave extends Thread {
 					System.out.println("All Thread Stoped");
 				}
 				//System.out.println(str);
+				System.out.println("Geting new command");
 				str = br.readLine();
 				//command.set(0, str);
 			}
@@ -115,12 +117,9 @@ public class RobotSlave extends Thread {
 }
 
 class ForwardThread extends Thread {
-	private MovePilot pilot;
-	//private Vector<String> command;
 
-	public ForwardThread(MovePilot p) {
-		pilot = p;
-		//command=c;
+	public ForwardThread() {
+
 		System.out.println("Thread created");
 	}
 
@@ -129,7 +128,7 @@ class ForwardThread extends Thread {
 		while(!this.isInterrupted()){
 			try{
 				System.out.println("moving forward ...");
-				pilot.travel(50);
+				RobotSlave.pilot.travel(50);
 				//pilot.forward();
 				//wait(1000);
 				
@@ -143,10 +142,9 @@ class ForwardThread extends Thread {
 }
 
 class BackThread extends Thread {
-	private MovePilot pilot;
 
-	public BackThread(MovePilot p) {
-		pilot = p;
+	public BackThread() {
+		System.out.println("Back Thread Created");
 	}
 
 	@Override
@@ -155,7 +153,7 @@ class BackThread extends Thread {
 		while(!this.isInterrupted()){
 			try{
 				System.out.println("moving back ...");
-				pilot.travel(-50);
+				RobotSlave.pilot.travel(-50);
 				//pilot.forward();
 				//wait(1000);
 				
