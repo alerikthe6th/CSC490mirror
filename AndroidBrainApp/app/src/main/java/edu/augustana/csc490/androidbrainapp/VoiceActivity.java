@@ -8,6 +8,7 @@ import java.util.Locale;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class VoiceActivity extends AppCompatActivity {
 
     //data fields and buttons
     private TextView tvSpeechInput;
+    private TextView tvCommand;
     private ImageButton btnSpeak;
     private final int REQ_CODE_SPEECH_INPUT = 100; //required to send voice strings in intents
 
@@ -37,8 +39,8 @@ public class VoiceActivity extends AppCompatActivity {
         setContentView(R.layout.voice_activity);
 
         tvSpeechInput = (TextView) findViewById(R.id.tvSpeechInput);
+        tvCommand = (TextView) findViewById(R.id.tvCommand);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
-
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
@@ -85,7 +87,10 @@ public class VoiceActivity extends AppCompatActivity {
                     //TODO: currently testing with one direction, need to test the rest
                     if(result.get(0).equalsIgnoreCase("move")) {
                         try {
+                            Log.d("inside move case", "inside move case was successful");
+                            tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("move");
+                            Log.d("sent move command", "move forward command successful sent");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
                         }
@@ -93,6 +98,7 @@ public class VoiceActivity extends AppCompatActivity {
 
                     if(result.get(0).equalsIgnoreCase("back")) {
                         try {
+                            tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("back");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
@@ -101,6 +107,7 @@ public class VoiceActivity extends AppCompatActivity {
 
                     if(result.get(0).equalsIgnoreCase("left")) {
                         try {
+                            tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("left");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
@@ -109,6 +116,7 @@ public class VoiceActivity extends AppCompatActivity {
 
                     if(result.get(0).equalsIgnoreCase("right")) {
                         try {
+                            tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("right");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
@@ -117,6 +125,7 @@ public class VoiceActivity extends AppCompatActivity {
 
                     if(result.get(0).equalsIgnoreCase("stop")) {
                         try {
+                            tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("stop");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
