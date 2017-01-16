@@ -134,7 +134,7 @@ public class VoiceActivity extends AppCompatActivity {
                     if(result.get(0).equalsIgnoreCase("stop")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("s");
+                            MainActivity.mSocketConnection.sendMessage("stop");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
                         }
