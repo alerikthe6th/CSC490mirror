@@ -67,6 +67,8 @@ public class VoiceActivity extends AppCompatActivity {
 
     /**
      * Showing google speech input dialog
+     *
+     * A Speech Recognizer object is used to take in speech and convert it to text using intents
      **/
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -83,6 +85,8 @@ public class VoiceActivity extends AppCompatActivity {
 
     /*
      * Receiving speech input
+     *
+     * a request code of 100 is required to print/send strings. 100 is also the value of RESULT_OK, a constant defined by Android Studios.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -111,7 +115,7 @@ public class VoiceActivity extends AppCompatActivity {
                             MainActivity.mSocketConnection.sendMessage("move");
                             Log.d("sent move command", "move forward command successful sent");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -120,7 +124,7 @@ public class VoiceActivity extends AppCompatActivity {
                             tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("back");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -129,7 +133,7 @@ public class VoiceActivity extends AppCompatActivity {
                             tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("left");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -138,7 +142,7 @@ public class VoiceActivity extends AppCompatActivity {
                             tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("right");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -147,7 +151,16 @@ public class VoiceActivity extends AppCompatActivity {
                             tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("stop");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    if(result.get(0).equalsIgnoreCase("einstein") || result.get(0).equalsIgnoreCase("i'm stein")) {
+                        try {
+                            tvCommand.setText("Command received: " + result.get(0));
+                            MainActivity.mSocketConnection.sendMessage("einstein");
+                        } catch(Exception e){
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
                     }
 

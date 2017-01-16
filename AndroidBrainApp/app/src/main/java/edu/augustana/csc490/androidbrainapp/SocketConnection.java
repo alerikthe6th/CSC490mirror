@@ -27,6 +27,8 @@ public class SocketConnection {
      * @throws Exception
      */
     public SocketConnection(int portNum, String ip) throws Exception{
+
+        
         socket = new Socket(ip, portNum);
         os = new OutputStreamWriter(socket.getOutputStream());
     }

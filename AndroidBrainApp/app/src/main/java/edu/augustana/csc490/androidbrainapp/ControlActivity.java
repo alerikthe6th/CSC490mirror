@@ -41,13 +41,13 @@ public class ControlActivity extends AppCompatActivity {
                     try {
                         MainActivity.mSocketConnection.sendMessage("Move");
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "connection successful", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
                         MainActivity.mSocketConnection.sendMessage("Stop");
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG).show();
                     }
                 }
                 return true;
@@ -67,13 +67,13 @@ public class ControlActivity extends AppCompatActivity {
                     try {
                         MainActivity.mSocketConnection.sendMessage("back");
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "connection successful", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
                         MainActivity.mSocketConnection.sendMessage("Stop");
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG).show();
                     }
                 }
                 return true;
@@ -93,13 +93,13 @@ public class ControlActivity extends AppCompatActivity {
                     try {
                         MainActivity.mSocketConnection.sendMessage("left");
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "connection successful", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
                         MainActivity.mSocketConnection.sendMessage("Stop");
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG).show();
                     }
                 }
                 return true;
@@ -119,13 +119,13 @@ public class ControlActivity extends AppCompatActivity {
                     try {
                         MainActivity.mSocketConnection.sendMessage("right");
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "connection successful", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
                         MainActivity.mSocketConnection.sendMessage("Stop");
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG).show();
                     }
                 }
                 return true;

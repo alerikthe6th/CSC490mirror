@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(portNum > 0 && addressString != null) {
             mSocketConnection = new SocketConnection(portNum, addressString);
-            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG);
+            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG);
+            Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
         }
     }
 
