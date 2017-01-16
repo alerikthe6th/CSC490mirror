@@ -36,22 +36,15 @@
         android:gravity="center"
         android:orientation="vertical"
         android:weightSum="1"
-        android:layout_marginBottom="42dp"
+        android:layout_marginBottom="43dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
-
-        <ImageButton
-            android:id="@+id/btnSpeak"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            app:srcCompat="@android:drawable/ic_btn_speak_now" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="tap on mic"
+            android:text="tap on screen"
             android:textSize="15dp"
             android:textStyle="normal" />
 
@@ -66,5 +59,17 @@
             android:layout_weight="0.73" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnSpeak"
+        android:layout_width="301dp"
+        android:layout_height="match_parent"
+        android:background="@null"
+        app:srcCompat="@android:drawable/ic_btn_speak_now"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

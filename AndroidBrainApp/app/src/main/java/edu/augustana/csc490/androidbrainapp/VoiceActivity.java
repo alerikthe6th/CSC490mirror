@@ -85,11 +85,19 @@ public class VoiceActivity extends AppCompatActivity {
                     tvSpeechInput.setText("String sent: " + result.get(0));
 
                     //TODO: currently testing with one direction, need to test the rest
+                    /**
+                     * if the voice input receives a correct movement command, the command is sent to the robot via sendMessage using the socket object
+                     * the string for a successful voice command is also appropriately changed
+                     *
+                     * incorrect voice commands will not terminate a successful previously called action.
+                     *
+                     * saying "stop" should halt the robot of movement
+                     */
                     if(result.get(0).equalsIgnoreCase("move")) {
                         try {
                             Log.d("inside move case", "inside move case was successful");
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("move");
+                            MainActivity.mSocketConnection.sendMessage("m");
                             Log.d("sent move command", "move forward command successful sent");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
@@ -99,7 +107,7 @@ public class VoiceActivity extends AppCompatActivity {
                     if(result.get(0).equalsIgnoreCase("back")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("back");
+                            MainActivity.mSocketConnection.sendMessage("b");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
                         }
@@ -108,7 +116,7 @@ public class VoiceActivity extends AppCompatActivity {
                     if(result.get(0).equalsIgnoreCase("left")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("left");
+                            MainActivity.mSocketConnection.sendMessage("l");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
                         }
@@ -117,7 +125,7 @@ public class VoiceActivity extends AppCompatActivity {
                     if(result.get(0).equalsIgnoreCase("right")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("right");
+                            MainActivity.mSocketConnection.sendMessage("r");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
                         }
@@ -126,19 +134,12 @@ public class VoiceActivity extends AppCompatActivity {
                     if(result.get(0).equalsIgnoreCase("stop")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("stop");
+                            MainActivity.mSocketConnection.sendMessage("s");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
                         }
                     }
 
-                    /*
-                    if(result.get(1) != null) {
-                        tvSpeechInput.setText(result.get(0) + "\n" + result.get(1));
-                    }else if(result.get(2) != null) {
-                        tvSpeechInput.setText(result.get(0) + "\n" + result.get(1) + "\n" + result.get(2));
-                    }
-                    */
                 }
                 break;
             }
