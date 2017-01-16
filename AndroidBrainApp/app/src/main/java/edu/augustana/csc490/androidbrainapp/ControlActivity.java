@@ -28,6 +28,13 @@ public class ControlActivity extends AppCompatActivity {
         LeftButton = (Button) findViewById(R.id.left_btn);
         RightButton = (Button) findViewById(R.id.right_btn);
 
+        /*
+         * sets a listener for the forward button that will move the robot forward for however long the
+         * button is pressed.
+         *
+         * Stops from the button is depressed
+         *
+         */
         ForwardButton.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -47,6 +54,13 @@ public class ControlActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * sets a listener for the backwwards button that will move the robot backwards for however long the
+         * button is pressed.
+         *
+         * Stops from the button is depressed
+         *
+         */
         BackwardButton.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -66,6 +80,13 @@ public class ControlActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * sets a listener for the left button that will turn the robot left for however long the
+         * button is pressed.
+         *
+         * Stops from the button is depressed
+         *
+         */
         LeftButton.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -85,6 +106,13 @@ public class ControlActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * sets a listener for the right button that will turn the robot right for however long the
+         * button is pressed.
+         *
+         * Stops from the button is depressed
+         *
+         */
         RightButton.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {

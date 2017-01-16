@@ -26,9 +26,10 @@ import android.widget.Toast;
 
 public class VoiceActivity extends AppCompatActivity {
 
+    //data fields and buttons
     private TextView txtSpeechInput;
     private ImageButton btnSpeak;
-    private final int REQ_CODE_SPEECH_INPUT = 100;
+    private final int REQ_CODE_SPEECH_INPUT = 100; //required to send voice strings in intents
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +51,9 @@ public class VoiceActivity extends AppCompatActivity {
 
     }
 
-    /*
+    /**
      * Showing google speech input dialog
-     */
+     **/
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -79,9 +80,9 @@ public class VoiceActivity extends AppCompatActivity {
 
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                    txtSpeechInput.setText("Command sent: " + result.get(0));
+                    txtSpeechInput.setText("String sent: " + result.get(0));
 
-                    //TODO: currently testing with one direction
+                    //TODO: currently testing with one direction, need to test the rest
                     if(result.get(0).equalsIgnoreCase("move")) {
                         try {
                             MainActivity.mSocketConnection.sendMessage("move");
