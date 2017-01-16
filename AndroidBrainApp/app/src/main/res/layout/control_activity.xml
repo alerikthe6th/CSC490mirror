@@ -24,7 +24,8 @@
         android:layout_toRightOf="@+id/left_btn"
         android:layout_toEndOf="@+id/left_btn"
         android:layout_marginBottom="59dp"
-        android:background="@drawable/front_arrow" />
+        android:background="@drawable/front_arrow"
+        android:longClickable="false" />
 
     <Button
         android:layout_width="wrap_content"

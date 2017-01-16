@@ -18,14 +18,14 @@ public class Movement {
 		 * has been deprecated but the robots have an older version on the SD
 		 * card
 		 */
-		motorRight = new EV3LargeRegulatedMotor(MotorPort.D);
-		motorLeft = new EV3LargeRegulatedMotor(MotorPort.A);
+		//motorRight = new EV3LargeRegulatedMotor(MotorPort.D);
+		//motorLeft = new EV3LargeRegulatedMotor(MotorPort.A);
 		
-		Wheel wheel1 = WheeledChassis.modelWheel(motorRight, 81.6).offset(-90);
-		Wheel wheel2 = WheeledChassis.modelWheel(motorLeft, 81.6).offset(90);
+		//Wheel wheel1 = WheeledChassis.modelWheel(motorRight, 81.6).offset(-90);
+		//Wheel wheel2 = WheeledChassis.modelWheel(motorLeft, 81.6).offset(90);
 
-		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, WheeledChassis.TYPE_DIFFERENTIAL);
-		pilot = new MovePilot(chassis);
+//		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, WheeledChassis.TYPE_DIFFERENTIAL);
+		//pilot = new MovePilot(chassis);
  
 	}
 
