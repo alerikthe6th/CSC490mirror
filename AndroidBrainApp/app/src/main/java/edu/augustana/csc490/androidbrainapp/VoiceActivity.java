@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class VoiceActivity extends AppCompatActivity {
     private TextView tvSpeechInput;
     private TextView tvCommand;
     private ImageButton btnSpeak;
+    private Button btnStop;
     private final int REQ_CODE_SPEECH_INPUT = 100; //required to send voice strings in intents
 
     @Override
@@ -41,6 +43,7 @@ public class VoiceActivity extends AppCompatActivity {
         tvSpeechInput = (TextView) findViewById(R.id.tvSpeechInput);
         tvCommand = (TextView) findViewById(R.id.tvCommand);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+        btnStop = (Button) findViewById(R.id.btnStop);
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
@@ -49,8 +52,17 @@ public class VoiceActivity extends AppCompatActivity {
                 promptSpeechInput();
             }
         });
+    }
 
+    public void stop(View view) {
 
+        try {
+            tvSpeechInput.setText("String sent: stop");
+            tvCommand.setText("Command received: stop");
+            MainActivity.mSocketConnection.sendMessage("stop");
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
+        }
     }
 
     /**
@@ -84,7 +96,6 @@ public class VoiceActivity extends AppCompatActivity {
 
                     tvSpeechInput.setText("String sent: " + result.get(0));
 
-                    //TODO: currently testing with one direction, need to test the rest
                     /**
                      * if the voice input receives a correct movement command, the command is sent to the robot via sendMessage using the socket object
                      * the string for a successful voice command is also appropriately changed
@@ -97,37 +108,37 @@ public class VoiceActivity extends AppCompatActivity {
                         try {
                             Log.d("inside move case", "inside move case was successful");
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("f");
+                            MainActivity.mSocketConnection.sendMessage("move");
                             Log.d("sent move command", "move forward command successful sent");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
                         }
                     }
 
                     if(result.get(0).equalsIgnoreCase("back")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("b");
+                            MainActivity.mSocketConnection.sendMessage("back");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
                         }
                     }
 
                     if(result.get(0).equalsIgnoreCase("left")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("l");
+                            MainActivity.mSocketConnection.sendMessage("left");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
                         }
                     }
 
                     if(result.get(0).equalsIgnoreCase("right")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("r");
+                            MainActivity.mSocketConnection.sendMessage("right");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
                         }
                     }
 
@@ -136,7 +147,7 @@ public class VoiceActivity extends AppCompatActivity {
                             tvCommand.setText("Command received: " + result.get(0));
                             MainActivity.mSocketConnection.sendMessage("stop");
                         } catch(Exception e){
-                            Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext() , "connection unsuccessful", Toast.LENGTH_LONG);
                         }
                     }
 
