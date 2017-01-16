@@ -12,7 +12,7 @@
     tools:context="edu.augustana.csc490.androidbrainapp.VoiceActivity">
 
     <TextView
-        android:id="@+id/txtSpeechInput"
+        android:id="@+id/tvSpeechInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

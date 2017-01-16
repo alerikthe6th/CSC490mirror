@@ -13,20 +13,20 @@ import android.widget.Toast;
  */
 
 public class ControlActivity extends AppCompatActivity {
-    private Button ForwardButton;
-    private Button BackwardButton;
-    private Button LeftButton;
-    private Button RightButton;
+    private Button btnForward;
+    private Button btnBackward;
+    private Button btnLeft;
+    private Button btnRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.control_activity);
 
-        ForwardButton = (Button) findViewById(R.id.forward_btn);
-        BackwardButton = (Button) findViewById(R.id.backward_btn);
-        LeftButton = (Button) findViewById(R.id.left_btn);
-        RightButton = (Button) findViewById(R.id.right_btn);
+        btnForward = (Button) findViewById(R.id.btnForward);
+        btnBackward = (Button) findViewById(R.id.btnBackward);
+        btnLeft = (Button) findViewById(R.id.btnLeft);
+        btnRight = (Button) findViewById(R.id.btnRight);
 
         /*
          * sets a listener for the forward button that will move the robot forward for however long the
@@ -35,7 +35,7 @@ public class ControlActivity extends AppCompatActivity {
          * Stops from the button is depressed
          *
          */
-        ForwardButton.setOnTouchListener(new View.OnTouchListener() {
+        btnForward.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
@@ -61,7 +61,7 @@ public class ControlActivity extends AppCompatActivity {
          * Stops from the button is depressed
          *
          */
-        BackwardButton.setOnTouchListener(new View.OnTouchListener() {
+        btnBackward.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
@@ -87,7 +87,7 @@ public class ControlActivity extends AppCompatActivity {
          * Stops from the button is depressed
          *
          */
-        LeftButton.setOnTouchListener(new View.OnTouchListener() {
+        btnLeft.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
@@ -113,7 +113,7 @@ public class ControlActivity extends AppCompatActivity {
          * Stops from the button is depressed
          *
          */
-        RightButton.setOnTouchListener(new View.OnTouchListener() {
+        btnRight.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {

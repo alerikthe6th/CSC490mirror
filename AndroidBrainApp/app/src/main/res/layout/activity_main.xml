@@ -10,34 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.augustana.csc490.androidbrainapp.MainActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/address"
-        android:layout_alignLeft="@+id/address"
-        android:layout_alignStart="@+id/address"
-        android:layout_marginTop="35dp"
-        android:id="@+id/port"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="DestPort" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="40dp"
-        android:id="@+id/address"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="DestIP" />
-
     <Button
         android:text="Default Destination"
         android:layout_width="wrap_content"
@@ -85,4 +57,32 @@
         android:layout_alignStart="@+id/btnConnectSocket"
         android:layout_alignRight="@+id/btnConnectSocket"
         android:layout_alignEnd="@+id/btnConnectSocket" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/etAddress"
+        android:hint="DestIP"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="26dp"
+        android:id="@+id/etPort"
+        android:hint="DestPort"
+        android:layout_below="@+id/etAddress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

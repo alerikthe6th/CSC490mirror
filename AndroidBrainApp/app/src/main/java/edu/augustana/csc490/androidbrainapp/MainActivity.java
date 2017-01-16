@@ -15,11 +15,11 @@ import static java.lang.Integer.parseInt;
 public class MainActivity extends AppCompatActivity {
 
     // data field and buttons
-    public static final String port = "4567"; //initially set for a default port number
-    public static final String ip = "172.20.10.2"; //initially set for a default IP address
-    private EditText editTextAddress;
-    private EditText editTextPort;
-    private int portString;
+    public static final String portDef = "4567"; //constant initially set for a default portDef number
+    public static final String ipDef = "172.20.10.2"; //constant initially set for a default IP address
+    private EditText etAddress;
+    private EditText etPort;
+    private int portNum;
     private String addressString;
 
     protected static SocketConnection mSocketConnection = null;
@@ -38,23 +38,23 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         //link the buttons to the activity layout
-        editTextAddress = (EditText) findViewById(R.id.address);
-        editTextPort = (EditText) findViewById(R.id.port);
+        etAddress = (EditText) findViewById(R.id.etAddress);
+        etPort = (EditText) findViewById(R.id.etPort);
 
         //add text watchers to the edit buttons
-        editTextPort.addTextChangedListener(portTW);
-        editTextAddress.addTextChangedListener(addressTW);
+        etPort.addTextChangedListener(portTW);
+        etAddress.addTextChangedListener(addressTW);
     }
 
     /**
      * set default IP and Port number with Abby's phone as a wifi hotspot
-     * 
+     *
      * @param view
      */
     public void setDefaultDestination(View view) {
 
-        editTextAddress.setText(ip);
-        editTextPort.setText(port);
+        etAddress.setText(ipDef);
+        etPort.setText(portDef);
 
     }
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Converts the port and ip address fields from their appropriate edit text fields and creates a socket connection object
+     * Converts the portDef and ipDef address fields from their appropriate edit text fields and creates a socket connection object
      * to connect the android device to the lejos robot
      *
      * @param view
@@ -95,22 +95,22 @@ public class MainActivity extends AppCompatActivity {
      */
     public void connectToSocket(View view) throws Exception{
 
-        if(portString > 0 && addressString != null) {
-            mSocketConnection = new SocketConnection(portString, addressString);
+        if(portNum > 0 && addressString != null) {
+            mSocketConnection = new SocketConnection(portNum, addressString);
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG);
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG);
         }
     }
 
-    // text watcher object for converting the edit text field for the port string to an integer
+    // text watcher object for converting the edit text field for the portDef string to an integer
     private TextWatcher portTW = new TextWatcher() {
         //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
         //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
-                portString = parseInt(s.toString());
+                portNum = parseInt(s.toString());
             }catch(NumberFormatException e) {
 
             }
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
     };
 
-    // text watcher object for passing the string in the ip address edit text field to a data field of the
+    // text watcher object for passing the string in the ipDef address edit text field to a data field of the
     // main activity class
     private TextWatcher addressTW = new TextWatcher() {
         //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,

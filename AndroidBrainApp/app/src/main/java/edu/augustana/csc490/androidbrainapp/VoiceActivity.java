@@ -27,7 +27,7 @@ import android.widget.Toast;
 public class VoiceActivity extends AppCompatActivity {
 
     //data fields and buttons
-    private TextView txtSpeechInput;
+    private TextView tvSpeechInput;
     private ImageButton btnSpeak;
     private final int REQ_CODE_SPEECH_INPUT = 100; //required to send voice strings in intents
 
@@ -36,7 +36,7 @@ public class VoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.voice_activity);
 
-        txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
+        tvSpeechInput = (TextView) findViewById(R.id.tvSpeechInput);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
 
 
@@ -80,7 +80,7 @@ public class VoiceActivity extends AppCompatActivity {
 
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                    txtSpeechInput.setText("String sent: " + result.get(0));
+                    tvSpeechInput.setText("String sent: " + result.get(0));
 
                     //TODO: currently testing with one direction, need to test the rest
                     if(result.get(0).equalsIgnoreCase("move")) {
@@ -125,9 +125,9 @@ public class VoiceActivity extends AppCompatActivity {
 
                     /*
                     if(result.get(1) != null) {
-                        txtSpeechInput.setText(result.get(0) + "\n" + result.get(1));
+                        tvSpeechInput.setText(result.get(0) + "\n" + result.get(1));
                     }else if(result.get(2) != null) {
-                        txtSpeechInput.setText(result.get(0) + "\n" + result.get(1) + "\n" + result.get(2));
+                        tvSpeechInput.setText(result.get(0) + "\n" + result.get(1) + "\n" + result.get(2));
                     }
                     */
                 }
