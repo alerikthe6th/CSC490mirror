@@ -15,8 +15,8 @@ import static java.lang.Integer.parseInt;
 public class MainActivity extends AppCompatActivity {
 
     // data field and buttons
-    public static final String port = "4567"; //initally set for a default port number
-    public static final String ip = "172.20.10.2"; //initally set for a default IP address
+    public static final String port = "4567"; //initially set for a default port number
+    public static final String ip = "172.20.10.2"; //initially set for a default IP address
     private EditText editTextAddress;
     private EditText editTextPort;
     private int portString;
@@ -46,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
         editTextAddress.addTextChangedListener(addressTW);
     }
 
-    /*
+    /**
      * set default IP and Port number with Abby's phone as a wifi hotspot
+     * 
+     * @param view
      */
     public void setDefaultDestination(View view) {
 
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Turns the port and ip address fields from their appropriate edit text fields and creates a socket connection object
+     * Converts the port and ip address fields from their appropriate edit text fields and creates a socket connection object
      * to connect the android device to the lejos robot
      *
      * @param view
