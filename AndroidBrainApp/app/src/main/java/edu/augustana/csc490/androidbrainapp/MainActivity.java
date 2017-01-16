@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void setDefaultDestination(View view) {
 
-        editTextAddress.setText(port);
-        editTextPort.setText(ip);
+        editTextAddress.setText(ip);
+        editTextPort.setText(port);
 
     }
 
@@ -70,13 +70,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void connectToSocket(View view) throws Exception{
-        Log.d("connect to socket", "success");
-        Log.d("test","test");
-        Log.d("port",""+portString);
-        Log.d("IP",""+addressString);
-        mSocketConnection = new SocketConnection(portString, addressString);
-        Toast.makeText(this, "connection successful", Toast.LENGTH_LONG);
-        Log.d("connect to socket", "connection successful");
+
+        if(portString > 0 && addressString != null) {
+            mSocketConnection = new SocketConnection(portString, addressString);
+            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG);
+            Log.d("connect to socket", "connection successful");
+        } else {
+            Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG);
+        }
+
+
 
     }
 

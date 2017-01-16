@@ -114,6 +114,14 @@ public class VoiceActivity extends AppCompatActivity {
                         }
                     }
 
+                    if(result.get(0).equalsIgnoreCase("stop")) {
+                        try {
+                            MainActivity.mSocketConnection.sendMessage("stop");
+                        } catch(Exception e){
+                            Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
+                        }
+                    }
+
                     /*
                     if(result.get(1) != null) {
                         txtSpeechInput.setText(result.get(0) + "\n" + result.get(1));
