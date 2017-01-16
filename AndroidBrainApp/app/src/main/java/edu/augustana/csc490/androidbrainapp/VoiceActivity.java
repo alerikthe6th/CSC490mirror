@@ -97,7 +97,7 @@ public class VoiceActivity extends AppCompatActivity {
                         try {
                             Log.d("inside move case", "inside move case was successful");
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("m");
+                            MainActivity.mSocketConnection.sendMessage("f");
                             Log.d("sent move command", "move forward command successful sent");
                         } catch(Exception e){
                             Toast.makeText(getApplicationContext() , "connection successful", Toast.LENGTH_LONG);
