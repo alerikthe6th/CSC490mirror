@@ -1,6 +1,7 @@
 
 import lejos.hardware.Bluetooth; 
 import lejos.hardware.Button;
+import lejos.hardware.Sound;
 
 import java.net.Socket;
 import java.net.SocketException;
@@ -50,10 +51,6 @@ public class RobotSlave extends Thread {
 		command = new Vector<String>();
 		threads = new Vector<Thread>();
 		
-	/*	ft = new ForwardThread(pilot,command);
-		bt = new BackThread(pilot,command);
-		lt = new LeftThread(pilot,command);
-		rt = new RightThread(pilot,command);*/
 
 		int port = 4567;
 		ServerSocket server = new ServerSocket(port);
@@ -79,28 +76,48 @@ public class RobotSlave extends Thread {
 					bt.start();
 					threads.add(bt);
 			
-				} 
-				else if (str.equalsIgnoreCase("stop")) {
-					System.out.println("Threads sixe = "+threads.size());
-					while(threads.size()>0){
+				} else if(str.equalsIgnoreCase("left")){
+					 LeftThread lt = new LeftThread();
+					 lt.start();
+					 threads.add(lt);
+				}else if(str.equalsIgnoreCase("right")){
+					RightThread rt = new RightThread();
+					rt.start();
+					threads.add(rt);
+				}else if (str.equalsIgnoreCase("stop")) {
+					//System.out.println("Threads sixe = "+threads.size());
+					/*while(threads.size()>0){
 						Thread oldThread = (Thread)threads.get(0);
 						if(oldThread.isAlive()){
 							try{
-								System.out.println("Interupt");
+								//System.out.println("Interupt");
 								oldThread.interrupt();
 								oldThread.join();
 							}
 							catch(Exception E){
-								System.out.println("Exception");
+								//System.out.println("Exception");
 							}
 						}
 						else{
 							threads.remove(0);
-							System.out.println("HereHere");
+							//System.out.println("HereHere");
 							
 						}
 					}
-					System.out.println("All Thread Stoped");
+					System.out.println("All Thread Stoped");*/
+					stopThreads();
+				}else if(str.equalsIgnoreCase("einstein")){
+					System.out.println("Einstein's Hair!!!");
+					Sound.setVolume(80);
+					Sound.playTone(523, 250);
+					Thread.sleep(200);
+					Sound.playTone(523,100);
+					Thread.sleep(100);
+					Sound.playTone(466, 100);
+					Thread.sleep(100);
+					Sound.playTone(523, 100);
+					Thread.sleep(100);
+					
 				}
 				//System.out.println(str);
 				System.out.println("Geting new command");
@@ -112,6 +129,27 @@ public class RobotSlave extends Thread {
 		}
 		System.out.println("press any button to exit");
 		Button.waitForAnyPress();
+	}
+	private static void stopThreads(){
+		while(threads.size()>0){
+			Thread oldThread = (Thread)threads.get(0);
+			if(oldThread.isAlive()){
+				try{
+					//System.out.println("Interupt");
+					oldThread.interrupt();
+					oldThread.join();
+				}
+				catch(Exception E){
+					//System.out.println("Exception");
+				}
+			}
+			else{
+				threads.remove(0);
+				//System.out.println("HereHere");
+				
+			}
+		}
+		System.out.println("All Thread Stoped");
 	}
 
 }
@@ -128,7 +166,7 @@ class ForwardThread extends Thread {
 		while(!this.isInterrupted()){
 			try{
 				System.out.println("moving forward ...");
-				RobotSlave.pilot.travel(50);
+				RobotSlave.pilot.travel(100);
 				//pilot.forward();
 				//wait(1000);
 				
@@ -153,7 +191,7 @@ class BackThread extends Thread {
 		while(!this.isInterrupted()){
 			try{
 				System.out.println("moving back ...");
-				RobotSlave.pilot.travel(-50);
+				RobotSlave.pilot.travel(-100);
 				//pilot.forward();
 				//wait(1000);
 				
@@ -166,42 +204,47 @@ class BackThread extends Thread {
 }
 
 class LeftThread extends Thread {
-	private MovePilot pilot;
-	private Vector command;
 
-	public LeftThread(MovePilot p, Vector c) {
-		command = c;
-		pilot = p;
+	public LeftThread() {
+		
 	}
 
 	@Override
 	public void run() {
-		while(command.get(0).toString().equalsIgnoreCase("left")){
-			pilot.arc(0, -10);
+		while(!this.isInterrupted()){
+			try{
+				System.out.println("moving left ...");
+				RobotSlave.pilot.arc(0, -20);
+				
+				
+			}
+			catch(Exception E){
+				break;
+			}
 		}
-		if (interrupted()) {
-			return;
-		}
+		return;
 	}
 
 }
 
 class RightThread extends Thread {
-	private MovePilot pilot;
-	private Vector command;
 
-	public RightThread(MovePilot p, Vector c) {
-		command = c;
-		pilot = p;
+	public RightThread() {
+	
 	}
 
 	@Override
-	public void run() {
-		while(command.get(0).toString().equalsIgnoreCase("right")){
-			pilot.arc(0, 10);
-		}
-		if(interrupted()){
-			return;
+	public void run() {while(!this.isInterrupted()){
+		try{
+			System.out.println("moving right ...");
+			RobotSlave.pilot.arc(0, 20);
+			
+		} 
+		catch(Exception E){
+			break;
 		}
 	}
+	return;
+		}
 }
+
