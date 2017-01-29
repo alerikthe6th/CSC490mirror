@@ -20,7 +20,7 @@
         android:layout_alignEnd="@+id/btnConnectSocket"
         android:layout_alignLeft="@+id/btnConnectSocket"
         android:layout_alignStart="@+id/btnConnectSocket"
-        android:onClick="setDefaultDestination" />
+        android:onClick="launchNewShit" />
 
     <Button
         android:text="Launch Voice Control"

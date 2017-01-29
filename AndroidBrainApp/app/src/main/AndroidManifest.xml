@@ -25,6 +25,11 @@
         <activity
             android:name=".VoiceActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".SelectControlsActivity"
+            android:label="Select Controls Activity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
