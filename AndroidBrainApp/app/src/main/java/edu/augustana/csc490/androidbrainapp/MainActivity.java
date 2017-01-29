@@ -1,6 +1,7 @@
 package edu.augustana.csc490.androidbrainapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.prefs.Preferences;
 
 import static java.lang.Integer.parseInt;
 
@@ -21,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText etPort;
     private int portNum;
     private String addressString;
+    public SharedPreferences prefs;
+    public SharedPreferences.Editor editor;
 
     protected static SocketConnection mSocketConnection = null;
 
@@ -28,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        prefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        editor = prefs.edit();
+
+        String ip_address = prefs.getString("ip_address", null);
+        int port_num = prefs.getInt("port_num", -1);
 
         /**
          * Strict mode is a developer tool which detects things one might be doing by accident and brings them to
@@ -40,6 +50,21 @@ public class MainActivity extends AppCompatActivity {
         //link the buttons to the activity layout
         etAddress = (EditText) findViewById(R.id.etAddress);
         etPort = (EditText) findViewById(R.id.etPort);
+
+        if(ip_address == null){
+            editor.putString("ip_address", "192.168.0.1");
+            etAddress.setText("192.168.0.1");
+            editor.commit();
+        } else {
+            etAddress.setText(ip_address);
+        }
+        if(port_num == -1){
+            editor.putInt("port_num", 4567);
+            etPort.setText("4567");
+            editor.commit();
+        } else {
+            etPort.setText(port_num);
+        }
 
         //add text watchers to the edit buttons
         etPort.addTextChangedListener(portTW);
@@ -111,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
                 portNum = parseInt(s.toString());
+                editor.putInt("port_num", portNum);
+                editor.commit();
             }catch(NumberFormatException e) {
 
             }
@@ -129,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
                 addressString = s.toString();
+                editor.putString("ip_address", addressString);
+                editor.commit();
             }catch(NumberFormatException e) {
 
             }
