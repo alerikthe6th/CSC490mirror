@@ -21,16 +21,15 @@ public class RobotSlave extends Thread {
 	private static Vector<Thread> threads;
 	static EV3LargeRegulatedMotor left;
 	static EV3LargeRegulatedMotor right;
-	
+
 	public static void main(String[] args) throws Exception {
-		
-		//declaring motors
+
+		// declaring motors
 		left = new EV3LargeRegulatedMotor(MotorPort.A);
 		right = new EV3LargeRegulatedMotor(MotorPort.D);
-		
-		//setting synchronizing so can start and stop motor together
-		left.synchronizeWith(new RegulatedMotor[]{right});
-	
+
+		// setting synchronizing so can start and stop motor together
+		left.synchronizeWith(new RegulatedMotor[] { right });
 
 		Wheel wheel1 = WheeledChassis.modelWheel(left, 81.6).offset(-90);
 		Wheel wheel2 = WheeledChassis.modelWheel(right, 81.6).offset(90);
@@ -38,7 +37,7 @@ public class RobotSlave extends Thread {
 		//
 		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
-		
+
 		command = new Vector<String>();
 		threads = new Vector<Thread>();
 
@@ -55,53 +54,57 @@ public class RobotSlave extends Thread {
 			BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			String str = br.readLine();
 			command.add(str);
-			
+
 			while (str != null) {
-				System.out.println(str);
+				System.out.println("Command: " + str);
+				// System.out.println(str);
+				if(left.isMoving()||right.isMoving()){
+					stopThreads();
+				}
 				if (str.equalsIgnoreCase("move")) {
 					lastCom = "move";
 					ForwardThread ft = new ForwardThread();
 					ft.start();
 					threads.add(ft);
-					
+
 				} else if (str.equalsIgnoreCase("back")) {
 					lastCom = "back";
 					BackThread bt = new BackThread();
 					bt.start();
 					threads.add(bt);
-			
-				} else if(str.equalsIgnoreCase("left")){
-					 lastCom = "left";
-					 LeftThread lt = new LeftThread();
-					 lt.start();
-					 threads.add(lt);
-				}else if(str.equalsIgnoreCase("right")){
+
+				} else if (str.equalsIgnoreCase("left")) {
+					lastCom = "left";
+					LeftThread lt = new LeftThread();
+					lt.start();
+					threads.add(lt);
+				} else if (str.equalsIgnoreCase("right")) {
 					lastCom = "right";
 					RightThread rt = new RightThread();
 					rt.start();
 					threads.add(rt);
-				}else if (str.equalsIgnoreCase("stop")) {
-					if(lastCom!="stop"){
+				} else if (str.equalsIgnoreCase("stop")) {
+					if (lastCom != "stop") {
 						stopThreads();
 					}
-					lastCom="stop";
-				}else if(str.equalsIgnoreCase("einstein")){
+					lastCom = "stop";
+				} else if (str.equalsIgnoreCase("einstein")) {
 					System.out.println("Einstein's Hair!!!");
 					Sound.setVolume(80);
 					Sound.playTone(523, 250);
 					Thread.sleep(200);
-					Sound.playTone(523,100);
+					Sound.playTone(523, 100);
 					Thread.sleep(100);
 					Sound.playTone(466, 100);
 					Thread.sleep(100);
 					Sound.playTone(523, 100);
 					Thread.sleep(100);
-					
+
 				}
-	
+
 				System.out.println("Geting new command");
 				str = br.readLine();
-				
+
 			}
 		} catch (SocketException e) {
 			System.out.println(e);
@@ -109,17 +112,16 @@ public class RobotSlave extends Thread {
 		System.out.println("press any button to exit");
 		Button.waitForAnyPress();
 	}
-	private static void stopThreads(){
-		if(RobotSlave.left.isMoving()&&RobotSlave.right.isMoving()){
+
+	private static void stopThreads() {
+		if (RobotSlave.left.isMoving() && RobotSlave.right.isMoving()) {
 			RobotSlave.left.startSynchronization();
 			RobotSlave.left.stop();
 			RobotSlave.right.stop();
 			RobotSlave.left.endSynchronization();
-		}
-		else if(RobotSlave.right.isMoving()){
+		} else if (RobotSlave.right.isMoving()) {
 			RobotSlave.right.stop();
-		}
-		else{
+		} else {
 			RobotSlave.left.stop();
 		}
 		System.out.println("All Thread Stoped");
@@ -155,19 +157,20 @@ class BackThread extends Thread {
 		RobotSlave.left.backward();
 		RobotSlave.right.backward();
 		RobotSlave.left.endSynchronization();
-		return;	}
+		return;
+	}
 }
 
 class LeftThread extends Thread {
 
 	public LeftThread() {
-		
+
 	}
 
 	@Override
 	public void run() {
 		RobotSlave.right.forward();
-		
+
 		return;
 	}
 
@@ -176,13 +179,12 @@ class LeftThread extends Thread {
 class RightThread extends Thread {
 
 	public RightThread() {
-	
+
 	}
 
 	@Override
 	public void run() {
-		RobotSlave.left .forward();
-	return;
-		}
+		RobotSlave.left.forward();
+		return;
+	}
 }
-
