@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewParent;
 import android.widget.Button;
 
+import edu.augustana.csc490.androidbrainapp.FixedTabsPagerAdapter;
+import edu.augustana.csc490.androidbrainapp.R;
+
 /**
  * Created by hamby on 1/12/2017.
  */
@@ -36,5 +39,11 @@ public class SelectControlsActivity extends AppCompatActivity {
                 startActivity(rcIntent);
             }
         });*/
+    }
+
+    //this method disables the back button on the bottom bar of the android device
+    //nothing happens with the overriden button is pressed.
+    @Override
+    public void onBackPressed() {
     }
 }

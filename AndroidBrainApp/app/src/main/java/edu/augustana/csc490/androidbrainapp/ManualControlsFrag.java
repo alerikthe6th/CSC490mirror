@@ -1,21 +1,19 @@
 package edu.augustana.csc490.androidbrainapp;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by hamby on 1/29/2017.
  */
 
-public class ManualControlsFrag extends android.support.v4.app.Fragment {
+public class ManualControlsFrag extends Fragment {
     Button btnForward;
     Button btnBackward;
     Button btnLeft;
@@ -33,12 +31,20 @@ public class ManualControlsFrag extends android.support.v4.app.Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    // Inflate the view for the fragment based on layout XML
+    /**
+     *
+     * Inflate the view for the fragment based on layout XML
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater
-                .inflate(R.layout.control_activity, container, false);
+                .inflate(R.layout.control_layout, container, false);
 
         btnRight = (Button)rootView.findViewById(R.id.btnRight);// get your root  layout
         btnLeft = (Button)rootView.findViewById(R.id.btnLeft);

@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.prefs.Preferences;
-
 import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,33 +59,6 @@ public class MainActivity extends AppCompatActivity {
     public void setDefaultDestination(View view) {
         etAddress.setText(prefs.getString("ip_address", "Not Found"));
         etPort.setText(prefs.getString("port_num", "1234"));
-    }
-
-    /**
-     * This method launched the control activity xml when the Launch Manual Control button has
-     * been pressed
-     *
-     * @param view
-     * @throws Exception
-     */
-    public void launchControlsActivity(View view) throws Exception{
-
-        //STARTS THE MOVEMENT ACTIVITY LAYOUT
-        Intent sendMessageIntent = new Intent(MainActivity.this, ControlActivity.class);
-        startActivity(sendMessageIntent);
-    }
-
-    /**
-     * This method launched the voice activity xml when the Voice control button has
-     * been pressed
-     *
-     * @param view
-     * @throws Exception
-     */
-    public void launchVoiceActivity(View view) throws Exception{
-        //STARTS THE VOICE MOVEMENT LAYOUT
-        Intent sendMessageIntent = new Intent(MainActivity.this, VoiceActivity.class);
-        startActivity(sendMessageIntent);
     }
 
     /**
@@ -150,4 +121,5 @@ public class MainActivity extends AppCompatActivity {
         }
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
     };
+
 }

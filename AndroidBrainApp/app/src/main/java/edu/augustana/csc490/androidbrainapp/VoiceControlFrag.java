@@ -43,7 +43,7 @@ public class VoiceControlFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater
-                .inflate(R.layout.voice_activity, container, false);
+                .inflate(R.layout.voice_layout, container, false);
 
         tvSpeechInput = (TextView) rootView.findViewById(R.id.tvSpeechInput);
         tvCommand = (TextView) rootView.findViewById(R.id.tvCommand);
