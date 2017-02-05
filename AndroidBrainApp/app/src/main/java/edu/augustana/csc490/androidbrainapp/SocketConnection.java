@@ -42,4 +42,15 @@ public class SocketConnection {
         os.write(str + "\n");
         os.flush();
     }
+
+    public void closeSocket() {
+
+        try {
+            socket.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }

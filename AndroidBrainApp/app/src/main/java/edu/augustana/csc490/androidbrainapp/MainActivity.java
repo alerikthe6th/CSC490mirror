@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.prefs.Preferences;
-
 import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
         editor = prefs.edit();
 
-        String ip_address = prefs.getString("ip_address", null);
-        int port_num = prefs.getInt("port_num", -1);
-
         /**
          * Strict mode is a developer tool which detects things one might be doing by accident and brings them to
          * the developer's attention so they can be fixed i.e. catching accidental disk errors or network access
@@ -51,21 +46,6 @@ public class MainActivity extends AppCompatActivity {
         etAddress = (EditText) findViewById(R.id.etAddress);
         etPort = (EditText) findViewById(R.id.etPort);
 
-        if(ip_address == null){
-            editor.putString("ip_address", "192.168.0.1");
-            etAddress.setText("192.168.0.1");
-            editor.commit();
-        } else {
-            etAddress.setText(ip_address);
-        }
-        if(port_num == -1){
-            editor.putInt("port_num", 4567);
-            etPort.setText("4567");
-            editor.commit();
-        } else {
-            etPort.setText(port_num);
-        }
-
         //add text watchers to the edit buttons
         etPort.addTextChangedListener(portTW);
         etAddress.addTextChangedListener(addressTW);
@@ -77,38 +57,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setDefaultDestination(View view) {
-
-        etAddress.setText(ipDef);
-        etPort.setText(portDef);
-
-    }
-
-    /**
-     * This method launched the control activity xml when the Launch Manual Control button has
-     * been pressed
-     *
-     * @param view
-     * @throws Exception
-     */
-    public void launchControlsActivity(View view) throws Exception{
-
-        //STARTS THE MOVEMENT ACTIVITY LAYOUT
-        Intent sendMessageIntent = new Intent(MainActivity.this, ControlActivity.class);
-        startActivity(sendMessageIntent);
-    }
-
-    /**
-     * This method launched the voice activity xml when the Voice control button has
-     * been pressed
-     *
-     * @param view
-     * @throws Exception
-     */
-    public void launchVoiceActivity(View view) throws Exception{
-
-        //STARTS THE VOICE MOVEMENT LAYOUT
-        Intent sendMessageIntent = new Intent(MainActivity.this, VoiceActivity.class);
-        startActivity(sendMessageIntent);
+        etAddress.setText(prefs.getString("ip_address", "Not Found"));
+        etPort.setText(prefs.getString("port_num", "1234"));
     }
 
     /**
@@ -128,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void launchNewShit(View view){
+        Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+        startActivity(intent);
+    }
+
     // text watcher object for converting the edit text field for the portDef string to an integer
     private TextWatcher portTW = new TextWatcher() {
         //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
@@ -136,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
                 portNum = parseInt(s.toString());
-                editor.putInt("port_num", portNum);
+                editor.putString("port_num", "" + portNum);
                 editor.commit();
             }catch(NumberFormatException e) {
 
@@ -166,4 +121,5 @@ public class MainActivity extends AppCompatActivity {
         }
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
     };
+
 }

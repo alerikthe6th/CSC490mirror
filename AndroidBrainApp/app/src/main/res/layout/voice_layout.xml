@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.augustana.csc490.androidbrainapp.VoiceActivity">
+    tools:context="edu.augustana.csc490.androidbrainapp.SurfaceViewFrag">
 
     <TextView
         android:id="@+id/tvSpeechInput"
@@ -78,10 +78,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnStop"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="stop" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
