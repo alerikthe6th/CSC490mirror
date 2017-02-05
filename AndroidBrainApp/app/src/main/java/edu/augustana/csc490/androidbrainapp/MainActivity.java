@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences prefs;
     public SharedPreferences.Editor editor;
 
-    protected static SocketConnection mSocketConnection = null;
+    protected static SocketConnection mSocketConnectionRobot = null;
     protected static SocketConnection mSocketConnectionCamera = null;
 
     @Override
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public void connectToSocket(View view) throws Exception{
 
         if(portNumRobot > 0 && addressStringRobot != null) {
-            mSocketConnection = new SocketConnection(portNumRobot, addressStringRobot);
+            mSocketConnectionRobot = new SocketConnection(portNumRobot, addressStringRobot);
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();

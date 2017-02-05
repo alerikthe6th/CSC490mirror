@@ -55,13 +55,13 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        MainActivity.mSocketConnection.sendMessage("Move");
+                        MainActivity.mSocketConnectionRobot.sendMessage("Move");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
-                        MainActivity.mSocketConnection.sendMessage("Stop");
+                        MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
                     }
@@ -81,13 +81,13 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        MainActivity.mSocketConnection.sendMessage("back");
+                        MainActivity.mSocketConnectionRobot.sendMessage("back");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
-                        MainActivity.mSocketConnection.sendMessage("Stop");
+                        MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
                     }
@@ -107,13 +107,13 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        MainActivity.mSocketConnection.sendMessage("left");
+                        MainActivity.mSocketConnectionRobot.sendMessage("left");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
-                        MainActivity.mSocketConnection.sendMessage("Stop");
+                        MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
                     }
@@ -133,13 +133,13 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        MainActivity.mSocketConnection.sendMessage("right");
+                        MainActivity.mSocketConnectionRobot.sendMessage("right");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
-                        MainActivity.mSocketConnection.sendMessage("Stop");
+                        MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
                     }

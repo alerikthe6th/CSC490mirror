@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,6 +13,9 @@ import android.widget.Toast;
 import android.support.v4.app.Fragment;
 
 /**
+ * Optoins fragment allowing the user to disconnect a robot/camera
+ * and to connect a new robot/camera
+ *
  * Created by Alerik Vi on 1/30/2017.
  */
 
@@ -64,7 +66,7 @@ public class OptionsFrag extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(context, "Disconnecting Robot", Toast.LENGTH_SHORT);
-                                MainActivity.mSocketConnection.closeSocket();
+                                MainActivity.mSocketConnectionRobot.closeSocket();
                                 Intent intent = new Intent(context, MainActivity.class); //hopefully sends back to connection screen?
                                 startActivity(intent);
                                 //finish();
