@@ -22,10 +22,17 @@ public class MainActivity extends AppCompatActivity {
     private EditText etPort;
     private int portNum;
     private String addressString;
+
+    private EditText etAddress2;
+    private EditText etPort2;
+    private int portNum2;
+    private String addressString2;
+
     public SharedPreferences prefs;
     public SharedPreferences.Editor editor;
 
     protected static SocketConnection mSocketConnection = null;
+    protected static SocketConnection mSocketConnectionCamera = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +53,22 @@ public class MainActivity extends AppCompatActivity {
         etAddress = (EditText) findViewById(R.id.etAddress);
         etPort = (EditText) findViewById(R.id.etPort);
 
+        //link the buttons to the activity layout for the camera
+        etAddress2 = (EditText) findViewById(R.id.etAddress2);
+        etPort2 = (EditText) findViewById(R.id.etPort2);
+
         //add text watchers to the edit buttons
         etPort.addTextChangedListener(portTW);
         etAddress.addTextChangedListener(addressTW);
+
+        //add text watchers to the edit buttons for the camera
+        etPort2.addTextChangedListener(portTWCamera);
+        etAddress2.addTextChangedListener(addressTWCamera);
     }
 
     /**
      * set default IP and Port number with Abby's phone as a wifi hotspot
-     *
+     * TODO: SET BACK TO THIS DEFAULT
      * @param view
      */
     public void setDefaultDestination(View view) {
@@ -78,6 +93,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Converts the portDef and ipDef address fields from their appropriate edit text fields and creates a socket connection object
+     * to connect the android device to the lejos robot
+     * TODO: CURRENTLY NOT BEING USED BY  BUTTON
+     * @param view
+     * @throws Exception
+     */
+    public void connectToSocketCamera(View view) throws Exception{
+
+        if(portNum2 > 0 && addressString2 != null) {
+            mSocketConnectionCamera = new SocketConnection(portNum2, addressString2);
+            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    //TODO: REMOVE AFTER TESTING
     public void launchNewShit(View view){
         Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
         startActivity(intent);
@@ -112,6 +145,50 @@ public class MainActivity extends AppCompatActivity {
             try{
                 addressString = s.toString();
                 editor.putString("ip_address", addressString);
+                editor.commit();
+            }catch(NumberFormatException e) {
+
+            }
+        }
+        public void afterTextChanged(Editable s) {
+        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    };
+
+    /*
+    TODO: FIX THESE WATCHERS BELOW
+
+     */
+
+    // text watcher object for converting the edit text field for the portDef string to an integer
+    private TextWatcher portTWCamera = new TextWatcher() {
+        //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
+        //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            try{
+                portNum2 = parseInt(s.toString());
+                editor.putString("port_num", "" + portNum2);
+                editor.commit();
+            }catch(NumberFormatException e) {
+
+            }
+        }
+        public void afterTextChanged(Editable s) {
+        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    };
+
+    // text watcher object for passing the string in the ipDef address edit text field to a data field of the
+    // main activity class
+    private TextWatcher addressTWCamera = new TextWatcher() {
+        //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
+        //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            try{
+                addressString2 = s.toString();
+                editor.putString("ip_address", addressString2);
                 editor.commit();
             }catch(NumberFormatException e) {
 

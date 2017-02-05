@@ -62,9 +62,9 @@ public class SurfaceViewFrag extends Fragment implements SurfaceHolder.Callback 
 
         start.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View arg){
-                startCamera();
-            }
-        });
+        startCamera();
+        }
+});
         stop.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View view){
                 stopCamera();

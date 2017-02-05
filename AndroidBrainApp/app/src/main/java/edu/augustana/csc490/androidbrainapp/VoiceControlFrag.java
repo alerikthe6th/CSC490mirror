@@ -114,11 +114,11 @@ public class VoiceControlFrag extends Fragment {
                      *
                      * saying "stop" should halt the robot of movement
                      */
-                    if (result.get(0).equalsIgnoreCase("move")) {
+                    if (result.get(0).equalsIgnoreCase("forward")) {
                         try {
-                            Log.d("inside move case", "inside move case was successful");
+                            Log.d("inside forward case", "inside forward case was successful");
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("move");
+                            MainActivity.mSocketConnection.sendMessage("forward");
                             Log.d("sent move command", "move forward command successful sent");
                         } catch (Exception e) {
                             Toast.makeText(getContext(), "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
