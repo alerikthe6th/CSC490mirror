@@ -18,14 +18,21 @@ public class MainActivity extends AppCompatActivity {
     // data field and buttons
     public static final String portDef = "4567"; //constant initially set for a default portDef number
     public static final String ipDef = "172.20.10.2"; //constant initially set for a default IP address
-    private EditText etAddress;
-    private EditText etPort;
-    private int portNum;
-    private String addressString;
+    private EditText etAddressRobot;
+    private EditText etPortRobot;
+    private int portNumRobot;
+    private String addressStringRobot;
+
+    private EditText etAddressCamera;
+    private EditText etPortCamera;
+    private int portNumCamera;
+    private String addressStringCamera;
+
     public SharedPreferences prefs;
     public SharedPreferences.Editor editor;
 
-    protected static SocketConnection mSocketConnection = null;
+    protected static SocketConnection mSocketConnectionRobot = null;
+    protected static SocketConnection mSocketConnectionCamera = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +50,30 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         //link the buttons to the activity layout
-        etAddress = (EditText) findViewById(R.id.etAddress);
-        etPort = (EditText) findViewById(R.id.etPort);
+        etAddressRobot = (EditText) findViewById(R.id.etAddressRobot);
+        etPortRobot = (EditText) findViewById(R.id.etPortRobot);
+
+        //link the buttons to the activity layout for the camera
+        etAddressCamera = (EditText) findViewById(R.id.etAddressCamera);
+        etPortCamera = (EditText) findViewById(R.id.etPortCamera);
 
         //add text watchers to the edit buttons
-        etPort.addTextChangedListener(portTW);
-        etAddress.addTextChangedListener(addressTW);
+        etPortRobot.addTextChangedListener(portTWRobot);
+        etAddressRobot.addTextChangedListener(addressTWRobot);
+
+        //add text watchers to the edit buttons for the camera
+        etPortCamera.addTextChangedListener(portTWCamera);
+        etAddressCamera.addTextChangedListener(addressTWCamera);
     }
 
     /**
      * set default IP and Port number with Abby's phone as a wifi hotspot
-     *
+     * TODO: SET BACK TO THIS DEFAULT
      * @param view
      */
     public void setDefaultDestination(View view) {
-        etAddress.setText(prefs.getString("ip_address", "Not Found"));
-        etPort.setText(prefs.getString("port_num", "1234"));
+        etAddressRobot.setText(prefs.getString("ip_address", "Not Found"));
+        etPortRobot.setText(prefs.getString("port_num", "1234"));
     }
 
     /**
@@ -70,28 +85,46 @@ public class MainActivity extends AppCompatActivity {
      */
     public void connectToSocket(View view) throws Exception{
 
-        if(portNum > 0 && addressString != null) {
-            mSocketConnection = new SocketConnection(portNum, addressString);
+        if(portNumRobot > 0 && addressStringRobot != null) {
+            mSocketConnectionRobot = new SocketConnection(portNumRobot, addressStringRobot);
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
         }
     }
 
+    /**
+     * Converts the portDef and ipDef address fields from their appropriate edit text fields and creates a socket connection object
+     * to connect the android device to the lejos robot
+     * TODO: CURRENTLY NOT BEING USED BY  BUTTON
+     * @param view
+     * @throws Exception
+     */
+    public void connectToSocketCamera(View view) throws Exception{
+
+        if(portNumCamera > 0 && addressStringCamera != null) {
+            mSocketConnectionCamera = new SocketConnection(portNumCamera, addressStringCamera);
+            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    //TODO: REMOVE AFTER TESTING
     public void launchNewShit(View view){
         Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
         startActivity(intent);
     }
 
     // text watcher object for converting the edit text field for the portDef string to an integer
-    private TextWatcher portTW = new TextWatcher() {
+    private TextWatcher portTWRobot = new TextWatcher() {
         //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
         //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
-                portNum = parseInt(s.toString());
-                editor.putString("port_num", "" + portNum);
+                portNumRobot = parseInt(s.toString());
+                editor.putString("port_num", "" + portNumRobot);
                 editor.commit();
             }catch(NumberFormatException e) {
 
@@ -104,14 +137,58 @@ public class MainActivity extends AppCompatActivity {
 
     // text watcher object for passing the string in the ipDef address edit text field to a data field of the
     // main activity class
-    private TextWatcher addressTW = new TextWatcher() {
+    private TextWatcher addressTWRobot = new TextWatcher() {
         //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
         //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
-                addressString = s.toString();
-                editor.putString("ip_address", addressString);
+                addressStringRobot = s.toString();
+                editor.putString("ip_address", addressStringRobot);
+                editor.commit();
+            }catch(NumberFormatException e) {
+
+            }
+        }
+        public void afterTextChanged(Editable s) {
+        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    };
+
+    /*
+    TODO: FIX THESE WATCHERS BELOW
+
+     */
+
+    // text watcher object for converting the edit text field for the portDef string to an integer
+    private TextWatcher portTWCamera = new TextWatcher() {
+        //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
+        //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            try{
+                portNumCamera = parseInt(s.toString());
+                editor.putString("port_num", "" + portNumCamera);
+                editor.commit();
+            }catch(NumberFormatException e) {
+
+            }
+        }
+        public void afterTextChanged(Editable s) {
+        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    };
+
+    // text watcher object for passing the string in the ipDef address edit text field to a data field of the
+    // main activity class
+    private TextWatcher addressTWCamera = new TextWatcher() {
+        //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
+        //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            try{
+                addressStringCamera = s.toString();
+                editor.putString("ip_address", addressStringCamera);
                 editor.commit();
             }catch(NumberFormatException e) {
 

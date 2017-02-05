@@ -19,7 +19,7 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
     }
 
     public int getCount(){
-        return 3;
+        return 4;
     } //increment every time a fragment is added
 
     public Fragment getItem(int itemPos){
@@ -27,6 +27,7 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
             case 0: return new ManualControlsFrag();
             case 1: return new VoiceControlFrag();
             case 2: return new SurfaceViewFrag();
+            case 3: return new OptionsFrag();
         }
         return null;
     }
@@ -36,6 +37,7 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
             case 0: return "Manual Control";
             case 1: return "Voice Control";
             case 2: return "Camera View Control";
+            case 3: return "Options";
         }
         return null;
     }

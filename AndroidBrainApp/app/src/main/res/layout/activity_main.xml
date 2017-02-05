@@ -10,61 +10,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.augustana.csc490.androidbrainapp.MainActivity">
 
-    <Button
-        android:text="Default Destination"
+    <TextView
+        android:text="Robot Dest:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:id="@+id/btnDefaultDest"
-        android:layout_alignRight="@+id/btnConnectSocket"
-        android:layout_alignEnd="@+id/btnConnectSocket"
-        android:layout_alignLeft="@+id/btnConnectSocket"
-        android:layout_alignStart="@+id/btnConnectSocket"
-        android:onClick="launchNewShit" />
-
-    <Button
-        android:text="Launch Voice Control"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnVoiceControl"
-        android:onClick="launchVoiceActivity"
-        android:layout_below="@+id/btnManualControl"
-        android:layout_marginTop="10dp"
-        android:layout_alignRight="@+id/btnManualControl"
-        android:layout_alignEnd="@+id/btnManualControl"
-        android:layout_alignLeft="@+id/btnManualControl"
-        android:layout_alignStart="@+id/btnManualControl" />
-
-    <Button
-        android:text="Connect To Socket"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnConnectSocket"
-        android:onClick="connectToSocket"
-        android:layout_below="@+id/btnDefaultDest"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
-
-    <Button
-        android:text="Launch Manual Control"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnManualControl"
-        android:onClick="launchControlsActivity"
-        android:layout_below="@+id/btnConnectSocket"
-        android:layout_marginTop="10dp"
-        android:layout_alignLeft="@+id/btnConnectSocket"
-        android:layout_alignStart="@+id/btnConnectSocket"
-        android:layout_alignRight="@+id/btnConnectSocket"
-        android:layout_alignEnd="@+id/btnConnectSocket" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/lblRobot" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/etAddress"
-        android:hint="DestIP"
+        android:id="@+id/etAddressRobot"
+        android:hint="DestIP Robot"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -78,11 +39,88 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:layout_marginTop="26dp"
-        android:id="@+id/etPort"
-        android:hint="DestPort"
-        android:layout_below="@+id/etAddress"
+        android:id="@+id/etPortRobot"
+        android:hint="DestPort Robot"
+        android:layout_below="@+id/etAddressRobot"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Camera Source Dest:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblCamera"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/etPortRobot"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="13dp"
+        android:id="@+id/etAddressCamera"
+        android:hint="DestIP Camera"
+        android:layout_below="@+id/lblCamera"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="31dp"
+        android:id="@+id/etPortCamera"
+        android:hint="DestPort Camera"
+        android:layout_below="@+id/etAddressCamera"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+
+    <Button
+        android:text="Default Destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnDefaultDest"
+        android:onClick="launchNewShit"
+        android:layout_below="@+id/etPortCamera"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
+    <Button
+        android:text="Connect To Socket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnConnectSocket"
+        android:onClick="connectToSocket"
+        android:layout_below="@+id/btnDefaultDest"
+        android:layout_alignRight="@+id/btnDefaultDest"
+        android:layout_alignEnd="@+id/btnDefaultDest"
+        android:layout_alignLeft="@+id/btnDefaultDest"
+        android:layout_alignStart="@+id/btnDefaultDest" />
+
+    <Button
+        android:text="Connect Camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnConnectCamera"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="11dp"
+        android:layout_below="@+id/btnConnectSocket"
+        android:layout_alignRight="@+id/btnConnectSocket"
+        android:layout_alignEnd="@+id/btnConnectSocket"
+        android:layout_alignLeft="@+id/btnConnectSocket"
+        android:layout_alignStart="@+id/btnConnectSocket"
+        android:onClick="connectToSocketCamera" />
+
 </RelativeLayout>

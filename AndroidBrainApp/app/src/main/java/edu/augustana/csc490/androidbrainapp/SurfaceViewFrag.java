@@ -34,6 +34,8 @@ public class SurfaceViewFrag extends Fragment implements SurfaceHolder.Callback 
     private Button start;
     private Button stop;
     private Button take;
+
+    //currently not being used
     private Camera.PictureCallback rawCallback;
     private Camera.ShutterCallback shutterCallback;
     private Camera.PictureCallback pngCallback;
@@ -62,9 +64,9 @@ public class SurfaceViewFrag extends Fragment implements SurfaceHolder.Callback 
 
         start.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View arg){
-                startCamera();
-            }
-        });
+        startCamera();
+        }
+});
         stop.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View view){
                 stopCamera();

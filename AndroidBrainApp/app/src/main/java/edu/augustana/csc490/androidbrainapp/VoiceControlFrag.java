@@ -83,7 +83,7 @@ public class VoiceControlFrag extends Fragment {
         try {
             tvSpeechInput.setText("String sent: stop");
             tvCommand.setText("Command received: stop");
-            MainActivity.mSocketConnection.sendMessage("stop");
+            MainActivity.mSocketConnectionRobot.sendMessage("stop");
         } catch (Exception e) {
             Toast.makeText(getContext() , "connection unsuccessful", Toast.LENGTH_LONG);
         }
@@ -114,11 +114,11 @@ public class VoiceControlFrag extends Fragment {
                      *
                      * saying "stop" should halt the robot of movement
                      */
-                    if (result.get(0).equalsIgnoreCase("move")) {
+                    if (result.get(0).equalsIgnoreCase("forward")) {
                         try {
-                            Log.d("inside move case", "inside move case was successful");
+                            Log.d("inside forward case", "inside forward case was successful");
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("move");
+                            MainActivity.mSocketConnectionRobot.sendMessage("forward");
                             Log.d("sent move command", "move forward command successful sent");
                         } catch (Exception e) {
                             Toast.makeText(getContext(), "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
@@ -128,7 +128,7 @@ public class VoiceControlFrag extends Fragment {
                     if (result.get(0).equalsIgnoreCase("back")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("back");
+                            MainActivity.mSocketConnectionRobot.sendMessage("back");
                         } catch (Exception e) {
                             Toast.makeText(getContext(), "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
@@ -137,7 +137,7 @@ public class VoiceControlFrag extends Fragment {
                     if (result.get(0).equalsIgnoreCase("left")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("left");
+                            MainActivity.mSocketConnectionRobot.sendMessage("left");
                         } catch (Exception e) {
                             Toast.makeText(getContext(), "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
@@ -146,7 +146,7 @@ public class VoiceControlFrag extends Fragment {
                     if (result.get(0).equalsIgnoreCase("right")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("right");
+                            MainActivity.mSocketConnectionRobot.sendMessage("right");
                         } catch (Exception e) {
                             Toast.makeText(getContext(), "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
@@ -155,7 +155,7 @@ public class VoiceControlFrag extends Fragment {
                     if (result.get(0).equalsIgnoreCase("stop")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("stop");
+                            MainActivity.mSocketConnectionRobot.sendMessage("stop");
                         } catch (Exception e) {
                             Toast.makeText(getContext(), "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
@@ -164,7 +164,7 @@ public class VoiceControlFrag extends Fragment {
                     if (result.get(0).equalsIgnoreCase("einstein") || result.get(0).equalsIgnoreCase("i'm stein")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));
-                            MainActivity.mSocketConnection.sendMessage("einstein");
+                            MainActivity.mSocketConnectionRobot.sendMessage("einstein");
                         } catch (Exception e) {
                             Toast.makeText(getContext(), "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
