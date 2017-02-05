@@ -10,34 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.augustana.csc490.androidbrainapp.MainActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/etAddress"
-        android:hint="DestIP"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="26dp"
-        android:id="@+id/etPort"
-        android:hint="DestPort"
-        android:layout_below="@+id/etAddress"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <TextView
         android:text="Robot Dest:"
         android:layout_width="wrap_content"
@@ -52,9 +24,47 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
+        android:id="@+id/etAddressRobot"
+        android:hint="DestIP Robot"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="26dp"
+        android:id="@+id/etPortRobot"
+        android:hint="DestPort Robot"
+        android:layout_below="@+id/etAddressRobot"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Camera Source Dest:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblCamera"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/etPortRobot"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
         android:layout_marginTop="13dp"
-        android:id="@+id/etAddress2"
-        android:hint="DestIP"
+        android:id="@+id/etAddressCamera"
+        android:hint="DestIP Camera"
         android:layout_below="@+id/lblCamera"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -67,23 +77,15 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:layout_marginTop="31dp"
-        android:id="@+id/etPort2"
-        android:hint="DestPort"
-        android:layout_below="@+id/etAddress2"
+        android:id="@+id/etPortCamera"
+        android:hint="DestPort Camera"
+        android:layout_below="@+id/etAddressCamera"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:text="Camera Source Dest:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lblCamera"
-        android:layout_marginTop="26dp"
-        android:layout_below="@+id/etPort"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
 
     <Button
         android:text="Default Destination"
@@ -91,7 +93,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnDefaultDest"
         android:onClick="launchNewShit"
-        android:layout_below="@+id/etPort2"
+        android:layout_below="@+id/etPortCamera"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp" />
 
