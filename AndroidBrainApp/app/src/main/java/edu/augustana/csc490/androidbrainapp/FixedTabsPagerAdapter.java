@@ -26,7 +26,7 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
         switch(itemPos){
             case 0: return new ManualControlsFrag();
             case 1: return new VoiceControlFrag();
-            case 2: return new SurfaceViewFrag();
+            case 2: return new CameraViewFrag();
             case 3: return new OptionsFrag();
         }
         return null;

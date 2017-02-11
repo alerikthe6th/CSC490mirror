@@ -75,8 +75,6 @@ public class OptionsFrag extends Fragment {
                         })
                         .setNegativeButton("No", null)
                         .show();
-
-
             }
         });
 

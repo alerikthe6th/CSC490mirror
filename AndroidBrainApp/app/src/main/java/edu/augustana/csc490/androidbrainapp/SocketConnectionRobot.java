@@ -6,27 +6,27 @@ import java.io.OutputStreamWriter;
 
 
 /**
- * The SocketConnection class creates a socket object with a portDef number and IP address
+ * The SocketConnectionRobot class creates a socket object with a portDefRobot number and IP address
  * to connect an android device to a lejos Robot. the void method sendMessage() allows to send
  * strings to the robot
  *
  * Created by hamby on 12/15/2016.
  */
 
-public class SocketConnection {
+public class SocketConnectionRobot {
 
     //data fields
     private Socket socket;
     private OutputStreamWriter os;
 
     /**
-     * Constructor that creates a socket using portDef number and IP address parameters passed in
+     * Constructor that creates a socket using portDefRobot number and IP address parameters passed in
      *
      * @param portNum
      * @param ip
      * @throws Exception
      */
-    public SocketConnection(int portNum, String ip) throws Exception{
+    public SocketConnectionRobot(int portNum, String ip) throws Exception{
         socket = new Socket(ip, portNum);
         os = new OutputStreamWriter(socket.getOutputStream());
     }
