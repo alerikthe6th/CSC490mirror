@@ -2,6 +2,7 @@ package edu.augustana.csc490.androidbrainapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
+
 import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,12 +23,16 @@ public class MainActivity extends AppCompatActivity {
     public static final String portDefRobot = "4567"; //constant initially set for a default portDefRobot number
     public static final String portDefCam = "5678"; // port constant for camera
     public static final String ipDefRobot = "172.20.10.2"; //constant initially set for a default IP address
-    public static final String ipDefCam = "255.255.255.255"; //constant for IP address of the camera
+    public static final String ipDefCam = "10.100.9.174"; //constant for IP address of the camera
+    public static final String ipDefCam2 = "10.100.25.114"; //constant for IP address of the camera
+
 
     private EditText etAddressRobot;
     private EditText etPortRobot;
     private int portNumRobot;
     private String addressStringRobot;
+
+    private String filePath; //destination of our created directory to overwrite a picture file
 
     private EditText etAddressCamera;
     private EditText etPortCamera;
@@ -35,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences prefs;
     public SharedPreferences.Editor editor;
 
-    protected static SocketConnection mSocketConnectionRobot = null;
-    protected static SocketConnection mSocketConnectionCamera = null;
+    protected static SocketConnectionRobot mSocketConnectionRobot = null;
+    protected static SocketConnectionCamera mSocketConnectionCamera = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,16 @@ public class MainActivity extends AppCompatActivity {
         etPortCamera.addTextChangedListener(portTWCamera);
         etAddressCamera.addTextChangedListener(addressTWCamera);
 
+        //creates the file directory for our camera sensor
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"AugustanaRobotImgs");
+        if(!storageDir.exists()){
+            Log.d("here", "we are within the mkdir statement");
+            storageDir.mkdir();
+        }
+        filePath = storageDir.getPath()+"/image.png";
+
+        Log.d("filepath made:", "filePath: " + filePath.toString());
+
 
 
         //sets the edit text fields if there is a "default" usage in the past
@@ -88,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * set default IP and Port number with Abby's phone as a wifi hotspot
-     * TODO: SET BACK TO THIS DEFAULT
      * @param view
      */
     public void setDefaultDestination(View view) {
@@ -99,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
 
         etAddressRobot.setText(ipDefRobot);
         etPortRobot.setText(portDefRobot);
+
+        etAddressCamera.setText(ipDefCam2);
+        etPortCamera.setText(portDefCam);
 
         //camera connection defaults
        // etAddressCamera.setText(prefs.getString("ip_address_camera", "Not Found"));
@@ -116,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(portNumRobot > 0 && addressStringRobot != null) {
             Log.d("values", "" + portNumRobot + ", " + addressStringRobot);
-            mSocketConnectionRobot = new SocketConnection(portNumRobot, addressStringRobot);
+            mSocketConnectionRobot = new SocketConnectionRobot(portNumRobot, addressStringRobot);
 
             //remove later to a different button
             Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
@@ -130,14 +149,16 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Converts the portDefRobot and ipDefRobot address fields from their appropriate edit text fields and creates a socket connection object
      * to connect the android device to the lejos robot
-     * TODO: CURRENTLY NOT BEING USED BY  BUTTON
      * @param view
      * @throws Exception
      */
     public void connectToSocketCamera(View view) throws Exception{
 
         if(portNumCamera > 0 && addressStringCamera != null) {
-            mSocketConnectionCamera = new SocketConnection(portNumCamera, addressStringCamera);
+            mSocketConnectionCamera = new SocketConnectionCamera(portNumCamera, addressStringCamera, filePath);
+
+            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+            startActivity(intent);
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
@@ -191,10 +212,6 @@ public class MainActivity extends AppCompatActivity {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
     };
 
-    /*
-    TODO: FIX THESE WATCHERS BELOW
-
-     */
 
     // text watcher object for converting the edit text field for the portDefRobot string to an integer
     private TextWatcher portTWCamera = new TextWatcher() {
