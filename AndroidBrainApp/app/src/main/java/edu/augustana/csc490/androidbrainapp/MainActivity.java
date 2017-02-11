@@ -159,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void connectToSocketCamera(View view) throws Exception{
         if(valueOf(portNumCamera) > 0 && addressStringCamera != null) {
-            mSocketConnectionCamera = new SocketConnectionCamera(portNumCamera, addressStringCamera, filePath);            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
-
+            mSocketConnectionCamera = new SocketConnectionCamera(valueOf(portNumCamera), addressStringCamera, filePath);
+            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
             startActivity(intent);
         } else {
