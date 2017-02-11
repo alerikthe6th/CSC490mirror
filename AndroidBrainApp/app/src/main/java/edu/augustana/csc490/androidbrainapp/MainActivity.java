@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText etAddressCamera;
     private EditText etPortCamera;
-    private String portNumCamera;
+    private int portNumCamera;
     private String addressStringCamera;
 
     public SharedPreferences prefs;
@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * set default IP and Port number with Abby's phone as a wifi hotspot
-     * TODO: SET BACK TO THIS DEFAULT
      * @param view
      */
     public void setDefaultDestination(View view) {
@@ -159,10 +158,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void connectToSocketCamera(View view) throws Exception{
         if(valueOf(portNumCamera) > 0 && addressStringCamera != null) {
-            mSocketConnectionCamera = new SocketConnectionCamera(valueOf(portNumCamera), addressStringCamera, filePath);
+            mSocketConnectionCamera = new SocketConnectionCamera(portNumCamera, addressStringCamera, filePath);
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+//            startActivity(intent);
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
         }
@@ -211,14 +210,14 @@ public class MainActivity extends AppCompatActivity {
         //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
-                portNumCamera = s.toString();
+                portNumCamera = parseInt(s.toString());
             }catch(NumberFormatException e) {
                 e.printStackTrace();
             }
         }
         public void afterTextChanged(Editable s) {
             //save new port num to sharedPrefs
-            editor.putString(CAMERA_PORT_PREFS, portNumCamera);
+            editor.putInt(CAMERA_PORT_PREFS, portNumCamera);
             editor.commit();
         }
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
