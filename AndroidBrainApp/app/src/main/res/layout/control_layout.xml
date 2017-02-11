@@ -1,50 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.augustana.csc490.androidbrainapp.CameraViewFrag"
     android:id="@+id/ControlsLayout">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:id="@+id/imageViewCam"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnBackward"
-        android:layout_below="@+id/btnLeft"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="59dp"
-        android:background="@drawable/back_arrow" />
+        android:layout_marginTop="68dp"
+        android:background="@drawable/back_arrow"
+        android:layout_below="@+id/btnRight"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnForward"
-        android:layout_marginBottom="60dp"
         android:background="@drawable/front_arrow"
         android:longClickable="false"
         android:layout_above="@+id/btnRight"
-        android:layout_toLeftOf="@+id/btnRight"
-        android:layout_toStartOf="@+id/btnRight" />
+        android:layout_alignLeft="@+id/btnBackward"
+        android:layout_alignStart="@+id/btnBackward"
+        android:layout_marginBottom="48dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRight"
+        android:background="@drawable/right_arrow"
+        android:layout_alignBaseline="@+id/btnLeft"
+        android:layout_alignBottom="@+id/btnLeft"
+        android:layout_toRightOf="@+id/btnForward"
+        android:layout_toEndOf="@+id/btnForward"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnLeft"
         android:background="@drawable/left_arrow"
-        android:layout_marginRight="18dp"
-        android:layout_marginEnd="18dp"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/btnBackward"
-        android:layout_toStartOf="@+id/btnBackward" />
+        android:layout_toLeftOf="@+id/btnForward"
+        android:layout_toStartOf="@+id/btnForward"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp" />
 
     <Button
+        android:text="Start Camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:id="@+id/btnRight"
-        android:background="@drawable/right_arrow"
-        android:layout_above="@+id/btnBackward"
-        android:layout_toRightOf="@+id/btnBackward"
-        android:layout_toEndOf="@+id/btnBackward" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btnStart" />
+
+    <Button
+        android:text="Stop Camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnStart"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/btnStop" />
+
 </RelativeLayout>

@@ -50,6 +50,7 @@ public class CameraViewFrag extends Fragment {
         ivCamView.setRotation(90);
 
 
+
         btnStart = (Button) rootView.findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,8 +113,8 @@ public class CameraViewFrag extends Fragment {
      *
      * public data field so the object can have its data changed
      */
-    private static class Map{
-        public Bitmap bm;
+    protected static class Map{
+        protected Bitmap bm;
     }
 
 

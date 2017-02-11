@@ -1,13 +1,18 @@
 package edu.augustana.csc490.androidbrainapp;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.support.v4.app.Fragment;
+
+import java.io.IOException;
 
 /**
  * Created by hamby on 1/29/2017.
@@ -18,6 +23,11 @@ public class ManualControlsFrag extends Fragment {
     Button btnBackward;
     Button btnLeft;
     Button btnRight;
+
+    private Button btnStart;
+    private ImageView imageViewCam;
+    private boolean stop;
+    private Button btnStop;
 
     // newInstance constructor for creating fragment with arguments
     public static ManualControlsFrag newInstance() {
@@ -50,6 +60,8 @@ public class ManualControlsFrag extends Fragment {
         btnLeft = (Button)rootView.findViewById(R.id.btnLeft);
         btnForward = (Button)rootView.findViewById(R.id.btnForward);
         btnBackward = (Button)rootView.findViewById(R.id.btnBackward);
+        imageViewCam = (ImageView) rootView.findViewById(R.id.imageViewCam);
+        imageViewCam.setRotation(90);
 
         btnForward.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -148,7 +160,63 @@ public class ManualControlsFrag extends Fragment {
             }
         });
 
+        btnStart = (Button) rootView.findViewById(R.id.btnStart);
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        while(!stop){
+                            Log.d("START","Running");
+                            try {
+                                Log.d("Socket","Requesting Image");
+                                final CameraViewFrag.Map map = new CameraViewFrag.Map();
+                                map.bm = MainActivity.mSocketConnectionCamera.requestImg();
+
+                                Log.d("Socket","Image recieve");
+                                Log.d("ImageView","BitMap byte Count ="+map.bm.getByteCount());
+
+                                Log.d("Image View","Set Image View");
+                                getActivity().runOnUiThread(new Runnable() { //todo: check here
+                                    @Override
+                                    public void run() {
+
+                                        Log.d("ImageView","Change Image View");
+                                        imageViewCam.setImageBitmap(map.bm);
+                                        //ivCamView.invalidate();
+                                        Log.d("ImageView", "Current File: "+map.bm.toString());
+
+                                    }
+                                });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+
+            }
+        });
+        btnStop = (Button)rootView.findViewById(R.id.btnStop);
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Socket","Stop Transfer");
+                stop = true;
+                try{
+                    Log.d("Socket","Called SocketConnectionRobot.stopTranfer");
+                    MainActivity.mSocketConnectionCamera.stopTransfer();
+                } catch(IOException e ){
+                    e.printStackTrace();
+                }
+                MainActivity.mSocketConnectionCamera.closeSocket();
+            }
+        });
+
+
         //display the view
         return rootView;
     }
+
 }
