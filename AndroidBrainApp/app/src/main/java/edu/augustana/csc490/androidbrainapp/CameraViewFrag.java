@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -26,6 +27,7 @@ public class CameraViewFrag extends Fragment {
     private boolean stop;
     private Button btnStop;
     MainActivity mainActivity;
+    private TextView tvDetRegion;
 
     private Color2 target = new Color2(150, 50, 50); //color red
 
@@ -44,7 +46,7 @@ public class CameraViewFrag extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.camview_layout, container, false);
 
-
+        tvDetRegion = (TextView) rootView.findViewById(R.id.tvDetRegion);
         ivCamView = (ImageView)rootView.findViewById(R.id.imageView);
         ivCamView.setRotation(90);
 
@@ -128,12 +130,7 @@ public class CameraViewFrag extends Fragment {
         }
         //get what region most matches were in
         int region = t1.region;
-        System.out.println(region);
-        System.out.println(region);
-        System.out.println(region);
-        System.out.println(region);
-        System.out.println(region);
-        System.out.println(region);
+        tvDetRegion.setText("Detected Region: " + region);
         //TODO: choose what to do based on region
 
     }
