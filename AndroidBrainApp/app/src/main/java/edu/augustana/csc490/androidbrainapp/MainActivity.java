@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         etAddressRobot.setText(ipDefRobot);
         etPortRobot.setText(portDefRobot);
 
-        etAddressCamera.setText(ipDefCam2);
+        etAddressCamera.setText(ipDefCam);
         etPortCamera.setText(portDefCam);
 
         //camera connection defaults
@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             //remove later to a different button
-            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+//            startActivity(intent);
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
@@ -161,6 +161,9 @@ public class MainActivity extends AppCompatActivity {
         if (portNumCamera > 0 && addressStringCamera != null) {
             Log.d("we in here", "blah blha blha lbhalhblahblabhlhblah");
             mSocketConnectionCamera = new SocketConnectionCamera(portNumCamera, addressStringCamera, filePath);
+
+            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+            startActivity(intent);
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
         }

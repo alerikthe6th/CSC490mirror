@@ -25,6 +25,9 @@ public class CameraViewFrag extends Fragment {
     private  ImageView ivCamView;
     private boolean stop;
     private Button btnStop;
+    MainActivity mainActivity;
+
+    private Color2 target = new Color2(150, 50, 50); //color red
 
 
     public static CameraViewFrag newInstance() {
@@ -58,6 +61,8 @@ public class CameraViewFrag extends Fragment {
                                 Log.d("Socket","Requesting Image");
                                 final Map map = new Map();
                                 map.bm = MainActivity.mSocketConnectionCamera.requestImg();
+                                Bitmap temp = map.bm;
+                                processImage(temp);
 
                                 Log.d("Socket","Image recieve");
                                 Log.d("ImageView","BitMap byte Count ="+map.bm.getByteCount());
@@ -68,6 +73,8 @@ public class CameraViewFrag extends Fragment {
                                     public void run() {
 
                                         Log.d("ImageView","Change Image View");
+
+
                                         ivCamView.setImageBitmap(map.bm);
                                         //ivCamView.invalidate();
                                         Log.d("ImageView", "Current File: "+map.bm.toString());
@@ -110,6 +117,27 @@ public class CameraViewFrag extends Fragment {
     public static class Map{
         protected Bitmap bm;
     }
+
+    public void processImage(Bitmap bmp) {
+
+        SearchRunnable t1 = new SearchRunnable(bmp, target);
+        Thread thread = new Thread(t1);
+        thread.start();
+        while(thread.isAlive()){
+            //wait for thread to finish
+        }
+        //get what region most matches were in
+        int region = t1.region;
+        System.out.println(region);
+        System.out.println(region);
+        System.out.println(region);
+        System.out.println(region);
+        System.out.println(region);
+        System.out.println(region);
+        //TODO: choose what to do based on region
+
+    }
+
 
 
 }

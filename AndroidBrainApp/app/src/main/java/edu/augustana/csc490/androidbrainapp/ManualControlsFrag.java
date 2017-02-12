@@ -3,7 +3,6 @@ package edu.augustana.csc490.androidbrainapp;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;

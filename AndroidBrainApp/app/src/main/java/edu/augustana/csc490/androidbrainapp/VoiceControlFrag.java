@@ -48,7 +48,7 @@ public class VoiceControlFrag extends Fragment {
         tvSpeechInput = (TextView) rootView.findViewById(R.id.tvSpeechInput);
         tvCommand = (TextView) rootView.findViewById(R.id.tvCommand);
         btnSpeak = (ImageButton) rootView.findViewById(R.id.btnSpeak);
-        btnStop = (Button) rootView.findViewById(R.id.btnStop);
+        btnStop = (Button) rootView.findViewById(R.id.btnStopCam);
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
