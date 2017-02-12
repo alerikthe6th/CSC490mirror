@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
     // data field and buttons
     public static final String portDefRobot = "4567"; //constant initially set for a default portDefRobot number
     public static final String portDefCam = "5678"; // port constant for camera
-    public static final String ipDefRobot = "172.20.10.2"; //constant initially set for a default IP address
+    public static final String ipDefRobot = "172.20.10.4"; //constant initially set for a default IP address
     public static final String ipDefCam = "10.100.9.174"; //constant for IP address of the camera
-    public static final String ipDefCam2 = "10.100.25.114"; //constant for IP address of the camera
+    public static final String ipDefCam2 = "172.20.10.3"; //constant for IP address of the camera
 
 
     public static final String ROBOT_IP_PREFS = "ip_address_robot";
@@ -156,17 +156,16 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      * @throws Exception
      */
-    public void connectToSocketCamera(View view) throws Exception{
-        if(valueOf(portNumCamera) > 0 && addressStringCamera != null) {
+    public void connectToSocketCamera(View view) throws Exception {
+        Log.d("button pressed", "you tried to connect the camera socket");
+        if (portNumCamera > 0 && addressStringCamera != null) {
+            Log.d("we in here", "blah blha blha lbhalhblahblabhlhblah");
             mSocketConnectionCamera = new SocketConnectionCamera(portNumCamera, addressStringCamera, filePath);
-            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-//            startActivity(intent);
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
         }
-    }
 
+    }
     // text watcher object for converting the edit text field for the portDefRobot string to an integer
     private TextWatcher portTWRobot = new TextWatcher() {
         //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
@@ -263,9 +262,9 @@ public class MainActivity extends AppCompatActivity {
             etPortRobot.setText(temp);
         }
         //check camera device port number
-        temp = prefs.getString(CAMERA_PORT_PREFS, null);
-        if(temp != null) {
-            etPortCamera.setText(temp);
-        }
+//        temp = prefs.getString(CAMERA_PORT_PREFS, null);
+//        if(temp != null) {
+//            etPortCamera.setText(temp);
+//        }
     }
 }

@@ -26,8 +26,6 @@ public class CameraViewFrag extends Fragment {
     private boolean stop;
     private Button btnStop;
 
-    private final String tag = "SurfaceViewFragment";
-
 
     public static CameraViewFrag newInstance() {
         CameraViewFrag camView_control = new CameraViewFrag();
@@ -43,13 +41,9 @@ public class CameraViewFrag extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.camview_layout, container, false);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
         ivCamView = (ImageView)rootView.findViewById(R.id.imageView);
         ivCamView.setRotation(90);
-
-
 
         btnStart = (Button) rootView.findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +107,7 @@ public class CameraViewFrag extends Fragment {
      *
      * public data field so the object can have its data changed
      */
-    protected static class Map{
+    public static class Map{
         protected Bitmap bm;
     }
 

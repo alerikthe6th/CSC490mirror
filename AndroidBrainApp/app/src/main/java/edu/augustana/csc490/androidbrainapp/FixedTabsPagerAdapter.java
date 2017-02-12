@@ -19,7 +19,7 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
     }
 
     public int getCount(){
-        return 4;
+            return 4;
     } //increment every time a fragment is added
 
     public Fragment getItem(int itemPos){

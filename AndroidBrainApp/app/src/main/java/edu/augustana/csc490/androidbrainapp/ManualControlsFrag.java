@@ -1,7 +1,9 @@
 package edu.augustana.csc490.androidbrainapp;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -160,7 +162,7 @@ public class ManualControlsFrag extends Fragment {
             }
         });
 
-        btnStart = (Button) rootView.findViewById(R.id.btnStart);
+        btnStart = (Button) rootView.findViewById(R.id.btnStartCam);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +173,7 @@ public class ManualControlsFrag extends Fragment {
                             Log.d("START","Running");
                             try {
                                 Log.d("Socket","Requesting Image");
-                                final CameraViewFrag.Map map = new CameraViewFrag.Map();
+                                final Map map = new Map();
                                 map.bm = MainActivity.mSocketConnectionCamera.requestImg();
 
                                 Log.d("Socket","Image recieve");
@@ -198,7 +200,7 @@ public class ManualControlsFrag extends Fragment {
 
             }
         });
-        btnStop = (Button)rootView.findViewById(R.id.btnStop);
+        btnStop = (Button)rootView.findViewById(R.id.btnStopCam);
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,6 +219,10 @@ public class ManualControlsFrag extends Fragment {
 
         //display the view
         return rootView;
+    }
+
+    private static class Map{
+        protected Bitmap bm;
     }
 
 }
