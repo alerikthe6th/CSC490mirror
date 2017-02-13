@@ -9,6 +9,9 @@ import edu.augustana.csc490.androidbrainapp.Fragments.OptionsFrag;
 import edu.augustana.csc490.androidbrainapp.Fragments.VoiceControlFrag;
 
 /**
+ * This adapter class organizes all the fragments in into a view pager object that will be displayed
+ * in the select controls activity
+ *
  * Created by hamby on 1/29/2017.
  */
 
@@ -20,7 +23,7 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
 
     public int getCount(){
             return 4;
-    } //increment every time a fragment is added
+    } //increment every time a fragment is added and decrement every time project
 
     public Fragment getItem(int itemPos){
         switch(itemPos){
@@ -32,6 +35,12 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
         return null;
     }
 
+    /**
+     * sets the fragment title in the view pager
+     *
+     * @param position
+     * @return
+     */
     public CharSequence getPageTitle(int position){
         switch(position){
             case 0: return "Manual Control";

@@ -43,11 +43,12 @@ public class SocketConnectionRobot {
         os.flush();
     }
 
+    /**
+     * void method that closes the socket
+     */
     public void closeSocket() {
-
         try {
             socket.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

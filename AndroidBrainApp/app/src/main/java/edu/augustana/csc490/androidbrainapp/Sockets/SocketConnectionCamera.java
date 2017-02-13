@@ -1,6 +1,10 @@
 package edu.augustana.csc490.androidbrainapp.Sockets;
 
 /**
+ * This class allows us to connect our main device to a device that contains our camera sensor
+ *
+ * The constructor creates a socket that allows us to connect to the camera
+ *
  * Created by Alerik Vi on 2/11/2017.
  */
 import android.graphics.Bitmap;
@@ -30,18 +34,27 @@ public class SocketConnectionCamera {
 
 
     public SocketConnectionCamera (int portNum, String ip, String fp) throws Exception{
-        Log.d("SocketConnectionRobot", "Here");
+
+        //create the socket
         socket = new Socket(ip, portNum);
-        Log.d("SocketConnectionRobot","Socket Created");
+
+        //set the streams and file directories
         os = new OutputStreamWriter(socket.getOutputStream());
         filePath = fp;
         bis = new BufferedInputStream(socket.getInputStream());
-        dis = new DataInputStream(bis);
-        count = 0;
         File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "AugustanaRobotImgs");
+        count = 0;
+        dis = new DataInputStream(bis);
         imageFile = new File(storageDir,"image.png");
-        Log.d("imageFile status:","imageFile: " + imageFile.toString());
     }
+
+    /**
+     * sends a request for th eimage with the key string "pic" that returns a bitmap image
+     * that from loadIntoMem()
+     *
+     * @return
+     * @throws IOException
+     */
     public Bitmap requestImg() throws IOException{
         Log.d("Socket", "Send pic");
         os.write("pic"+"\n");
@@ -57,22 +70,27 @@ public class SocketConnectionCamera {
         os.flush();
     }
 
+    /**
+     * a file length from the data input stream is obtained and
+     * creates a byte array to store the image to the designated filepath
+     *
+     * @return
+     * @throws IOException
+     */
     private Bitmap loadIntoMem() throws IOException{
-        Log.d("Socket", "In LOADINTOMEM");
         int fileLength = dis.readInt();
-        Log.d("Socket","File Length = "+fileLength);
         byte[] fileByArray = new byte[fileLength];
         dis.readFully(fileByArray);
-        Log.d("Socket","Read File IN!!!!!!");
-        Log.d("Socket","Start to write to file");
         fos = new FileOutputStream(imageFile, false);
         fos.write(fileByArray);
         fos.close();
-        Log.d("Socket","File writen Complete");
-        Log.d("File","Image File Size = "+imageFile);
 
         return BitmapFactory.decodeFile(filePath);
     }
+
+    /**
+     * void method that closes the socket
+     */
     public void closeSocket(){
         try{
             Log.d("Socket","Socket Closed");

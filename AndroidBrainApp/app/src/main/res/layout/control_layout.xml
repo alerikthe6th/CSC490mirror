@@ -21,24 +21,6 @@
 
 
     <Button
-            android:text="Start Camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/btnStartCam" />
-
-        <Button
-            android:text="Stop Camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/btnStart"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/btnStopCam" />
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnRight"
@@ -78,5 +60,25 @@
         android:layout_alignEnd="@+id/btnBackward"
         android:layout_alignLeft="@+id/btnBackward"
         android:layout_alignStart="@+id/btnBackward" />
+
+    <Button
+            android:text="Start Camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        android:id="@+id/btnStartCam"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp" />
+
+    <Button
+            android:text="Stop Camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        android:id="@+id/btnStopCam"
+        android:layout_alignBaseline="@+id/btnStartCam"
+        android:layout_alignBottom="@+id/btnStartCam"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

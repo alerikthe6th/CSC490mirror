@@ -25,35 +25,37 @@ import static java.lang.Integer.valueOf;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    //IP/port defaults
+    //IP and port defaults
     public static final String portDefRobot = "4567"; //constant initially set for a default portDefRobot number
     public static final String portDefCam = "5678"; // port constant for camera
     public static final String ipDefRobot = "172.20.10.4"; //constant initially set for a default IP address
     public static final String ipDefCam = "10.100.27.108"; //constant for IP address of the camera
     public static final String ipDefCam2 = "172.20.10.3"; //constant for IP address of the camera
 
-
+    //Shared preferences tags
     public static final String ROBOT_IP_PREFS = "ip_address_robot";
     public static final String ROBOT_PORT_PREFS = "port_num_robot";
     public static final String CAMERA_IP_PREFS = "ip_address_cam";
     public static final String CAMERA_PORT_PREFS = "port_num_cam";
 
+    //xml widgets
     private EditText etAddressRobot;
     private EditText etPortRobot;
     private String portNumRobot;
     private String addressStringRobot;
 
+    //file path to create/use to retrieve and store pictures to
     private String filePath; //destination of our created directory to overwrite a picture file
 
+    //data fields for the shared prefs
     private EditText etAddressCamera;
     private EditText etPortCamera;
     private String portNumCamera;
     private String addressStringCamera;
-
     public SharedPreferences prefs;
     public SharedPreferences.Editor editor;
 
+    //our socket connection objects
     public static SocketConnectionRobot mSocketConnectionRobot = null;
     public static SocketConnectionCamera mSocketConnectionCamera = null;
 
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         prefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
         editor = prefs.edit();
+
 
         //editor.clear(); //this is used to clear the shared preferences
 
@@ -98,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
             storageDir.mkdir();
         }
         filePath = storageDir.getPath()+"/image.png";
-
-        //Log.d("filepath made:", "filePath: " + filePath.toString());
 
         checkPrefs();
     }
@@ -138,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             //remove later to a different button
-            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+//            startActivity(intent);
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
@@ -156,8 +157,8 @@ public class MainActivity extends AppCompatActivity {
         if (parseInt(portNumCamera)> 0 && addressStringCamera != null) {
             mSocketConnectionCamera = new SocketConnectionCamera(parseInt(portNumCamera), addressStringCamera, filePath);
 
-//            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+            startActivity(intent);
 
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {

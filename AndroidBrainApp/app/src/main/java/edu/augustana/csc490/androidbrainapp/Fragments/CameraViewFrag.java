@@ -211,7 +211,7 @@ public class CameraViewFrag extends Fragment {
             if (region == 0 || region == 1) {
                 MainActivity.mSocketConnectionRobot.sendMessage("setright");
             } else if( region == 3 || region == 4) {
-                MainActivity.mSocketConnectionRobot.sendMessage("setright");
+                MainActivity.mSocketConnectionRobot.sendMessage("setleft");
             } else if(region == 2) { //our center case
                 MainActivity.mSocketConnectionRobot.sendMessage("setforward");
             } else {
@@ -250,8 +250,8 @@ public class CameraViewFrag extends Fragment {
         Color2 temp = new Color2();
 
         //iterates through the given region
-        for(int y =  startY; y < stopY; y++) {
-            for(int x = 0; x < width; x++) {
+        for(int y =  startY; y < stopY; y += 5) {
+            for(int x = 0; x < width; x += 5) {
                 // get pixel color
                 pixel = image.getPixel(x, y);
                 //update temp color to be color of current pixel

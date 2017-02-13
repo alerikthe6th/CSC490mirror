@@ -114,8 +114,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnConnectCamera"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="11dp"
         android:layout_below="@+id/btnConnectSocket"
         android:layout_alignRight="@+id/btnConnectSocket"
         android:layout_alignEnd="@+id/btnConnectSocket"

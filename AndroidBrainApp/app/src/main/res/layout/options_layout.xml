@@ -4,24 +4,12 @@
     android:layout_height="match_parent">
 
     <Button
-        android:text="Disconnect Robot"
+        android:text="Disconnect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnDisconnectRobot"
         android:layout_marginTop="99dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Disconnect Camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnDisconnectCamera"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/btnDisconnectRobot"
-        android:layout_alignLeft="@+id/btnDisconnectRobot"
-        android:layout_alignStart="@+id/btnDisconnectRobot"
-        android:layout_alignRight="@+id/btnDisconnectRobot"
-        android:layout_alignEnd="@+id/btnDisconnectRobot" />
 
 </RelativeLayout>

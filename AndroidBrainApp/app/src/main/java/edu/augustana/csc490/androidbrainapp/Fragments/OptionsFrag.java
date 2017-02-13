@@ -70,7 +70,9 @@ public class OptionsFrag extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(context, "Disconnecting sockets", Toast.LENGTH_SHORT);
                                 MainActivity.mSocketConnectionRobot.closeSocket();
-                                MainActivity.mSocketConnectionCamera.closeSocket();
+                                if(MainActivity.mSocketConnectionCamera != null) {
+                                    MainActivity.mSocketConnectionCamera.closeSocket();
+                                }
                                 Intent intent = new Intent(context, MainActivity.class); 
                                 startActivity(intent);
                                 //finish();

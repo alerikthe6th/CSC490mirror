@@ -32,7 +32,7 @@ public class ManualControlsFrag extends Fragment {
     protected boolean stop;
     public boolean isMoving;
     private Button btnStop;
-    private boolean threadCreated=false;
+    private boolean threadCreated = false;
 
 
 
