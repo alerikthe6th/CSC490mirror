@@ -20,11 +20,10 @@ import java.io.IOException;
  */
 
 public class ManualControlsFrag extends Fragment {
-    Button btnForward;
-    Button btnBackward;
-    Button btnLeft;
-    Button btnRight;
-
+    private Button btnForward;
+    private Button btnBackward;
+    private Button btnLeft;
+    private Button btnRight;
     private Button btnStart;
     private ImageView imageViewCam;
     private boolean stop;
@@ -219,7 +218,12 @@ public class ManualControlsFrag extends Fragment {
         //display the view
         return rootView;
     }
-
+    /**
+     * this static class allows us to be redefine a paramter
+     * being sent from a thread
+     *
+     * public data field so the object can have its data changed
+     */
     private static class Map{
         protected Bitmap bm;
     }

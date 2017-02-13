@@ -21,9 +21,9 @@ import android.support.v4.app.Fragment;
 
 public class OptionsFrag extends Fragment {
 
-    Button btnDisconnectRobot;
-    Button btnDisconnectCamera;
-    Context context;
+    private Button btnDisconnectRobot;
+    private Button btnDisconnectCamera;
+    private Context context;
 
     public static OptionsFrag newInstance() {
         OptionsFrag optionsFrag = new OptionsFrag();
