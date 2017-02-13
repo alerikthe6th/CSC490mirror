@@ -29,6 +29,9 @@ import static java.lang.Integer.valueOf;
 public class MainActivity extends AppCompatActivity {
 
     // data field and buttons
+
+
+    //IP/port defaults
     public static final String portDefRobot = "4567"; //constant initially set for a default portDefRobot number
     public static final String portDefCam = "5678"; // port constant for camera
     public static final String ipDefRobot = "172.20.10.4"; //constant initially set for a default IP address
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText etAddressCamera;
     private EditText etPortCamera;
-    private int portNumCamera;
+    private String portNumCamera;
     private String addressStringCamera;
 
     public SharedPreferences prefs;
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
         editor = prefs.edit();
 
+        //editor.clear();
+
         /**
          * Strict mode is a developer tool which detects things one might be doing by accident and brings them to
          * the developer's attention so they can be fixed i.e. catching accidental disk errors or network access
@@ -80,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
          */
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        //verifyStoragePermissions(getCo);
 
         //link the buttons to the activity layout
         etAddressRobot = (EditText) findViewById(R.id.etAddressRobot);
@@ -102,29 +105,12 @@ public class MainActivity extends AppCompatActivity {
         //creates the file directory for our camera sensor
         File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"AugustanaRobotImgs");
         if(!storageDir.exists()){
-            Log.d("here", "we are within the mkdir statement");
             storageDir.mkdir();
         }
         filePath = storageDir.getPath()+"/image.png";
 
-        Log.d("filepath made:", "filePath: " + filePath.toString());
+        //Log.d("filepath made:", "filePath: " + filePath.toString());
 
-
-
-        //sets the edit text fields if there is a "default" usage in the past
-//        if(prefs.getString("ip_address_robot", null) != null) {
-//            etAddressRobot.setText(prefs.getString("ip_address_robot", null));
-//        }
-//        if(prefs.getString("ip_address_camera", null) != null) {
-//            etAddressCamera.setText(prefs.getString("ip_address_camera", null));
-//        }
-//        if(prefs.getInt("port_num_robot", -1) != -1) {
-//            etPortRobot.setText("" + prefs.getInt("port_num_robot", -1));
-//        }
-//        if(prefs.getInt("port_num_camera", -1) != -1) {
-//            etPortCamera.setText("" + prefs.getInt("port_num_camera", -1));
-//        }
-        //load shared preference values
         checkPrefs();
     }
 
@@ -140,9 +126,6 @@ public class MainActivity extends AppCompatActivity {
         etAddressCamera.setText(ipDefCam);
         etPortCamera.setText(portDefCam);
 
-        //camera connection defaults
-       // etAddressCamera.setText(prefs.getString("ip_address_camera", "Not Found"));
-       // etPortCamera.setText(prefs.getString("port_num_camera", "1234"));
     }
 
     /**
@@ -174,13 +157,13 @@ public class MainActivity extends AppCompatActivity {
      * @throws Exception
      */
     public void connectToSocketCamera(View view) throws Exception {
-        Log.d("button pressed", "you tried to connect the camera socket");
-        if (portNumCamera > 0 && addressStringCamera != null) {
-            Log.d("we in here", "blah blha blha lbhalhblahblabhlhblah");
-            mSocketConnectionCamera = new SocketConnectionCamera(portNumCamera, addressStringCamera, filePath);
+        if (parseInt(portNumCamera)> 0 && addressStringCamera != null) {
+            mSocketConnectionCamera = new SocketConnectionCamera(parseInt(portNumCamera), addressStringCamera, filePath);
 
             Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
             startActivity(intent);
+
+            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
         }
@@ -229,26 +212,28 @@ public class MainActivity extends AppCompatActivity {
         //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
-                portNumCamera = parseInt(s.toString());
+                portNumCamera = s.toString();
             }catch(NumberFormatException e) {
                 e.printStackTrace();
             }
         }
         public void afterTextChanged(Editable s) {
             //save new port num to sharedPrefs
-            editor.putInt(CAMERA_PORT_PREFS, portNumCamera);
+            editor.putString(CAMERA_PORT_PREFS, portNumCamera);
             editor.commit();
         }
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
     };
 
-    // text watcher object for passing the string in the ipDefRobot address edit text field to a data field of the
-    // main activity class
+    /**
+     * text watcher object for passing the string in the ipDefRobot address edit text field to a data field of the
+     * main activity class
+     *
+     */
     private TextWatcher addressTWCamera = new TextWatcher() {
         //THE INPUT ELEMENT IS ATTACHED TO AN EDITABLE,
         //THEREFORE THESE METHODS ARE CALLED WHEN THE TEXT IS CHANGED
-
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try{
                 addressStringCamera = s.toString();
@@ -264,6 +249,10 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * This method checks if a previously entered field has been set
+     *  if so, the method will fill the input fields with the previously typed in address
+     */
     public void checkPrefs(){
         String temp = null;
         //check robot ip address
@@ -282,27 +271,9 @@ public class MainActivity extends AppCompatActivity {
             etPortRobot.setText(temp);
         }
         //check camera device port number
-//        temp = prefs.getString(CAMERA_PORT_PREFS, null);
-//        if(temp != null) {
-//            etPortCamera.setText(temp);
-//        }
-    }
-
-    public void afterThreadFinished(int region){
-        this.region = region;
-    }
-
-    public static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
+        temp = prefs.getString(CAMERA_PORT_PREFS, null);
+        if(temp != null) {
+            etPortCamera.setText(temp);
         }
     }
 }

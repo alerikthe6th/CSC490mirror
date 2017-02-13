@@ -23,11 +23,14 @@ import edu.augustana.csc490.androidbrainapp.R;
 import static android.app.Activity.RESULT_OK;
 
 /**
+ * this class allows for voice recognition to be used to control the robot
+ *
  * Created by hamby on 1/29/2017.
  */
 
 public class VoiceControlFrag extends Fragment {
 
+    //XML data fields
     private TextView tvSpeechInput;
     private TextView tvCommand;
     private ImageButton btnSpeak;
@@ -48,6 +51,7 @@ public class VoiceControlFrag extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.voice_layout, container, false);
 
+        //SET ANDROID WIDGETS
         tvSpeechInput = (TextView) rootView.findViewById(R.id.tvSpeechInput);
         tvCommand = (TextView) rootView.findViewById(R.id.tvCommand);
         btnSpeak = (ImageButton) rootView.findViewById(R.id.btnSpeak);
@@ -69,6 +73,10 @@ public class VoiceControlFrag extends Fragment {
         return rootView;
     }
 
+    /**
+     * Uses intents to 
+     *
+     */
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,

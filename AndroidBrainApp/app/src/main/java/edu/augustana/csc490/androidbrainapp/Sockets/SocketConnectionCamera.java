@@ -29,7 +29,7 @@ public class SocketConnectionCamera {
     private File imageFile;
 
 
-    public SocketConnectionCamera (int portNum, String ip,String fp) throws Exception{
+    public SocketConnectionCamera (int portNum, String ip, String fp) throws Exception{
         Log.d("SocketConnectionRobot", "Here");
         socket = new Socket(ip, portNum);
         Log.d("SocketConnectionRobot","Socket Created");

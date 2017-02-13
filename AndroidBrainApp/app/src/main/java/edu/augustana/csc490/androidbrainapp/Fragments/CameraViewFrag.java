@@ -26,18 +26,26 @@ import edu.augustana.csc490.androidbrainapp.R;
 @SuppressWarnings("deprecation")
 public class CameraViewFrag extends Fragment {
 
+    //XML data fields
     private Button btnStart;
     private  ImageView ivCamView;
     private boolean stop;
     private Button btnStop;
-    MainActivity mainActivity;
     private TextView tvDetRegion;
     private int region = -1;
     public static final int ROWS = 5;
 
-    private Color2 target = new Color2(120, 50, 50); //color red
+    //color constants
+    private static final Color2 RED = new Color2(120, 50, 50); //color red
+    private static final Color2 GREEN = new Color2(120, 50, 50); //color green
+    private static final Color2 BLUE = new Color2(120, 50, 50); //color blue
+    private Color2 target = RED; //red is defaulted unless chosen otherwise
 
-
+    /**
+     * This is for the view pager to reference this fragment
+     *
+     * @return
+     */
     public static CameraViewFrag newInstance() {
         CameraViewFrag camView_control = new CameraViewFrag();
         return camView_control;
@@ -52,11 +60,14 @@ public class CameraViewFrag extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.camview_layout, container, false);
 
+        //SET THE XML widgets
         tvDetRegion = (TextView) rootView.findViewById(R.id.tvDetRegion);
         ivCamView = (ImageView)rootView.findViewById(R.id.imageView);
         ivCamView.setRotation(90);
 
         btnStart = (Button) rootView.findViewById(R.id.btnStart);
+
+        //allow the start button to request for picutres from the camera sensor app
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +80,8 @@ public class CameraViewFrag extends Fragment {
                                 final Map map = new Map();
                                 map.bm = MainActivity.mSocketConnectionCamera.requestImg();
                                 Bitmap temp = map.bm;
+
+                                //process the image
                                 processImage(temp);
 
                                 Log.d("ImageView","BitMap byte Count ="+map.bm.getByteCount());
@@ -78,10 +91,8 @@ public class CameraViewFrag extends Fragment {
                                     @Override
                                     public void run() {
 
-
+                                        //updates the image view
                                         ivCamView.setImageBitmap(map.bm);
-                                        //ivCamView.invalidate();
-                                        Log.d("ImageView", "Current File: "+map.bm.toString());
 
                                     }
                                 });
@@ -95,6 +106,8 @@ public class CameraViewFrag extends Fragment {
             }
         });
         btnStop = (Button)rootView.findViewById(R.id.btnStop);
+
+        //allows the stop button close the socket
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,30 +135,16 @@ public class CameraViewFrag extends Fragment {
         protected Bitmap bm;
     }
 
+    /**
+     * This is the method that detects our target color from the requested bitmap,
+     *
+     * this method will divide the our picture into 5 regions and call
+     * findColor.
+     *
+     * @param bmp
+     */
     public void processImage(Bitmap bmp)  {
-/*
 
-        Log.d("within Proc img","starting search runnable..");
-
-        SearchThread t1 = new SearchThread(bmp, target);
-        t1.start();
-        Log.d("search thread started","search thread started");
-        if(t1.isAlive()){
-            try {
-                t1.join(1000);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        Log.d("search thread is dead","search thread is ded");
-        //get what region most matches were in
-        int region = t1.region;
-//        tvDetRegion.setText("Detected Region: " + region);
-//        //TODO: choose what to do based on region
-        System.out.println("region: " + region);
-
-
-*/
         //accounts for pictures being sent in sideways
         int rowHeight = bmp.getHeight()/ ROWS;
         int maxFreq = -1;
@@ -159,7 +158,31 @@ public class CameraViewFrag extends Fragment {
             }
         }
         Log.d("color found","color found with region: " + region);
+        /**
+         * we divide the picture image into 5 regions, from 0 to 4, with our center region being region 2.
+         *
+         * If region 2 (our center region) detects the most instances of our target color, then move forward.
+         *
+         * regions 0 and 1 will turn the robot right.
+         *
+         * regions 3 and 4 will turn the robot to the left
+         *
+         * the robot will default with region 0 if nothing is found, prompting the robot to turn right until a target is found
+         */
         region = index;
+
+        try {
+            if (region == 0 || region == 1) {
+                MainActivity.mSocketConnectionRobot.sendMessage("setright");
+            } else if( region == 3 || region == 4) {
+                MainActivity.mSocketConnectionRobot.sendMessage("setleft");
+            } else if(region == 2) { //our center case
+                MainActivity.mSocketConnectionRobot.sendMessage("setforward");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -168,32 +191,28 @@ public class CameraViewFrag extends Fragment {
         });
     }
 
+    /**
+     * find color takes the pixel at its current iteration and compares it to our target color,
+     *
+     * allowing for a 15% margin of error. (this allows us to find like colors and nothing specific.
+     * a range of colors to be found so to speak.
+     *
+     * @param image
+     * @param startY
+     * @param stopY
+     * @return
+     */
     public int findColor(Bitmap image, int startY, int stopY) {
 
         // image size
         int width = image.getWidth();
-        int height = image.getHeight();
         int pixel, frequency = 0;
 
         Color2 temp = new Color2();
 
-//        // start the scan through the first region
-//        for (int y = 0; y < height; y++) {
-//            for (int x = startX; x < stopX; x++) {
-//                // get pixel color
-//                pixel = image.getPixel(x, y);
-//                //update temp color to be color of current pixel
-//                temp.setRed(Color.red(pixel));
-//                temp.setGreen(Color.green(pixel));
-//                temp.setBlue(Color.blue(pixel));
-//                if (temp.compareColor(target)) {
-//                    frequency++;
-//                }
-//            }
-//        }
-
-        for (int x = 0; x < width; x++) {
-            for (int y = startY; y < stopY; y++) {
+        //iterates through the given region
+        for(int y =  startY; y < stopY; y++) {
+            for(int x = 0; x < width; x++) {
                 // get pixel color
                 pixel = image.getPixel(x, y);
                 //update temp color to be color of current pixel
@@ -205,9 +224,7 @@ public class CameraViewFrag extends Fragment {
                 }
             }
         }
-
-
-
+        //returns the amount of occurences of the target color
         return frequency;
     }
 
