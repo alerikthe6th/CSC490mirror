@@ -38,11 +38,8 @@ public class CameraViewFrag extends Fragment {
     //XML data fields
     private Button btnStart;
     private Button btnStop;
-    //private Button btnChooseTarget;
     private ImageView ivCamView;
     private TextView tvDetRegion;
-
-    //private Dialog chooser;
 
     private boolean stop;
     private int region = -1;
@@ -78,18 +75,6 @@ public class CameraViewFrag extends Fragment {
         ivCamView = (ImageView)rootView.findViewById(R.id.imageView);
         ivCamView.setRotation(90);
 
-//        btnChooseTarget = (Button) rootView.findViewById(R.id.btnChooseTarget);
-//        btnChooseTarget.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getContext(), PopupColorChooserActivity.class));
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//                builder.setTitle("Choose a target color")
-//                        .setItems()
-//            }
-//        });
-
         btnStart = (Button) rootView.findViewById(R.id.btnStart);
         //btnStart.setEnabled(false);
         //allow the start button to request for pictures from the camera sensor app
@@ -110,14 +95,11 @@ public class CameraViewFrag extends Fragment {
                         while(!stop){
                             try {
                                 Log.d("Socket","Requesting Image");
-                                final Map map = new Map();
-                                map.bm = MainActivity.mSocketConnectionCamera.requestImg();
-                                Bitmap temp = map.bm;
+                                final Bitmap bm = MainActivity.mSocketConnectionCamera.requestImg();
 
                                 //process the image
-                                processImage(temp);
+                                processImage(bm);
 
-                                Log.d("ImageView","BitMap byte Count ="+map.bm.getByteCount());
 
                                 Log.d("Image View","Set Image View");
                                 getActivity().runOnUiThread(new Runnable() { //todo: check here
@@ -125,8 +107,7 @@ public class CameraViewFrag extends Fragment {
                                     public void run() {
 
                                         //updates the image view
-                                        ivCamView.setImageBitmap(map.bm);
-
+                                        ivCamView.setImageBitmap(bm);
                                     }
                                 });
                             } catch (IOException e) {
@@ -139,7 +120,6 @@ public class CameraViewFrag extends Fragment {
             }
         });
         btnStop = (Button)rootView.findViewById(R.id.btnStop);
-        //btnStop.setEnabled(false);
 
         //allows the stop button close the socket
         btnStop.setOnClickListener(new View.OnClickListener() {
@@ -160,17 +140,6 @@ public class CameraViewFrag extends Fragment {
 
         return rootView;
     }
-
-    /**
-     * this static class allows us to be redefine a parameter
-     * being sent from a thread
-     *
-     * public data field so the object can have its data changed
-     */
-    public static class Map{
-        protected Bitmap bm;
-    }
-
     /**
      * This is the method that detects our target color from the requested bitmap,
      *

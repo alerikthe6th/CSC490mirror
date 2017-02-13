@@ -18,6 +18,8 @@ import edu.augustana.csc490.androidbrainapp.Activities.MainActivity;
 import edu.augustana.csc490.androidbrainapp.R;
 
 /**
+ *
+ *
  * Created by hamby on 1/29/2017.
  */
 
@@ -29,7 +31,6 @@ public class ManualControlsFrag extends Fragment {
     private Button btnStart;
     private ImageView imageViewCam;
     protected boolean paused;
-    public boolean isMoving;
     private Button btnStop;
     private boolean threadWasStarted = false;
 
@@ -71,19 +72,23 @@ public class ManualControlsFrag extends Fragment {
         imageViewCam.setRotation(90);
         final ImageLoadingThread imgThread = new ImageLoadingThread();
 
-
+         /*
+         * sets a listener for the forward button that will move the robot forwards for however long the
+         * button is pressed.
+         *
+         * Stops from the button is depressed
+         *
+         */
         btnForward.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        isMoving = true;
                         MainActivity.mSocketConnectionRobot.sendMessage("forward");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
-                        isMoving = false;
                         MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
@@ -104,14 +109,12 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        isMoving = true;
                         MainActivity.mSocketConnectionRobot.sendMessage("back");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
-                        isMoving = false;
                         MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
@@ -132,14 +135,12 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        isMoving = true;
                         MainActivity.mSocketConnectionRobot.sendMessage("left");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
-                        isMoving = false;
                         MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
@@ -160,14 +161,12 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        isMoving = true;
                         MainActivity.mSocketConnectionRobot.sendMessage("right");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
-                        isMoving = false;
                         MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
@@ -187,47 +186,6 @@ public class ManualControlsFrag extends Fragment {
                     imgThread.start();
                     threadWasStarted = true;
                 }
-
-                /*AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(stop){
-                            try{
-                                MainActivity.mSocketConnectionCamera.requestImg();
-                            }catch(IOException e){
-                                e.printStackTrace();
-                            }
-                            stop = false;
-                        }
-                        while(!stop){
-                            Log.d("START","Running");
-                            try {
-                                Log.d("Socket","Requesting Image");
-                                final Map map = new Map();
-                                map.bm = MainActivity.mSocketConnectionCamera.requestImg();
-
-                                Log.d("Socket","Image recieve");
-                                Log.d("ImageView","BitMap byte Count ="+map.bm.getByteCount());
-
-                                Log.d("Image View","Set Image View");
-                                getActivity().runOnUiThread(new Runnable() { //todo: check here
-                                    @Override
-                                    public void run() {
-
-                                        Log.d("ImageView","Change Image View");
-                                        imageViewCam.setImageBitmap(map.bm);
-                                        //ivCamView.invalidate();
-                                        Log.d("ImageView", "Current File: "+map.bm.toString());
-
-                                    }
-                                });
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });*/
-
             }
         });
         btnStop = (Button)rootView.findViewById(R.id.btnStopCam);
