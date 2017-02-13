@@ -4,6 +4,9 @@ package edu.augustana.csc490.androidbrainapp.Fragments;
  * Created by Alerik Vi on 2/3/2017.
  */
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -19,19 +22,33 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
+import edu.augustana.csc490.androidbrainapp.Activities.PopupColorChooserActivity;
 import edu.augustana.csc490.androidbrainapp.Color2;
 import edu.augustana.csc490.androidbrainapp.Activities.MainActivity;
 import edu.augustana.csc490.androidbrainapp.R;
+
+/**
+ * This class allows for the robot to implement some sort of image processing.
+ *
+ * We do this utilizing the open socket with the Camera sensor app phone mounted on the robot
+ * The robot will provide a constant feed of bitmap images, for which this class
+ * divides up each image into region to detect the most occurrences of a target color, set
+ * by the user (choices are red, blue, green).
+ */
 
 @SuppressWarnings("deprecation")
 public class CameraViewFrag extends Fragment {
 
     //XML data fields
     private Button btnStart;
-    private  ImageView ivCamView;
-    private boolean stop;
     private Button btnStop;
+    private Button btnChooseTarget;
+    private ImageView ivCamView;
     private TextView tvDetRegion;
+
+    private Dialog chooser;
+
+    private boolean stop;
     private int region = -1;
     public static final int ROWS = 5;
 
@@ -65,8 +82,20 @@ public class CameraViewFrag extends Fragment {
         ivCamView = (ImageView)rootView.findViewById(R.id.imageView);
         ivCamView.setRotation(90);
 
-        btnStart = (Button) rootView.findViewById(R.id.btnStart);
+//        btnChooseTarget = (Button) rootView.findViewById(R.id.btnChooseTarget);
+//        btnChooseTarget.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), PopupColorChooserActivity.class));
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                builder.setTitle("Choose a target color")
+//                        .setItems()
+//            }
+//        });
 
+        btnStart = (Button) rootView.findViewById(R.id.btnStart);
+        //btnStart.setEnabled(false);
         //allow the start button to request for picutres from the camera sensor app
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +135,7 @@ public class CameraViewFrag extends Fragment {
             }
         });
         btnStop = (Button)rootView.findViewById(R.id.btnStop);
+        //btnStop.setEnabled(false);
 
         //allows the stop button close the socket
         btnStop.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +152,7 @@ public class CameraViewFrag extends Fragment {
                 MainActivity.mSocketConnectionCamera.closeSocket();
             }
     });
+
 
         return rootView;
     }
@@ -178,6 +209,8 @@ public class CameraViewFrag extends Fragment {
                 MainActivity.mSocketConnectionRobot.sendMessage("setleft");
             } else if(region == 2) { //our center case
                 MainActivity.mSocketConnectionRobot.sendMessage("setforward");
+            } else {
+                MainActivity.mSocketConnectionRobot.sendMessage("setright"); //may never reach here, region cannot be null. but i suppose just in case...
             }
         } catch (Exception e) {
             e.printStackTrace();

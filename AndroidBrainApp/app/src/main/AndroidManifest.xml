@@ -27,6 +27,11 @@
             android:name=".Activities.SelectControlsActivity"
             android:label="Select Controls Activity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Activities.PopupColorChooserActivity"
+            android:label="Choose color"
+            android:theme="@style/AppTheme.CustomeTheme"></activity>
+
     </application>
 
 </manifest>

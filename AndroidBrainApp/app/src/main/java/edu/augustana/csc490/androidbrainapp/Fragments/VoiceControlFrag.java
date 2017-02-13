@@ -74,7 +74,7 @@ public class VoiceControlFrag extends Fragment {
     }
 
     /**
-     * Uses intents to 
+     * Uses intents to use the voice recognition API from Google
      *
      */
     private void promptSpeechInput() {
@@ -89,6 +89,12 @@ public class VoiceControlFrag extends Fragment {
             Toast.makeText(getContext(), "It didn't work", Toast.LENGTH_LONG);
         }
     }
+
+    /**
+     *
+     * sends a stop command to the robot to hault
+     * @param view
+     */
 
     public void stop(View view) {
         try {
@@ -109,6 +115,7 @@ public class VoiceControlFrag extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //it was suggested we set up the strings to be sent using a switch statement.. although we only use one request code.
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
@@ -171,7 +178,7 @@ public class VoiceControlFrag extends Fragment {
                             Toast.makeText(getContext(), "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
                     }
-
+                    //our easter egg that never really worked out well
                     if (result.get(0).equalsIgnoreCase("einstein") || result.get(0).equalsIgnoreCase("i'm stein")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));

@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             //remove later to a different button
-//            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+            startActivity(intent);
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
         if (parseInt(portNumCamera)> 0 && addressStringCamera != null) {
             mSocketConnectionCamera = new SocketConnectionCamera(parseInt(portNumCamera), addressStringCamera, filePath);
 
-            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+//            startActivity(intent);
 
             Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
         } else {
