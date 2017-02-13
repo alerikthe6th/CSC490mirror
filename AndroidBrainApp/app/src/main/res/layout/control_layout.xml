@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.augustana.csc490.androidbrainapp.CameraViewFrag"
+    tools:context="edu.augustana.csc490.androidbrainapp.Fragments.CameraViewFrag"
     android:id="@+id/ControlsLayout">
 
     <ImageView
@@ -43,18 +43,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnRight"
-        android:background="@drawable/right_arrow"
-        android:layout_alignBaseline="@+id/btnLeft"
-        android:layout_alignBottom="@+id/btnLeft"
-        android:layout_toRightOf="@+id/btnForward"
-        android:layout_toEndOf="@+id/btnForward"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/btnLeft"
         android:background="@drawable/left_arrow"
         android:layout_centerVertical="true"
@@ -81,4 +69,14 @@
             android:layout_alignParentEnd="true"
             android:id="@+id/btnStopCam" />
 
-    </RelativeLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRight"
+        android:background="@drawable/right_arrow"
+        android:layout_alignBaseline="@+id/btnLeft"
+        android:layout_alignBottom="@+id/btnLeft"
+        android:layout_alignLeft="@+id/btnStopCam"
+        android:layout_alignStart="@+id/btnStopCam" />
+
+</RelativeLayout>

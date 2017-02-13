@@ -1,4 +1,4 @@
-package edu.augustana.csc490.androidbrainapp;
+package edu.augustana.csc490.androidbrainapp.Fragments;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import edu.augustana.csc490.androidbrainapp.Activities.MainActivity;
+import edu.augustana.csc490.androidbrainapp.R;
 
 import static android.app.Activity.RESULT_OK;
 

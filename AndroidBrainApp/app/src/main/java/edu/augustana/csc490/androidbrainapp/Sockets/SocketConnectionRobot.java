@@ -1,4 +1,4 @@
-package edu.augustana.csc490.androidbrainapp;
+package edu.augustana.csc490.androidbrainapp.Sockets;
 
 import java.io.IOException;
 import java.net.Socket;
