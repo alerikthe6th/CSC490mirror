@@ -105,19 +105,7 @@ public class MainActivity extends AppCompatActivity {
         checkPrefs();
     }
 
-    @Override
-    protected void onStop(){
 
-    }
-
-    @Override
-    public void onDestroy(){
-        try {
-            mSocketConnectionCamera.sendClosingMessage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     /**
      * set default IP and Port number with Abby's phone as a wifi hotspot
      * @param view
