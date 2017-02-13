@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 mSocketConnectionRobot = new SocketConnectionRobot(valueOf(portNumRobot), addressStringRobot);
                 //remove later to a different button
-//            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+            startActivity(intent);
 
                 Toast.makeText(this, " robot connection successful", Toast.LENGTH_LONG).show();
             } catch (Exception e) {
@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
                 mSocketConnectionCamera = new SocketConnectionCamera(parseInt(portNumCamera), addressStringCamera, filePath);
                 Toast.makeText(this, "camera connection successful", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+//                startActivity(intent);
             } catch (Exception e) {
                 Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
                 //if connection fails, restart the main activity
