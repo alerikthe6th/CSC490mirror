@@ -217,34 +217,30 @@ public class ManualControlsFrag extends Fragment {
 
         @Override
         public void run(){
-                Log.d("Run", "In Run Method");
             try {
                 while(true){
+
 
                         final Bitmap bm = MainActivity.mSocketConnectionCamera.requestImg(); //requests an image from the socket connection
 
                         getActivity().runOnUiThread(new Runnable() { //todo: check here
                             @Override
                             public void run() {
-
+                                //sets the image in the image view
                                 imageViewCam.setImageBitmap(bm);
                             }
                         });
-
+                        //allows the app to finish sending an image before we stop the transfer
                         if (paused) {
-                            Log.d("IMGTHREAD", "paused - sending stop to camerabot");
-
                             MainActivity.mSocketConnectionCamera.stopTransfer();
                         }
                         while(paused) {
                             try {
+                                //waiting
                                 Thread.sleep(1000);
-                                Log.d("IMGTHREAD", "Pausing");
-
                             } catch (InterruptedException e) {
                             }
                         }
-                    Log.d("IMGTHREAD", "Done pausing");
                     }
                 }catch (IOException e) {
                 e.printStackTrace();

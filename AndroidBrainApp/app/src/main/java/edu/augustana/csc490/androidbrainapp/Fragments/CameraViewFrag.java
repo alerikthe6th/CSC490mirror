@@ -105,7 +105,6 @@ public class CameraViewFrag extends Fragment {
                                 getActivity().runOnUiThread(new Runnable() { //todo: check here
                                     @Override
                                     public void run() {
-
                                         //updates the image view
                                         ivCamView.setImageBitmap(bm);
                                     }
