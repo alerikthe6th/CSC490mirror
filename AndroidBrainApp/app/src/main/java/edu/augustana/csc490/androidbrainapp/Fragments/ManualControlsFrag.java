@@ -29,7 +29,7 @@ public class ManualControlsFrag extends Fragment {
     private Button btnRight;
     private Button btnStart;
     private ImageView imageViewCam;
-    private boolean stop;
+    protected boolean stop;
     private Button btnStop;
 
     // newInstance constructor for creating fragment with arguments
@@ -65,6 +65,7 @@ public class ManualControlsFrag extends Fragment {
         btnBackward = (Button)rootView.findViewById(R.id.btnBackward);
         imageViewCam = (ImageView) rootView.findViewById(R.id.imageViewCam);
         imageViewCam.setRotation(90);
+        final ImageLoadingThread imgThread = new ImageLoadingThread();
 
         btnForward.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -167,9 +168,25 @@ public class ManualControlsFrag extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AsyncTask.execute(new Runnable() {
+                Log.d("Thread","Starting Img Thread");
+                if(imgThread.isAlive()){
+                    imgThread.run();
+                }
+                else{
+                    imgThread.start();
+                }
+
+                /*AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
+                        if(stop){
+                            try{
+                                MainActivity.mSocketConnectionCamera.requestImg();
+                            }catch(IOException e){
+                                e.printStackTrace();
+                            }
+                            stop = false;
+                        }
                         while(!stop){
                             Log.d("START","Running");
                             try {
@@ -197,7 +214,7 @@ public class ManualControlsFrag extends Fragment {
                             }
                         }
                     }
-                });
+                });*/
 
             }
         });
@@ -206,6 +223,7 @@ public class ManualControlsFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("Socket","Stop Transfer");
+                imgThread.interrupt();
                 stop = true;
                 try{
                     Log.d("Socket","Called SocketConnectionRobot.stopTranfer");
@@ -213,7 +231,7 @@ public class ManualControlsFrag extends Fragment {
                 } catch(IOException e ){
                     e.printStackTrace();
                 }
-                MainActivity.mSocketConnectionCamera.closeSocket();
+               // MainActivity.mSocketConnectionCamera.closeSocket();
             }
         });
 
@@ -229,6 +247,52 @@ public class ManualControlsFrag extends Fragment {
      */
     private static class Map{
         protected Bitmap bm;
+    }
+
+
+    private class ImageLoadingThread extends Thread{
+        public ImageLoadingThread(){
+
+        }
+
+        @Override
+        public void run(){
+            Log.d("Thread","In Image Thread");
+            if(stop){
+                try{
+                    MainActivity.mSocketConnectionCamera.requestImg();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+                stop = false;
+            }
+            while(!stop){
+                Log.d("START","Running");
+                try {
+                    Log.d("Socket","Requesting Image");
+                    final Map map = new Map();
+                    map.bm = MainActivity.mSocketConnectionCamera.requestImg();
+
+                    Log.d("Socket","Image recieve");
+                    Log.d("ImageView","BitMap byte Count ="+map.bm.getByteCount());
+
+                    Log.d("Image View","Set Image View");
+                    getActivity().runOnUiThread(new Runnable() { //todo: check here
+                        @Override
+                        public void run() {
+
+                            Log.d("ImageView","Change Image View");
+                            imageViewCam.setImageBitmap(map.bm);
+                            //ivCamView.invalidate();
+                            Log.d("ImageView", "Current File: "+map.bm.toString());
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

@@ -52,6 +52,10 @@ public class SocketConnectionCamera {
         os.write("stop"+"\n");
         os.flush();
     }
+    public void restartTransfer() throws IOException{
+        os.write("pic"+"\n");
+        os.flush();
+    }
 
     private Bitmap loadIntoMem() throws IOException{
         Log.d("Socket", "In LOADINTOMEM");

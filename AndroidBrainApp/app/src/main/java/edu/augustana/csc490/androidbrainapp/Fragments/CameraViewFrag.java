@@ -63,6 +63,14 @@ public class CameraViewFrag extends Fragment {
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
+                        if(stop){
+                            try{
+                                MainActivity.mSocketConnectionCamera.requestImg();
+                            }catch(IOException e){
+                                e.printStackTrace();
+                            }
+                            stop = false;
+                        }
                         while(!stop){
                             try {
                                 Log.d("Socket","Requesting Image");
@@ -106,7 +114,7 @@ public class CameraViewFrag extends Fragment {
                 } catch(IOException e ){
                     e.printStackTrace();
                 }
-                MainActivity.mSocketConnectionCamera.closeSocket();
+                //MainActivity.mSocketConnectionCamera.closeSocket();
             }
     });
 
