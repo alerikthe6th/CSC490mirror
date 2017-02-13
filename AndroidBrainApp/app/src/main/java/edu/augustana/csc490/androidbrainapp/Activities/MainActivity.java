@@ -105,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
         checkPrefs();
     }
 
+    @Override
+    protected void onStop(){
+
+    }
+
+    @Override
     public void onDestroy(){
         try {
             mSocketConnectionCamera.sendClosingMessage();
@@ -132,37 +138,47 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      * @throws Exception
      */
-    public void connectToSocket(View view) throws Exception{
-        if(valueOf(portNumRobot)> 0 && addressStringRobot != null) {
+    public void connectToSocket(View view) {
+        if (valueOf(portNumRobot) > 0 && addressStringRobot != null) {
             Log.d("values", portNumRobot + ", " + addressStringRobot);
-            mSocketConnectionRobot = new SocketConnectionRobot(valueOf(portNumRobot), addressStringRobot);
-
-
-            //remove later to a different button
+            try {
+                mSocketConnectionRobot = new SocketConnectionRobot(valueOf(portNumRobot), addressStringRobot);
+                //remove later to a different button
 //            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
 //            startActivity(intent);
-            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(this, " robot connection successful", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+
+                //if no connect is made, we restart the acitivity
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+
+            }
         }
     }
-
     /**
      * Converts the portDefRobot and ipDefRobot address fields from their appropriate edit text fields and creates a socket connection object
      * to connect the android device to the lejos robot
      * @param view
      * @throws Exception
      */
-    public void connectToSocketCamera(View view) throws Exception {
+    public void connectToSocketCamera(View view) {
         if (parseInt(portNumCamera)> 0 && addressStringCamera != null) {
-            mSocketConnectionCamera = new SocketConnectionCamera(parseInt(portNumCamera), addressStringCamera, filePath);
 
-            Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-            startActivity(intent);
+            try {
+                mSocketConnectionCamera = new SocketConnectionCamera(parseInt(portNumCamera), addressStringCamera, filePath);
+                Toast.makeText(this, "camera connection successful", Toast.LENGTH_LONG).show();
 
-            Toast.makeText(this, "connection successful", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
+                //if connection fails, restart the main activity
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+
+            }
         }
 
     }
