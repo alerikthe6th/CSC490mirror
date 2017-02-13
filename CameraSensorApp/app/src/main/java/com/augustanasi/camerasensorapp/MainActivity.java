@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                             }
                         }catch (IOException e){
                             e.printStackTrace();
+                        }catch (NullPointerException e){
+                            finish();
                         }
                         if(cameraOpen){
                             stopCamera();
