@@ -31,6 +31,7 @@ public class ManualControlsFrag extends Fragment {
     private ImageView imageViewCam;
     protected boolean stop;
     private Button btnStop;
+    private boolean threadCreated=false;
 
     // newInstance constructor for creating fragment with arguments
     public static ManualControlsFrag newInstance() {
@@ -168,10 +169,11 @@ public class ManualControlsFrag extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(imgThread.isAlive()){
+                if(threadCreated){
                     imgThread.run();
                 }
                 else{
+                    threadCreated = true;
                     imgThread.start();
                 }
 
