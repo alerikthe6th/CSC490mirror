@@ -183,9 +183,11 @@ public class ManualControlsFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 if(threadCreated){
+                    Log.d("START","Thread Run");
                     imgThread.run();
                 }
                 else{
+                    Log.d("START","Thread Start");
                     threadCreated = true;
                     imgThread.start();
                 }
@@ -236,6 +238,7 @@ public class ManualControlsFrag extends Fragment {
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("STOP","In the Stop onClick");
                 imgThread.interrupt();
                 stop = true;
                 try{
@@ -276,6 +279,7 @@ public class ManualControlsFrag extends Fragment {
 
         @Override
         public void run(){
+            Log.d("Run", "In Run Method");
             if(stop){
                 try{
                     MainActivity.mSocketConnectionCamera.requestImg();

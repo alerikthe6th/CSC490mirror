@@ -4,7 +4,6 @@ package edu.augustana.csc490.androidbrainapp.Fragments;
  * Created by Alerik Vi on 2/3/2017.
  */
 
-import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-import edu.augustana.csc490.androidbrainapp.Activities.PopupColorChooserActivity;
 import edu.augustana.csc490.androidbrainapp.Color2;
 import edu.augustana.csc490.androidbrainapp.Activities.MainActivity;
 import edu.augustana.csc490.androidbrainapp.R;
