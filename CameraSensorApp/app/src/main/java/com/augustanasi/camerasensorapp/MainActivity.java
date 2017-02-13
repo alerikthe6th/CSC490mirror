@@ -207,6 +207,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
 
+    /**
+     * Starts the Back facing camera and sets the paramaters and settings. Sets camera equal to camera data field
+     * @param
+     * @return
+     */
     private void startCamera(){
         if(Camera.getNumberOfCameras()>0){
             camera = Camera.open();
@@ -231,13 +236,14 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         Log.d("CAMERA","Started");
     }
 
+    /**
+     * Stops the camera preview and releases the Camera.
+     * @param
+     * @return
+     */
     public void stopCamera(){
         camera.stopPreview();
         camera.release();
-    }
-
-    public void endApp(){
-        finish();
     }
 
     @Override
