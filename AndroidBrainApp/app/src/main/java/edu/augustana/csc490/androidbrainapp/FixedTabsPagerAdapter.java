@@ -3,7 +3,6 @@ package edu.augustana.csc490.androidbrainapp;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
 import edu.augustana.csc490.androidbrainapp.Fragments.CameraViewFrag;
 import edu.augustana.csc490.androidbrainapp.Fragments.ManualControlsFrag;
 import edu.augustana.csc490.androidbrainapp.Fragments.OptionsFrag;

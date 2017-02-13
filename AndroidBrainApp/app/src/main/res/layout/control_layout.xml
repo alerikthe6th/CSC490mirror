@@ -22,15 +22,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnBackward"
-        android:layout_marginTop="68dp"
-        android:background="@drawable/back_arrow"
-        android:layout_below="@+id/btnRight"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/btnForward"
         android:background="@drawable/front_arrow"
         android:longClickable="false"
@@ -41,17 +32,6 @@
 
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLeft"
-        android:background="@drawable/left_arrow"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/btnForward"
-        android:layout_toStartOf="@+id/btnForward"
-        android:layout_marginRight="13dp"
-        android:layout_marginEnd="13dp" />
-
-        <Button
             android:text="Start Camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +56,25 @@
         android:background="@drawable/right_arrow"
         android:layout_alignBaseline="@+id/btnLeft"
         android:layout_alignBottom="@+id/btnLeft"
-        android:layout_alignLeft="@+id/btnStopCam"
-        android:layout_alignStart="@+id/btnStopCam" />
+        android:layout_toRightOf="@+id/btnForward"
+        android:layout_toEndOf="@+id/btnForward" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLeft"
+        android:background="@drawable/left_arrow"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/btnForward"
+        android:layout_toStartOf="@+id/btnForward" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnBackward"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/back_arrow"
+        android:layout_below="@+id/btnRight"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

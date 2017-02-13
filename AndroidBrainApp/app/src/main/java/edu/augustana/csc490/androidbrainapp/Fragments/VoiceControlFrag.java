@@ -23,11 +23,14 @@ import edu.augustana.csc490.androidbrainapp.R;
 import static android.app.Activity.RESULT_OK;
 
 /**
+ * this class allows for voice recognition to be used to control the robot
+ *
  * Created by hamby on 1/29/2017.
  */
 
 public class VoiceControlFrag extends Fragment {
 
+    //XML data fields
     private TextView tvSpeechInput;
     private TextView tvCommand;
     private ImageButton btnSpeak;
@@ -48,6 +51,7 @@ public class VoiceControlFrag extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.voice_layout, container, false);
 
+        //SET ANDROID WIDGETS
         tvSpeechInput = (TextView) rootView.findViewById(R.id.tvSpeechInput);
         tvCommand = (TextView) rootView.findViewById(R.id.tvCommand);
         btnSpeak = (ImageButton) rootView.findViewById(R.id.btnSpeak);
@@ -69,6 +73,10 @@ public class VoiceControlFrag extends Fragment {
         return rootView;
     }
 
+    /**
+     * Uses intents to use the voice recognition API from Google
+     *
+     */
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -81,6 +89,12 @@ public class VoiceControlFrag extends Fragment {
             Toast.makeText(getContext(), "It didn't work", Toast.LENGTH_LONG);
         }
     }
+
+    /**
+     *
+     * sends a stop command to the robot to hault
+     * @param view
+     */
 
     public void stop(View view) {
         try {
@@ -101,6 +115,7 @@ public class VoiceControlFrag extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //it was suggested we set up the strings to be sent using a switch statement.. although we only use one request code.
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
@@ -163,7 +178,7 @@ public class VoiceControlFrag extends Fragment {
                             Toast.makeText(getContext(), "connection unsuccessful, caught exception", Toast.LENGTH_LONG).show();
                         }
                     }
-
+                    //our easter egg that never really worked out well
                     if (result.get(0).equalsIgnoreCase("einstein") || result.get(0).equalsIgnoreCase("i'm stein")) {
                         try {
                             tvCommand.setText("Command received: " + result.get(0));

@@ -10,6 +10,11 @@ import android.util.Log;
  * Created by Alerik Vi on 2/11/2017.
  */
 
+/**
+ *
+ * CURRENTLY NOT BEING USED
+ */
+
 public class SearchRunnable implements Runnable {
     public static final int COLS = 5;
     private Bitmap img;
