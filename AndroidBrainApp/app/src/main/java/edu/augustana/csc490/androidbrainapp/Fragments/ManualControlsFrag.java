@@ -1,7 +1,6 @@
 package edu.augustana.csc490.androidbrainapp.Fragments;
 
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,10 +28,10 @@ public class ManualControlsFrag extends Fragment {
     private Button btnRight;
     private Button btnStart;
     private ImageView imageViewCam;
-    protected boolean stop;
+    protected boolean paused;
     public boolean isMoving;
     private Button btnStop;
-    private boolean threadCreated = false;
+    private boolean threadWasStarted = false;
 
 
 
@@ -182,14 +181,11 @@ public class ManualControlsFrag extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(threadCreated){
-                    Log.d("START","Thread Run");
-                    imgThread.run();
-                }
-                else{
-                    Log.d("START","Thread Start");
-                    threadCreated = true;
+                if (paused) {
+                    paused = false;
+                } else if (!threadWasStarted) {
                     imgThread.start();
+                    threadWasStarted = true;
                 }
 
                 /*AsyncTask.execute(new Runnable() {
@@ -239,13 +235,9 @@ public class ManualControlsFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("STOP","In the Stop onClick");
+//                imgThread.interrupt();
+                paused = true;
                 imgThread.interrupt();
-                stop = true;
-                try{
-                    MainActivity.mSocketConnectionCamera.stopTransfer();
-                } catch(IOException e ){
-                    e.printStackTrace();
-                }
                // MainActivity.mSocketConnectionCamera.closeSocket();
             }
         });
@@ -254,18 +246,6 @@ public class ManualControlsFrag extends Fragment {
         //display the view
         return rootView;
     }
-    /**
-     * this static class allows us to be redefine a paramter
-     * being sent from a thread
-     *
-     * public data field so the object can have its data changed
-     */
-    private static class Map{
-        protected Bitmap bm;
-    }
-
-
-
 
     /**
      * This thread is used to request an image from the main acitivity's socket connection object for
@@ -279,30 +259,37 @@ public class ManualControlsFrag extends Fragment {
 
         @Override
         public void run(){
-            Log.d("Run", "In Run Method");
-            if(stop){
-                try{
-                    MainActivity.mSocketConnectionCamera.requestImg();
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-                stop = false;
-            }
-            while(!stop){
-                try {
-                    final Map map = new Map();
-                    map.bm = MainActivity.mSocketConnectionCamera.requestImg(); //requests an image from the socket connection
+                Log.d("Run", "In Run Method");
+            try {
+                while(true){
 
-                    getActivity().runOnUiThread(new Runnable() { //todo: check here
-                        @Override
-                        public void run() {
+                        final Bitmap bm = MainActivity.mSocketConnectionCamera.requestImg(); //requests an image from the socket connection
 
-                            imageViewCam.setImageBitmap(map.bm);
+                        getActivity().runOnUiThread(new Runnable() { //todo: check here
+                            @Override
+                            public void run() {
+
+                                imageViewCam.setImageBitmap(bm);
+                            }
+                        });
+
+                        if (paused) {
+                            Log.d("IMGTHREAD", "paused - sending stop to camerabot");
+
+                            MainActivity.mSocketConnectionCamera.stopTransfer();
                         }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                        while(paused) {
+                            try {
+                                Thread.sleep(1000);
+                                Log.d("IMGTHREAD", "Pausing");
+
+                            } catch (InterruptedException e) {
+                            }
+                        }
+                    Log.d("IMGTHREAD", "Done pausing");
+                    }
+                }catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

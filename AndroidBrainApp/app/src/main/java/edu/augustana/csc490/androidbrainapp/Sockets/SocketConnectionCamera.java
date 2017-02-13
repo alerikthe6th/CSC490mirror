@@ -65,10 +65,6 @@ public class SocketConnectionCamera {
         os.write("stop"+"\n");
         os.flush();
     }
-    public void restartTransfer() throws IOException{
-        os.write("pic"+"\n");
-        os.flush();
-    }
 
     /**
      * a file length from the data input stream is obtained and
@@ -79,8 +75,10 @@ public class SocketConnectionCamera {
      */
     private Bitmap loadIntoMem() throws IOException{
         int fileLength = dis.readInt();
+        Log.d("Socket","Read Size "+fileLength);
         byte[] fileByArray = new byte[fileLength];
         dis.readFully(fileByArray);
+        Log.d("Socket","File Recieved");
         fos = new FileOutputStream(imageFile, false);
         fos.write(fileByArray);
         fos.close();

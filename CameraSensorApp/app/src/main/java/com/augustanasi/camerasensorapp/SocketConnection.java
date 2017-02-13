@@ -41,6 +41,7 @@ public class SocketConnection {
 
     public int waitForPrompt() throws IOException{
         String str = br.readLine();
+        Log.d("Socket","Command in: "+str);
         if(str.equals(null)){
             return -5;
         }
@@ -48,6 +49,7 @@ public class SocketConnection {
             return 1;
         }
         else if(str.equalsIgnoreCase("stop")){
+            Log.d("Socket","In Stop");
             return 0;
         }
         else if(str.equalsIgnoreCase("closing")){
