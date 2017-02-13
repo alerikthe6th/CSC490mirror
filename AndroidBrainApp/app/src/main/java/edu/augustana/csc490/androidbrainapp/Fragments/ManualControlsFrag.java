@@ -71,7 +71,7 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        MainActivity.mSocketConnectionRobot.sendMessage("Move");
+                        MainActivity.mSocketConnectionRobot.sendMessage("Forward");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
@@ -168,7 +168,6 @@ public class ManualControlsFrag extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Thread","Starting Img Thread");
                 if(imgThread.isAlive()){
                     imgThread.run();
                 }
@@ -222,11 +221,9 @@ public class ManualControlsFrag extends Fragment {
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Socket","Stop Transfer");
                 imgThread.interrupt();
                 stop = true;
                 try{
-                    Log.d("Socket","Called SocketConnectionRobot.stopTranfer");
                     MainActivity.mSocketConnectionCamera.stopTransfer();
                 } catch(IOException e ){
                     e.printStackTrace();
@@ -257,7 +254,6 @@ public class ManualControlsFrag extends Fragment {
 
         @Override
         public void run(){
-            Log.d("Thread","In Image Thread");
             if(stop){
                 try{
                     MainActivity.mSocketConnectionCamera.requestImg();
@@ -267,25 +263,15 @@ public class ManualControlsFrag extends Fragment {
                 stop = false;
             }
             while(!stop){
-                Log.d("START","Running");
                 try {
-                    Log.d("Socket","Requesting Image");
                     final Map map = new Map();
-                    map.bm = MainActivity.mSocketConnectionCamera.requestImg();
+                    map.bm = MainActivity.mSocketConnectionCamera.requestImg(); //requests an image from the socket connection
 
-                    Log.d("Socket","Image recieve");
-                    Log.d("ImageView","BitMap byte Count ="+map.bm.getByteCount());
-
-                    Log.d("Image View","Set Image View");
                     getActivity().runOnUiThread(new Runnable() { //todo: check here
                         @Override
                         public void run() {
 
-                            Log.d("ImageView","Change Image View");
                             imageViewCam.setImageBitmap(map.bm);
-                            //ivCamView.invalidate();
-                            Log.d("ImageView", "Current File: "+map.bm.toString());
-
                         }
                     });
                 } catch (IOException e) {

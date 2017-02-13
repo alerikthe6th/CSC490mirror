@@ -13,13 +13,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Locale;
-
 import edu.augustana.csc490.androidbrainapp.Activities.MainActivity;
 import edu.augustana.csc490.androidbrainapp.R;
-
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -31,11 +28,11 @@ import static android.app.Activity.RESULT_OK;
 public class VoiceControlFrag extends Fragment {
 
     //XML data fields
-    private TextView tvSpeechInput;
-    private TextView tvCommand;
-    private ImageButton btnSpeak;
-    private Button btnStop;
-    private final int REQ_CODE_SPEECH_INPUT = 100; //required to send voice strings in intents
+        private TextView tvSpeechInput;
+        private TextView tvCommand;
+        private ImageButton btnSpeak;
+        private Button btnStop;
+        private final int REQ_CODE_SPEECH_INPUT = 100; //required to send voice strings in intents
 
     public static VoiceControlFrag newInstance() {
         VoiceControlFrag voice_control = new VoiceControlFrag();
