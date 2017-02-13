@@ -1,13 +1,9 @@
 package edu.augustana.csc490.androidbrainapp.Activities;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,8 +23,6 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Integer.valueOf;
 
 public class MainActivity extends AppCompatActivity {
-
-    // data field and buttons
 
 
     //IP/port defaults
@@ -62,12 +56,7 @@ public class MainActivity extends AppCompatActivity {
     public static SocketConnectionRobot mSocketConnectionRobot = null;
     public static SocketConnectionCamera mSocketConnectionCamera = null;
 
-    private int region;
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("myPrefs", MODE_PRIVATE);
         editor = prefs.edit();
 
-        //editor.clear();
+        //editor.clear(); //this is used to clear the shared preferences
 
         /**
          * Strict mode is a developer tool which detects things one might be doing by accident and brings them to

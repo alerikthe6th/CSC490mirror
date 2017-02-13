@@ -4,9 +4,7 @@ package edu.augustana.csc490.androidbrainapp.Fragments;
  * Created by Alerik Vi on 2/3/2017.
  */
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -42,11 +40,11 @@ public class CameraViewFrag extends Fragment {
     //XML data fields
     private Button btnStart;
     private Button btnStop;
-    private Button btnChooseTarget;
+    //private Button btnChooseTarget;
     private ImageView ivCamView;
     private TextView tvDetRegion;
 
-    private Dialog chooser;
+    //private Dialog chooser;
 
     private boolean stop;
     private int region = -1;
@@ -96,7 +94,7 @@ public class CameraViewFrag extends Fragment {
 
         btnStart = (Button) rootView.findViewById(R.id.btnStart);
         //btnStart.setEnabled(false);
-        //allow the start button to request for picutres from the camera sensor app
+        //allow the start button to request for pictures from the camera sensor app
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,8 +162,9 @@ public class CameraViewFrag extends Fragment {
 
         return rootView;
     }
+
     /**
-     * this static class allows us to be redefine a paramter
+     * this static class allows us to be redefine a parameter
      * being sent from a thread
      *
      * public data field so the object can have its data changed
@@ -196,8 +195,8 @@ public class CameraViewFrag extends Fragment {
                 index = i;
             }
         }
-        Log.d("color found","color found with region: " + region);
-        /**
+         Log.d("color found","color found with region: " + region);
+         /**
          * we divide the picture image into 5 regions, from 0 to 4, with our center region being region 2.
          *
          * If region 2 (our center region) detects the most instances of our target color, then move forward.
@@ -214,7 +213,7 @@ public class CameraViewFrag extends Fragment {
             if (region == 0 || region == 1) {
                 MainActivity.mSocketConnectionRobot.sendMessage("setright");
             } else if( region == 3 || region == 4) {
-                MainActivity.mSocketConnectionRobot.sendMessage("setleft");
+                MainActivity.mSocketConnectionRobot.sendMessage("setright");
             } else if(region == 2) { //our center case
                 MainActivity.mSocketConnectionRobot.sendMessage("setforward");
             } else {
@@ -224,6 +223,7 @@ public class CameraViewFrag extends Fragment {
             e.printStackTrace();
         }
 
+        //update the TextView on the fragment of the detected region
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -10,6 +10,8 @@ import android.widget.RadioButton;
 import edu.augustana.csc490.androidbrainapp.R;
 
 /**
+ * CURRENTLY NOT BEING USED
+ *
  * Created by Alerik Vi on 2/12/2017.
  */
 

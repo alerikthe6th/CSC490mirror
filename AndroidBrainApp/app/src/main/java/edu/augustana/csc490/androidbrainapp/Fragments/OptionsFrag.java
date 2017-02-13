@@ -25,7 +25,7 @@ import edu.augustana.csc490.androidbrainapp.R;
 public class OptionsFrag extends Fragment {
 
     private Button btnDisconnectRobot;
-    private Button btnDisconnectCamera;
+    //private Button btnDisconnectCamera;
     private Context context;
 
     public static OptionsFrag newInstance() {
@@ -51,7 +51,7 @@ public class OptionsFrag extends Fragment {
         context = getContext();
 
         btnDisconnectRobot = (Button) rootView.findViewById(R.id.btnDisconnectRobot);
-        btnDisconnectCamera = (Button) rootView.findViewById(R.id.btnDisconnectCamera);
+        //btnDisconnectCamera = (Button) rootView.findViewById(R.id.btnDisconnectCamera);
 
 
         //if this button is pressed, closes the socket
@@ -62,15 +62,16 @@ public class OptionsFrag extends Fragment {
 
                 new AlertDialog.Builder(context)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Disconnecting Robot")
-                        .setMessage("Are you sure you want to disconnect the robot?")
+                        .setTitle("Disconnecting sockets..")
+                        .setMessage("Are you sure you want to disconnect from sockets??")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(context, "Disconnecting Robot", Toast.LENGTH_SHORT);
+                                Toast.makeText(context, "Disconnecting sockets", Toast.LENGTH_SHORT);
                                 MainActivity.mSocketConnectionRobot.closeSocket();
-                                Intent intent = new Intent(context, MainActivity.class); //hopefully sends back to connection screen?
+                                MainActivity.mSocketConnectionCamera.closeSocket();
+                                Intent intent = new Intent(context, MainActivity.class); 
                                 startActivity(intent);
                                 //finish();
                             }
@@ -82,29 +83,29 @@ public class OptionsFrag extends Fragment {
         });
 
         //if this button is pressed, closes the socket
-        btnDisconnectCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(context)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Disconnecting Robot")
-                        .setMessage("Are you sure you want to disconnect the robot?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(context, "Disconnecting Camera", Toast.LENGTH_SHORT);
-                                MainActivity.mSocketConnectionCamera.closeSocket();
-                                Intent intent = new Intent(context, MainActivity.class); //hopefully sends back to connection screen?
-                                startActivity(intent);
-                                //finish();
-                            }
-
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-            }
-        });
+//        btnDisconnectCamera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new AlertDialog.Builder(context)
+//                        .setIcon(android.R.drawable.ic_dialog_alert)
+//                        .setTitle("Disconnecting Robot")
+//                        .setMessage("Are you sure you want to disconnect the robot?")
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+//                        {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(context, "Disconnecting Camera", Toast.LENGTH_SHORT);
+//                                MainActivity.mSocketConnectionCamera.closeSocket();
+//                                Intent intent = new Intent(context, MainActivity.class); //hopefully sends back to connection screen?
+//                                startActivity(intent);
+//                                //finish();
+//                            }
+//
+//                        })
+//                        .setNegativeButton("No", null)
+//                        .show();
+//            }
+//        });
 
         return rootView;
     }

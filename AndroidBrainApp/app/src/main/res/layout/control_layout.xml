@@ -19,17 +19,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnForward"
-        android:background="@drawable/front_arrow"
-        android:longClickable="false"
-        android:layout_above="@+id/btnRight"
-        android:layout_alignLeft="@+id/btnBackward"
-        android:layout_alignStart="@+id/btnBackward"
-        android:layout_marginBottom="48dp" />
-
 
     <Button
             android:text="Start Camera"
@@ -76,5 +65,18 @@
         android:background="@drawable/back_arrow"
         android:layout_below="@+id/btnRight"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnForward"
+        android:background="@drawable/front_arrow"
+        android:longClickable="false"
+        android:layout_marginBottom="45dp"
+        android:layout_above="@+id/btnLeft"
+        android:layout_alignRight="@+id/btnBackward"
+        android:layout_alignEnd="@+id/btnBackward"
+        android:layout_alignLeft="@+id/btnBackward"
+        android:layout_alignStart="@+id/btnBackward" />
 
 </RelativeLayout>
