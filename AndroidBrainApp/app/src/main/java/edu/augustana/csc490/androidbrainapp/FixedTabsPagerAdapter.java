@@ -3,6 +3,8 @@ package edu.augustana.csc490.androidbrainapp;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import edu.augustana.csc490.androidbrainapp.Fragments.AboutFrag;
 import edu.augustana.csc490.androidbrainapp.Fragments.CameraViewFrag;
 import edu.augustana.csc490.androidbrainapp.Fragments.ManualControlsFrag;
 import edu.augustana.csc490.androidbrainapp.Fragments.OptionsFrag;
@@ -22,7 +24,7 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
     }
 
     public int getCount(){
-            return 4;
+            return 5;
     } //increment every time a fragment is added and decrement every time project
 
     public Fragment getItem(int itemPos){
@@ -31,6 +33,7 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
             case 1: return new VoiceControlFrag();
             case 2: return new CameraViewFrag();
             case 3: return new OptionsFrag();
+            case 4: return new AboutFrag();
         }
         return null;
     }
@@ -47,6 +50,7 @@ public class FixedTabsPagerAdapter extends FragmentPagerAdapter{
             case 1: return "Voice Control";
             case 2: return "Camera View Control";
             case 3: return "Options";
+            case 4: return "About";
         }
         return null;
     }

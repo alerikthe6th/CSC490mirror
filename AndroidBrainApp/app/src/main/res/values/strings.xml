@@ -4,4 +4,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <string name="about">This app was made by Abby Thomson, Alerik Vi, and Tim Hamby for Augustana's College's CSC 490 SI class.</string>
+    <string name="about2">We owe our thanks to our professor, Dr. Forrest Stonedahl for his assistance with the app. We also would like to give credit to the Android Developer API for use as a reference</string>
 </resources>
