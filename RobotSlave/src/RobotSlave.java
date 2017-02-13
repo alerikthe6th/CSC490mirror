@@ -101,13 +101,14 @@ public class RobotSlave extends Thread {
 						Thread.sleep(1500);
 						stopThreads();
 					}
-
+				//Checks if command is back, starts Back Thread
 				} else if (str.equalsIgnoreCase("back")) {
 					lastCom = "back";
 					BackThread bt = new BackThread();
 					bt.start();
 					threads.add(bt);
 
+				//Checks if command is a left command, if so starts Left Thread
 				} else if (str.contains("left")) {
 					lastCom = "left";
 					LeftThread lt = new LeftThread();
@@ -117,6 +118,7 @@ public class RobotSlave extends Thread {
 						Thread.sleep(150);
 						stopThreads();
 					}
+				//Checks if command is a right command, if so starts right Thread
 				} else if (str.contains("right")) {
 					lastCom = "right";
 					RightThread rt = new RightThread();
@@ -126,6 +128,7 @@ public class RobotSlave extends Thread {
 						Thread.sleep(150);
 						stopThreads();
 					}
+				//if command is stop, calls stopThreads
 				} else if (str.equalsIgnoreCase("stop")) {
 					if (lastCom != "stop") {
 						stopThreads();
@@ -143,8 +146,6 @@ public class RobotSlave extends Thread {
 					Sound.playTone(523, 100);
 					Thread.sleep(100);
 				}
-				
-				System.out.println("Getting new command");
 				str = br.readLine();
 				
 			}
@@ -190,7 +191,6 @@ class ForwardThread extends Thread {
 	 */
 	@Override
 	public void run() {
-		System.out.println("In Forward Thread");
 		RobotSlave.left.startSynchronization();
 		RobotSlave.left.forward();
 		RobotSlave.right.forward();
