@@ -30,7 +30,11 @@ public class ManualControlsFrag extends Fragment {
     private Button btnStart;
     private ImageView imageViewCam;
     protected boolean stop;
+    public boolean isMoving;
     private Button btnStop;
+
+
+
 
     // newInstance constructor for creating fragment with arguments
     public static ManualControlsFrag newInstance() {
@@ -67,16 +71,19 @@ public class ManualControlsFrag extends Fragment {
         imageViewCam.setRotation(90);
         final ImageLoadingThread imgThread = new ImageLoadingThread();
 
+
         btnForward.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        MainActivity.mSocketConnectionRobot.sendMessage("Forward");
+                        isMoving = true;
+                        MainActivity.mSocketConnectionRobot.sendMessage("forward");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
+                        isMoving = false;
                         MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
@@ -97,12 +104,14 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
+                        isMoving = true;
                         MainActivity.mSocketConnectionRobot.sendMessage("back");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
+                        isMoving = false;
                         MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
@@ -123,12 +132,14 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
+                        isMoving = true;
                         MainActivity.mSocketConnectionRobot.sendMessage("left");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
+                        isMoving = false;
                         MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
@@ -149,12 +160,14 @@ public class ManualControlsFrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
+                        isMoving = true;
                         MainActivity.mSocketConnectionRobot.sendMessage("right");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "connection unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     try {
+                        isMoving = false;
                         MainActivity.mSocketConnectionRobot.sendMessage("Stop");
                     } catch (Exception e) {
                         Toast.makeText(getContext(), "an error occured", Toast.LENGTH_LONG).show();
@@ -247,6 +260,13 @@ public class ManualControlsFrag extends Fragment {
     }
 
 
+
+
+    /**
+     * This thread is used to request an image from the main acitivity's socket connection object for
+     * the robot
+     *
+     */
     private class ImageLoadingThread extends Thread{
         public ImageLoadingThread(){
 
