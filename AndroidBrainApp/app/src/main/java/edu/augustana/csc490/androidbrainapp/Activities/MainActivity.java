@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 
 import edu.augustana.csc490.androidbrainapp.R;
 import edu.augustana.csc490.androidbrainapp.Sockets.SocketConnectionCamera;
@@ -114,7 +115,13 @@ public class MainActivity extends AppCompatActivity {
         checkPrefs();
     }
 
-
+    public void onDestroy(){
+        try {
+            mSocketConnectionCamera.sendClosingMessage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * set default IP and Port number with Abby's phone as a wifi hotspot
      * @param view

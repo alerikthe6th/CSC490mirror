@@ -82,5 +82,9 @@ public class SocketConnectionCamera {
         }
     }
 
+    public void sendClosingMessage() throws IOException{
+        os.write("closing"+"\n");
+    }
+
 
 }
