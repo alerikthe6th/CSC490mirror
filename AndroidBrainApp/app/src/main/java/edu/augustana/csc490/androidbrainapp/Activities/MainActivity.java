@@ -1,9 +1,13 @@
-package edu.augustana.csc490.androidbrainapp;
+package edu.augustana.csc490.androidbrainapp.Activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +19,10 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import edu.augustana.csc490.androidbrainapp.R;
+import edu.augustana.csc490.androidbrainapp.Sockets.SocketConnectionCamera;
+import edu.augustana.csc490.androidbrainapp.Sockets.SocketConnectionRobot;
+
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.valueOf;
 
@@ -24,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String portDefRobot = "4567"; //constant initially set for a default portDefRobot number
     public static final String portDefCam = "5678"; // port constant for camera
     public static final String ipDefRobot = "172.20.10.4"; //constant initially set for a default IP address
-    public static final String ipDefCam = "10.100.9.174"; //constant for IP address of the camera
+    public static final String ipDefCam = "10.100.27.108"; //constant for IP address of the camera
     public static final String ipDefCam2 = "172.20.10.3"; //constant for IP address of the camera
 
 
@@ -48,8 +56,15 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences prefs;
     public SharedPreferences.Editor editor;
 
-    protected static SocketConnectionRobot mSocketConnectionRobot = null;
-    protected static SocketConnectionCamera mSocketConnectionCamera = null;
+    public static SocketConnectionRobot mSocketConnectionRobot = null;
+    public static SocketConnectionCamera mSocketConnectionCamera = null;
+
+    private int region;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
          */
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        //verifyStoragePermissions(getCo);
 
         //link the buttons to the activity layout
         etAddressRobot = (EditText) findViewById(R.id.etAddressRobot);
@@ -269,5 +286,23 @@ public class MainActivity extends AppCompatActivity {
 //        if(temp != null) {
 //            etPortCamera.setText(temp);
 //        }
+    }
+
+    public void afterThreadFinished(int region){
+        this.region = region;
+    }
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 }

@@ -1,4 +1,4 @@
-package edu.augustana.csc490.androidbrainapp;
+package edu.augustana.csc490.androidbrainapp.Sockets;
 
 /**
  * Created by Alerik Vi on 2/11/2017.

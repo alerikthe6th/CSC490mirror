@@ -39,6 +39,11 @@ public class Color2 {
         return blue;
     }
 
+    public String getRGB() {
+        return "" + red + ", " + green + ", " + blue;
+
+    }
+
     //setters
     public void setRed(int r) {
         red = r;

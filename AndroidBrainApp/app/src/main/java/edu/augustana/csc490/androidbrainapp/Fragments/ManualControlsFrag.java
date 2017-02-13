@@ -1,4 +1,4 @@
-package edu.augustana.csc490.androidbrainapp;
+package edu.augustana.csc490.androidbrainapp.Fragments;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -14,6 +14,9 @@ import android.widget.Toast;
 import android.support.v4.app.Fragment;
 
 import java.io.IOException;
+
+import edu.augustana.csc490.androidbrainapp.Activities.MainActivity;
+import edu.augustana.csc490.androidbrainapp.R;
 
 /**
  * Created by hamby on 1/29/2017.
