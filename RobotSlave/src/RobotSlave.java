@@ -17,7 +17,12 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
-
+/**
+ * This is the code to load onto a Mindstorm Robot to what it work with the Augustana SI control app.
+ * Requires LegoMinstorm EV3 robot with Lejos.
+ * @author Abby Thomson
+ *
+ */
 public class RobotSlave extends Thread {
 	public static MovePilot pilot;
 	private static Vector<String> command;
@@ -38,54 +43,62 @@ public class RobotSlave extends Thread {
 		// setting synchronizing so can start and stop motor together
 		left.synchronizeWith(new RegulatedMotor[] { right });
 		
-		left.setAcceleration(4000);
-		right.setAcceleration(4000);
+		//sets the motor acceleration, lower than 6000 default for smoother motions
+		left.setAcceleration(3000);
+		right.setAcceleration(3000);
 
 		Wheel wheel1 = WheeledChassis.modelWheel(left, 81.6).offset(-90);
 		Wheel wheel2 = WheeledChassis.modelWheel(right, 81.6).offset(90);
 
-		//
 		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, WheeledChassis.TYPE_DIFFERENTIAL);
 		pilot = new MovePilot(chassis);
 
+		//Vectors that keep track of Commands passes in and active Threads
 		command = new Vector<String>();
 		threads = new Vector<Thread>();
 
 		String lastCom = "stop";
 		
+		String[] testCom = new String[]{"setforward","stop"};
+		//port number for connection with app
 		int port = 4567;
 		ServerSocket server = new ServerSocket(port);
 		
 		server.setSoTimeout(0);
 		System.out.println("waiting for connection");
-		
+	
 		try {
+			//Connects to client socket on app
 			Socket client = server.accept();
 			System.out.println("connected to client");
 
+			//Declares BufferedReader, used to read in commands from app
 			BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			String str = br.readLine();
 			command.add(str);
 
+			//checks if command is from image processing, is so starts thread with touch sensor.
 			if(str.contains("set")){
 				SensorThread st = new SensorThread();
 				st.start();
 			}
-			
 			while (str != null) {
 				System.out.println("Command: " + str);
-				// System.out.println(str);
+				
+				//Check if the robot is currently moving, if so call stopThreads();
 				if(left.isMoving()||right.isMoving()){
 					stopThreads();
 				}
 				
+				//Check if command is a forward command, if so creates and starts a forward Thread
 				if (str.contains("for")) {
 					lastCom = "forward";
+					System.out.println("Forward");
 					ForwardThread ft = new ForwardThread();
 					ft.start();
 					threads.add(ft);
 					if(str.equalsIgnoreCase("setforward")){
-						Thread.sleep(5000);
+						Thread.sleep(1500);
 						stopThreads();
 					}
 
@@ -133,7 +146,7 @@ public class RobotSlave extends Thread {
 				
 				System.out.println("Getting new command");
 				str = br.readLine();
-
+				
 			}
 		} catch (SocketException e) {
 			System.out.println(e);
@@ -144,6 +157,8 @@ public class RobotSlave extends Thread {
 	
 	/**
 	 * Checks if the robot robot is currently moving and if it is then stop it.
+	 * @param
+	 * @return
 	 */
 	public static void stopThreads() {
 		if (RobotSlave.left.isMoving() && RobotSlave.right.isMoving()) {
@@ -156,7 +171,6 @@ public class RobotSlave extends Thread {
 		} else {
 			RobotSlave.left.stop();
 		}
-		//System.out.println("All Thread Stopped");
 	}
 
 }
@@ -164,15 +178,19 @@ public class RobotSlave extends Thread {
 
 
 class ForwardThread extends Thread {
-	/**
-	 * 
-	 */
+	
 	public ForwardThread() {
 
 	}
-
+	/**
+	 * Starts in syntonization the left and right motors to move the robot forward
+	 * 
+	 * @param
+	 * @return
+	 */
 	@Override
 	public void run() {
+		System.out.println("In Forward Thread");
 		RobotSlave.left.startSynchronization();
 		RobotSlave.left.forward();
 		RobotSlave.right.forward();
@@ -185,7 +203,12 @@ class BackThread extends Thread {
 
 	public BackThread() {
 	}
-
+	/**
+	 * Starts in syntonization the left and right motors to move the robot forward
+	 * 
+	 * @param
+	 * @return
+	 */
 	@Override
 	public void run() {
 
@@ -203,6 +226,12 @@ class LeftThread extends Thread {
 
 	}
 
+	/**
+	 * Starts the right motor to turn the robot to the left
+	 * 
+	 * @param
+	 * @return
+	 */
 	@Override
 	public void run() {
 		RobotSlave.right.forward();
@@ -216,7 +245,13 @@ class RightThread extends Thread {
 	public RightThread() {
 
 	}
-
+	
+	/**
+	 * Starts the left motor to turn the robot to the right
+	 * 
+	 * @param
+	 * @return
+	 */
 	@Override
 	public void run() {
 		RobotSlave.left.forward();
@@ -228,20 +263,27 @@ class SensorThread extends Thread{
 	public SensorThread(){
 	}
 	
+	/**
+	 * Starts gathering readings from the EV3 Touch Sensor and if the sensor is pushed, calls stopThreads().
+	 * @param
+	 * @return
+	 */
 	public void run(){
-		System.out.println("In Sensor Thread");
 		SampleProvider bumpSampleProvider = RobotSlave.touch.getTouchMode();
 		float[] bumpSensorData = new float[bumpSampleProvider.sampleSize()];
+		
+		//loops until motors start, needed because thread begins execution before motors start.
 		while(!RobotSlave.left.isMoving()||!RobotSlave.right.isMoving()){
-			
+			System.out.println("In NOT moving While");
 		}
+		//As long as the robot is moving, fetches  a reading from the touch sensor and if pressed calls stopThreads()
 		while(RobotSlave.left.isMoving()||RobotSlave.right.isMoving()){
-			System.out.println("In While Loop");
+			System.out.println("In Moving While");
 			bumpSampleProvider.fetchSample(bumpSensorData, 0);
-			System.out.println("Sameple: "+bumpSensorData[0]);
+			System.out.println(bumpSensorData[0]);
 			if(bumpSensorData[0]==1){
-				System.out.println("In if Statment");
 				RobotSlave.stopThreads();
+				Sound.beepSequenceUp();
 			}
 
 		}
