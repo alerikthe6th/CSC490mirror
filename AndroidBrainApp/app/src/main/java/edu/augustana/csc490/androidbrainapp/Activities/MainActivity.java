@@ -158,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
                 mSocketConnectionCamera = new SocketConnectionCamera(parseInt(portNumCamera), addressStringCamera, filePath);
                 Toast.makeText(this, "camera connection successful", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, SelectControlsActivity.class);
+//                startActivity(intent);
             } catch (Exception e) {
                 Toast.makeText(this, "connection failed, retype the destination fields", Toast.LENGTH_LONG).show();
                 //if connection fails, restart the main activity
