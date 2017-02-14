@@ -9,4 +9,5 @@
 
     <string name="about">This app was made by Abby Thomson, Alerik Vi, and Tim Hamby for Augustanas College\'s CSC 490 SI class.</string>
     <string name="about2">We owe our thanks to our professor, Dr. Forrest Stonedahl for his assistance with the app. We also would like to give credit to the Android Developer API for use as a reference</string>
+    <string name="link">come check out our blog: <b>weareprobablynotrobots.blogspot.com</b></string>
 </resources>
